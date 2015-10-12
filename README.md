@@ -1,5 +1,6 @@
 # Foodies
 
+[![Build Status](https://travis-ci.org/scalableinternetservices/Foodies.svg?branch=master)](https://travis-ci.org/scalableinternetservices/Foodies)
 
 ## Project Description
 A recipe sharing platform.
