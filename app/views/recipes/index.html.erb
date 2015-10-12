@@ -17,7 +17,7 @@
   <tbody>
     <% @recipes.each do |recipe| %>
       <tr>
-        <td><%= recipe.user %></td>
+        <td><%= recipe.creator.email %></td>
         <td><%= recipe.title %></td>
         <td><%= recipe.description %></td>
         <td><%= recipe.cook_time %></td>

@@ -1,14 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 recipe1:
-  user: user1
+  creator: user1
   title: MyString
   description: 'MyText'
   cook_time: 1
   steps: 'MyText'
 
 recipe2:
-  user_id: user2
+  creator: user2
   title: MyString
   description: 'MyText'
   cook_time: 1
