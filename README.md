@@ -1,6 +1,7 @@
 # Foodies
 
 [![Build Status](https://travis-ci.org/scalableinternetservices/Foodies.svg?branch=master)](https://travis-ci.org/scalableinternetservices/Foodies)
+[![Pivotal Tracker](http://img.shields.io/badge/PivotalTracker-1446796-blue.svg)](https://www.pivotaltracker.com/n/projects/1446796)
 
 ## Project Description
 A recipe sharing platform.
