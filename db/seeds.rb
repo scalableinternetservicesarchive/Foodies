@@ -30,3 +30,15 @@ recipe1 = Recipe.create(
   description: 'bla',
   cook_time: 30
 )
+
+masterpiece1 = Masterpiece.create(
+  recipe_id: recipe1.id,
+  user_id: user1.id,
+  description: 'bla'
+)
+
+masterpiece2 = Masterpiece.create(
+  recipe_id: recipe1.id,
+  user_id: user2.id,
+  description: 'bla'
+)
