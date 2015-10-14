@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: user1
+  masterpiece: masterpiece1
+
+two:
+  user: user2
+  masterpiece: masterpiece2
