@@ -3,6 +3,8 @@ class Recipe < ActiveRecord::Base
   has_many :steps, dependent: :destroy
   has_many :masterpieces
   has_many :cooks, through: :masterpieces, source: :cook
+  has_many :recipe_ingredients
+  has_many :ingredients, through: :recipe_ingredients, source: :ingredient
 
   validates :creator, :title, presence: true
 end
