@@ -5,7 +5,6 @@ class CreateRecipes < ActiveRecord::Migration
       t.string :title, null: false
       t.text :description
       t.integer :cook_time
-      t.text :steps
 
       t.timestamps null: false
     end

@@ -5,11 +5,9 @@ recipe1:
   title: MyString
   description: 'MyText'
   cook_time: 1
-  steps: 'MyText'
 
 recipe2:
   creator: user2
   title: MyString
   description: 'MyText'
   cook_time: 1
-  steps: 'MyText'

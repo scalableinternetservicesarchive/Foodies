@@ -28,6 +28,5 @@ recipe1 = Recipe.create(
   user_id: user1.id,
   title: 'chicken wing',
   description: 'bla',
-  cook_time: 30,
-  steps: '1. blabla; 2. blabla; 3.blabla'
+  cook_time: 30
 )
