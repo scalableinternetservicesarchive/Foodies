@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :cooked_recipes, through: :cooked_masterpieces, source: :recipe
   has_many :user_like_recipes
   has_many :liked_recipes, through: :user_like_recipes, source: :recipe
+  has_many :user_save_recipes
+  has_many :saved_recipes, through: :user_save_recipes, source: :recipe
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
