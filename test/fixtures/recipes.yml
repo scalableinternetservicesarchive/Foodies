@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+recipe1:
+  creator: user1
+  title: MyString
+  description: 'MyText'
+  cook_time: 1
+
+recipe2:
+  creator: user2
+  title: MyString
+  description: 'MyText'
+  cook_time: 1
