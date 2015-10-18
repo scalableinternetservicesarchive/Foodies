@@ -31,6 +31,13 @@ recipe1 = Recipe.create(
   cook_time: 30
 )
 
+recipe2 = Recipe.create(
+  user_id: user2.id,
+  title: 'duck wing',
+  description: 'blabla',
+  cook_time: 300
+)
+
 masterpiece1 = Masterpiece.create(
   recipe_id: recipe1.id,
   user_id: user1.id,
@@ -42,3 +49,55 @@ masterpiece2 = Masterpiece.create(
   user_id: user2.id,
   description: 'bla'
 )
+
+step1_1 = Step.create(
+  recipe: recipe1,
+  step_number: 1,
+  description: 'first step'
+)
+
+step1_2 = Step.create(
+  recipe: recipe1,
+  step_number: 2,
+  description: 'second step'
+)
+
+step1_3 = Step.create(
+  recipe: recipe1,
+  step_number: 3,
+  description: 'third step'
+)
+
+step2_1 = Step.create(
+  recipe: recipe2,
+  step_number: 1,
+  description: 'first step'
+)
+
+step2_2 = Step.create(
+  recipe: recipe2,
+  step_number: 2,
+  description: 'second step'
+)
+
+step3_3 = Step.create(
+  recipe: recipe2,
+  step_number: 3,
+  description: 'third step'
+)
+
+ingredient1 = Ingredient.create(
+  name: 'ing1'
+)
+ingredient2 = Ingredient.create(
+  name: 'ing2'
+)
+ingredient3 = Ingredient.create(
+  name: 'ing3'
+)
+ingredient4 = Ingredient.create(
+  name: 'ing4'
+)
+
+recipe1.ingredients << [ingredient1, ingredient2, ingredient3]
+recipe2.ingredients << [ingredient2, ingredient4]
