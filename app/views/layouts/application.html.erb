@@ -6,9 +6,45 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body id="orange">
+  <header id="sub-page">
+    <div class="container">
+      <nav class="navbar custom-nav" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#custom-nav">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Foodies</a>
+        </div>
 
-<%= yield %>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="custom-nav">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Home</a></li>
+            <li><a href="/recipes">Recipes</a></li>
+            <li><a href="/masterpieces">Masterpieces</a></li>
+            <li class="dropdown custom-dropdown">
+              <a href="#" class="dropdown-toggle selected" data-toggle="dropdown">Other +</a>
+              <ul class="dropdown-menu">
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="404.html">404 page</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Profile</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+    </div>
+  </header>
 
+  <div class="container boxed">
+    <%= yield %>
+  </div>
 </body>
 </html>

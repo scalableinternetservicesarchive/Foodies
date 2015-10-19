@@ -1,0 +1,468 @@
+/*================================================================
+ 
+	"colors.css" has statements that overrides same named
+	statements in main CSS file -> "style.css".
+
+	You can change color code on some existing statement
+	or add your own.
+
+	To apply particular color scheme just add id name to
+	body tag in index.html page. See example:
+
+		<body id="blue">
+ 
+=================================================================*/
+
+
+
+/**********   R E D   **********/
+
+#red a {color: #fe4444;}
+
+#red header#sub-page .custom-nav li a.selected,
+#red header#sub-page .custom-nav li a.selected:hover {color: #fe4444;}
+#red .trigger-modal a {background-color: #fe4444;}
+
+#red .testimonials p:before,
+#red .testimonials p:after {color: #fe4444;}
+
+#red .work-item .item-info {background-color: #fe4444;}
+
+#red .works-pagination>.active>a,
+#red .works-pagination>.active>span,
+#red .works-pagination>.active>a:hover,
+#red .works-pagination>.active>span:hover,
+#red .works-pagination>.active>a:focus,
+#red .works-pagination>.active>span:focus {
+    background-color: #fe4444;
+    border-color: #fe4444;
+    color: #fff;
+}
+
+#red .article-data li a:hover {color: #fe4444;}
+#red .page-404 p {color: #fe4444;}
+#red .plan li.plan-price strong {color: #fe4444;}
+#red p.to-top a {background-color: #fe4444;}
+
+
+/**********   B L U E   **********/
+
+#blue a {color: #2A8FBD;}
+
+#blue header#sub-page .custom-nav li a.selected,
+#blue header#sub-page .custom-nav li a.selected:hover {color: #2A8FBD;}
+#blue .trigger-modal a {background-color: #2A8FBD;}
+
+#blue .testimonials p:before,
+#blue .testimonials p:after {color: #2A8FBD;}
+
+#blue .work-item .item-info {background-color: #2A8FBD;}
+
+#blue .works-pagination>.active>a,
+#blue .works-pagination>.active>span,
+#blue .works-pagination>.active>a:hover,
+#blue .works-pagination>.active>span:hover,
+#blue .works-pagination>.active>a:focus,
+#blue .works-pagination>.active>span:focus {
+    background-color: #2A8FBD;
+    border-color: #2A8FBD;
+    color: #fff;
+}
+
+#blue .article-data li a:hover {color: #2A8FBD;}
+#blue .page-404 p {color: #2A8FBD;}
+#blue .plan li.plan-price strong {color: #2A8FBD;}
+#blue p.to-top a {background-color: #2A8FBD;}
+
+
+/**********   C Y A N   **********/
+
+#cyan a {color: #00C4CC;}
+
+#cyan header#sub-page .custom-nav li a.selected,
+#cyan header#sub-page .custom-nav li a.selected:hover {color: #00C4CC;}
+#cyan .trigger-modal a {background-color: #00C4CC;}
+
+#cyan .testimonials p:before,
+#cyan .testimonials p:after {color: #00C4CC;}
+
+#cyan .work-item .item-info {background-color: #00C4CC;}
+
+#cyan .works-pagination>.active>a,
+#cyan .works-pagination>.active>span,
+#cyan .works-pagination>.active>a:hover,
+#cyan .works-pagination>.active>span:hover,
+#cyan .works-pagination>.active>a:focus,
+#cyan .works-pagination>.active>span:focus {
+    background-color: #00C4CC;
+    border-color: #00C4CC;
+    color: #fff;
+}
+
+#cyan .article-data li a:hover {color: #00C4CC;}
+#cyan .page-404 p {color: #00C4CC;}
+#cyan .plan li.plan-price strong {color: #00C4CC;}
+#cyan p.to-top a {background-color: #00C4CC;}
+
+
+/**********   G R E E N   **********/
+
+#green a {color: #8bb131;}
+
+#green header#sub-page .custom-nav li a.selected,
+#green header#sub-page .custom-nav li a.selected:hover {color: #8bb131;}
+#green .trigger-modal a {background-color: #8bb131;}
+
+#green .testimonials p:before,
+#green .testimonials p:after {color: #8bb131;}
+
+#green .work-item .item-info {background-color: #8bb131;}
+
+#green .works-pagination>.active>a,
+#green .works-pagination>.active>span,
+#green .works-pagination>.active>a:hover,
+#green .works-pagination>.active>span:hover,
+#green .works-pagination>.active>a:focus,
+#green .works-pagination>.active>span:focus {
+    background-color: #8bb131;
+    border-color: #8bb131;
+    color: #fff;
+}
+
+#green .article-data li a:hover {color: #8bb131;}
+#green .page-404 p {color: #8bb131;}
+#green .plan li.plan-price strong {color: #8bb131;}
+#green p.to-top a {background-color: #8bb131;}
+
+
+/**********   P I N K   **********/
+
+#pink a {color: #F23A65;}
+
+#pink header#sub-page .custom-nav li a.selected,
+#pink header#sub-page .custom-nav li a.selected:hover {color: #F23A65;}
+#pink .trigger-modal a {background-color: #F23A65;}
+
+#pink .testimonials p:before,
+#pink .testimonials p:after {color: #F23A65;}
+
+#pink .work-item .item-info {background-color: #F23A65;}
+
+#pink .works-pagination>.active>a,
+#pink .works-pagination>.active>span,
+#pink .works-pagination>.active>a:hover,
+#pink .works-pagination>.active>span:hover,
+#pink .works-pagination>.active>a:focus,
+#pink .works-pagination>.active>span:focus {
+    background-color: #F23A65;
+    border-color: #F23A65;
+    color: #fff;
+}
+
+#pink .article-data li a:hover {color: #F23A65;}
+#pink .page-404 p {color: #F23A65;}
+#pink .plan li.plan-price strong {color: #F23A65;}
+#pink p.to-top a {background-color: #F23A65;}
+
+
+/**********   O R A N G E   **********/
+
+#orange a {color: #FF6837;}
+
+#orange header#sub-page .custom-nav li a.selected,
+#orange header#sub-page .custom-nav li a.selected:hover {color: #FF6837;}
+#orange .trigger-modal a {background-color: #FF6837;}
+
+#orange .testimonials p:before,
+#orange .testimonials p:after {color: #FF6837;}
+
+#orange .work-item .item-info {background-color: #FF6837;}
+
+#orange .works-pagination>.active>a,
+#orange .works-pagination>.active>span,
+#orange .works-pagination>.active>a:hover,
+#orange .works-pagination>.active>span:hover,
+#orange .works-pagination>.active>a:focus,
+#orange .works-pagination>.active>span:focus {
+    background-color: #FF6837;
+    border-color: #FF6837;
+    color: #fff;
+}
+
+#orange .article-data li a:hover {color: #FF6837;}
+#orange .page-404 p {color: #FF6837;}
+#orange .plan li.plan-price strong {color: #FF6837;}
+#orange p.to-top a {background-color: #FF6837;}
+
+
+
+/*--------------------------------------------------*/
+/*---------- DEFAULT STYLES DO NOT CHANGE ----------*/
+/*--------------------------------------------------*/
+
+#red a:hover,
+#blue a:hover,
+#green a:hover,
+#cyan a:hover,
+#pink a:hover,
+#orange a:hover {color: #c3c7c9;}
+#red .custom-nav li a,
+#blue .custom-nav li a,
+#green .custom-nav li a,
+#cyan .custom-nav li a,
+#pink .custom-nav li a,
+#orange .custom-nav li a {color: #232729;}
+#red .custom-nav li a.selected,
+#blue .custom-nav li a.selected,
+#green .custom-nav li a.selected,
+#cyan .custom-nav li a.selected,
+#pink .custom-nav li a.selected,
+#orange .custom-nav li a.selected {color: #232729;}
+#red .custom-dropdown .dropdown-menu li a:hover,
+#red #sub-page .custom-dropdown .dropdown-menu li a:hover,
+#blue .custom-dropdown .dropdown-menu li a:hover,
+#blue #sub-page .custom-dropdown .dropdown-menu li a:hover,
+#green .custom-dropdown .dropdown-menu li a:hover,
+#green #sub-page .custom-dropdown .dropdown-menu li a:hover,
+#cyan .custom-dropdown .dropdown-menu li a:hover,
+#cyan #sub-page .custom-dropdown .dropdown-menu li a:hover,
+#pink .custom-dropdown .dropdown-menu li a:hover,
+#pink #sub-page .custom-dropdown .dropdown-menu li a:hover,
+#orange .custom-dropdown .dropdown-menu li a:hover,
+#orange #sub-page .custom-dropdown .dropdown-menu li a:hover {color: #e3e7e9;}
+#red .custom-nav .navbar-brand,
+#blue .custom-nav .navbar-brand,
+#green .custom-nav .navbar-brand,
+#cyan .custom-nav .navbar-brand,
+#pink .custom-nav .navbar-brand,
+#orange .custom-nav .navbar-brand {color: #232729;}
+#red header#sub-page .custom-nav li a:hover,
+#blue header#sub-page .custom-nav li a:hover,
+#green header#sub-page .custom-nav li a:hover,
+#cyan header#sub-page .custom-nav li a:hover,
+#pink header#sub-page .custom-nav li a:hover,
+#orange header#sub-page .custom-nav li a:hover {color: #c3c7c9;}
+#red header#sub-page .dropdown-hover,
+#blue header#sub-page .dropdown-hover,
+#green header#sub-page .dropdown-hover,
+#cyan header#sub-page .dropdown-hover,
+#pink header#sub-page .dropdown-hover,
+#orange header#sub-page .dropdown-hover {color: #c3c7c9;}
+#red .custom-dropdown .dropdown-menu li a,
+#blue .custom-dropdown .dropdown-menu li a,
+#green .custom-dropdown .dropdown-menu li a,
+#cyan .custom-dropdown .dropdown-menu li a,
+#pink .custom-dropdown .dropdown-menu li a,
+#orange .custom-dropdown .dropdown-menu li a {color: #a3a7a9;}
+#red .btn-custom,
+#blue .btn-custom,
+#green .btn-custom,
+#cyan .btn-custom,
+#pink .btn-custom,
+#orange .btn-custom {color: #333;}
+#red .btn-custom:hover,
+#blue .btn-custom:hover,
+#green .btn-custom:hover,
+#cyan .btn-custom:hover,
+#pink .btn-custom:hover,
+#orange .btn-custom:hover {color: #333;}
+#red .btn-custom.empty,
+#blue .btn-custom.empty,
+#green .btn-custom.empty,
+#cyan .btn-custom.empty,
+#pink .btn-custom.empty,
+#orange .btn-custom.empty {color: #fff;}
+#red .orange, #red .red, 
+#red .purple, #red .blue, 
+#red .cyan, #red .green,
+#red .gray, #red .black,
+#blue .orange, #blue .red, 
+#blue .purple, #blue .blue, 
+#blue .cyan, #blue .green,
+#blue .gray, #blue .black,
+#green .orange, #green .red, 
+#green .purple, #green .blue, 
+#green .cyan, #green .green,
+#green .gray, #green .black,
+#cyan .orange, #cyan .red, 
+#cyan .purple, #cyan .blue, 
+#cyan .cyan, #cyan .green,
+#cyan .gray, #cyan .black,
+#pink .orange, #pink .red, 
+#pink .purple, #pink .blue, 
+#pink .cyan, #pink .green,
+#pink .gray, #pink .black,
+#orange .orange, #orange .red, 
+#orange .purple, #orange .blue, 
+#orange .cyan, #orange .green,
+#orange .gray, #orange .black {color: #f3f7f9;}
+#red .orange:hover, #red .red:hover, 
+#red .purple:hover, #red .blue:hover, 
+#red .cyan:hover, #red .green:hover, 
+#red .gray:hover, #red .black:hover,
+#blue .orange:hover, #blue .red:hover, 
+#blue .purple:hover, #blue .blue:hover, 
+#blue .cyan:hover, #blue .green:hover, 
+#blue .gray:hover, #blue .black:hover,
+#green .orange:hover, #green .red:hover, 
+#green .purple:hover, #green .blue:hover, 
+#green .cyan:hover, #green .green:hover, 
+#green .gray:hover, #green .black:hover,
+#cyan .orange:hover, #cyan .red:hover, 
+#cyan .purple:hover, #cyan .blue:hover, 
+#cyan .cyan:hover, #cyan .green:hover, 
+#cyan .gray:hover, #cyan .black:hover,
+#pink .orange:hover, #pink .red:hover, 
+#pink .purple:hover, #pink .blue:hover, 
+#pink .cyan:hover, #pink .green:hover, 
+#pink .gray:hover, #pink .black:hover,
+#orange .orange:hover, #orange .red:hover, 
+#orange .purple:hover, #orange .blue:hover, 
+#orange .cyan:hover, #orange .green:hover, 
+#orange .gray:hover, #orange .black:hover {color: #f3f7f9;}
+#red .btn-custom.yellow.empty,
+#blue .btn-custom.yellow.empty,
+#green .btn-custom.yellow.empty,
+#cyan .btn-custom.yellow.empty,
+#pink .btn-custom.yellow.empty,
+#orange .btn-custom.yellow.empty {color: #f59505;}
+#red .btn-custom.orange.empty,
+#blue .btn-custom.orange.empty,
+#green .btn-custom.orange.empty,
+#cyan .btn-custom.orange.empty,
+#pink .btn-custom.orange.empty,
+#orange .btn-custom.orange.empty {color: #f26d20;}
+#red .btn-custom.red.empty,
+#blue .btn-custom.red.empty,
+#green .btn-custom.red.empty,
+#cyan .btn-custom.red.empty,
+#pink .btn-custom.red.empty,
+#orange .btn-custom.red.empty {color: #fe4444;}
+#red .btn-custom.purple.empty,
+#blue .btn-custom.purple.empty,
+#green .btn-custom.purple.empty,
+#cyan .btn-custom.purple.empty,
+#pink .btn-custom.purple.empty,
+#orange .btn-custom.purple.empty {color: #7f4f8B;}
+#red .btn-custom.blue.empty,
+#blue .btn-custom.blue.empty,
+#green .btn-custom.blue.empty,
+#cyan .btn-custom.blue.empty,
+#pink .btn-custom.blue.empty,
+#orange .btn-custom.blue.empty {color: #2f9ad2;}
+#red .btn-custom.cyan.empty,
+#blue .btn-custom.cyan.empty,
+#green .btn-custom.cyan.empty,
+#cyan .btn-custom.cyan.empty,
+#pink .btn-custom.cyan.empty,
+#orange .btn-custom.cyan.empty {color: #29c5f6;}
+#red .btn-custom.green.empty,
+#blue .btn-custom.green.empty,
+#green .btn-custom.green.empty,
+#cyan .btn-custom.green.empty,
+#pink .btn-custom.green.empty,
+#orange .btn-custom.green.empty {color: #a9af44;}
+#red .btn-custom.light-gray.empty,
+#blue .btn-custom.light-gray.empty,
+#green .btn-custom.light-gray.empty,
+#cyan .btn-custom.light-gray.empty,
+#pink .btn-custom.light-gray.empty,
+#orange .btn-custom.light-gray.empty {color: #b3b7b9;}
+#red .btn-custom.gray.empty,
+#blue .btn-custom.gray.empty,
+#green .btn-custom.gray.empty,
+#cyan .btn-custom.gray.empty,
+#pink .btn-custom.gray.empty,
+#orange .btn-custom.gray.empty {color: #838789;}
+#red .btn-custom.black.empty,
+#blue .btn-custom.black.empty,
+#green .btn-custom.black.empty,
+#cyan .btn-custom.black.empty,
+#pink .btn-custom.black.empty,
+#orange .btn-custom.black.empty {color: #333739;}
+#red .article-data li a,
+#blue .article-data li a,
+#green .article-data li a,
+#cyan .article-data li a,
+#pink .article-data li a,
+#orange .article-data li a {color: #c3c7c9;}
+#red .disabled a,
+#blue .disabled a,
+#green .disabled a,
+#cyan .disabled a,
+#pink .disabled a,
+#orange .disabled a {color: #999;}
+#red .btn-info,
+#red .btn-info:hover, 
+#red .btn-success,
+#red .btn-success:hover,
+#red .btn-danger,
+#red .btn-danger:hover, 
+#red .btn-warning,
+#red .btn-warning:hover,
+#blue .btn-info,
+#blue .btn-info:hover, 
+#blue .btn-success,
+#blue .btn-success:hover,
+#blue .btn-danger,
+#blue .btn-danger:hover, 
+#blue .btn-warning,
+#blue .btn-warning:hover,
+#green .btn-info,
+#green .btn-info:hover, 
+#green .btn-success,
+#green .btn-success:hover,
+#green .btn-danger,
+#green .btn-danger:hover, 
+#green .btn-warning,
+#green .btn-warning:hover,
+#cyan .btn-info,
+#cyan .btn-info:hover, 
+#cyan .btn-success,
+#cyan .btn-success:hover,
+#cyan .btn-danger,
+#cyan .btn-danger:hover, 
+#cyan .btn-warning,
+#cyan .btn-warning:hover,
+#pink .btn-info,
+#pink .btn-info:hover, 
+#pink .btn-success,
+#pink .btn-success:hover,
+#pink .btn-danger,
+#pink .btn-danger:hover, 
+#pink .btn-warning,
+#pink .btn-warning:hover,
+#orange .btn-info,
+#orange .btn-info:hover, 
+#orange .btn-success,
+#orange .btn-success:hover,
+#orange .btn-danger,
+#orange .btn-danger:hover, 
+#orange .btn-warning,
+#orange .btn-warning:hover {color: #fff;}
+#red .nav-tabs .active a,
+#blue .nav-tabs .active a,
+#green .nav-tabs .active a,
+#cyan .nav-tabs .active a,
+#pink .nav-tabs .active a,
+#orange .nav-tabs .active a {color: #555;}
+#red .nav-pills .active a,
+#blue .nav-pills .active a,
+#green .nav-pills .active a,
+#cyan .nav-pills .active a,
+#pink .nav-pills .active a,
+#orange .nav-pills .active a {color: #fff;}
+@media screen and (max-width: 767px) {
+    #red .custom-dropdown .dropdown-menu li a:hover,
+    #red #sub-page .custom-dropdown .dropdown-menu li a:hover,
+    #blue .custom-dropdown .dropdown-menu li a:hover,
+    #blue #sub-page .custom-dropdown .dropdown-menu li a:hover,
+    #green .custom-dropdown .dropdown-menu li a:hover,
+    #green #sub-page .custom-dropdown .dropdown-menu li a:hover,
+    #cyan .custom-dropdown .dropdown-menu li a:hover,
+    #cyan #sub-page .custom-dropdown .dropdown-menu li a:hover,
+    #pink .custom-dropdown .dropdown-menu li a:hover,
+    #pink #sub-page .custom-dropdown .dropdown-menu li a:hover,
+    #orange .custom-dropdown .dropdown-menu li a:hover,
+    #orange #sub-page .custom-dropdown .dropdown-menu li a:hover {color: #c3c7c9;}
+}
