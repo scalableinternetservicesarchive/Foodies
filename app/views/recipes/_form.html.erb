@@ -24,7 +24,7 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :cook, :value => 'Cook Time(in min)' %><br>
+    <%= f.label :cook, value: 'Cook Time(in min)' %><br>
     <%= f.number_field :cook_time %>
   </div>
 
@@ -32,15 +32,15 @@
   <div class="field">
     <%= f.label :ingredients %><br>
     <% f.object.ingredients.each do |ingredient| %>
-      <%= f.text_field :ingredient, :value => ingredient.name %>
+      <%= f.text_field :ingredient, value: ingredient.name %>
     <% end %>
   </div>
 
 
   <% f.object.steps.each do |step| %>
   <div class="field">
-    <b>Step</b> <%= f.label :step, :value => step.step_number %><br>
-    <%= f.text_area :step, :value => step.description %>
+    <b>Step</b> <%= f.label :step, value: step.step_number %><br>
+    <%= f.text_area :step, value: step.description %>
   </div>
   <% end %>
   <div class="actions">
