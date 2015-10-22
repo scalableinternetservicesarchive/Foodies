@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  get 'profile/index'
+
   resources :masterpieces
   resources :recipes
+  resources :profile
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
