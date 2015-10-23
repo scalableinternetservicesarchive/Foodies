@@ -101,3 +101,7 @@ ingredient4 = Ingredient.create(
 
 recipe1.ingredients << [ingredient1, ingredient2, ingredient3]
 recipe2.ingredients << [ingredient2, ingredient4]
+
+user1.saved_recipes << [recipe1,recipe2]
+user1.liked_recipes << [recipe1]
+user1.liked_masterpieces << [masterpiece1,masterpiece2]
