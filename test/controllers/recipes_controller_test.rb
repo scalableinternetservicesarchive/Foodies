@@ -3,6 +3,12 @@ require 'test_helper'
 class RecipesControllerTest < ActionController::TestCase
   setup do
     @recipe = recipes(:recipe1)
+    @user = User.create!({
+      :email => 'a@aa.com',
+      :password => '11111111',
+      :password_confirmation => '11111111'
+    })
+    sign_in @user
   end
 
   test "should get index" do

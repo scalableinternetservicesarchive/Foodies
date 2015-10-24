@@ -8,9 +8,14 @@ class User < ActiveRecord::Base
   has_many :saved_recipes, through: :user_save_recipes, source: :recipe
   has_many :user_like_masterpieces
   has_many :liked_masterpieces, through: :user_like_masterpieces, source: :masterpiece
-
+  has_attached_file :avatar, styles: {
+    thumb: '100x100>',
+    square: '200x200#',
+    medium: '300x300>'
+  }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 end

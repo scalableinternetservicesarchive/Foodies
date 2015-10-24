@@ -9,11 +9,17 @@ class Recipe < ActiveRecord::Base
   has_many :users_liking_it, through: :user_like_recipes, source: :user
   has_many :user_save_recipes
   has_many :users_saving_it, through: :user_save_recipes, source: :user
+  has_attached_file :recipe_img, styles: {
+    thumb: '100x100>',
+    square: '200x200#',
+    medium: '300x300>'
+  }
 
   accepts_nested_attributes_for :ingredients, reject_if: :find_ingredient, allow_destroy: true
   accepts_nested_attributes_for :steps, allow_destroy: true
 
   validates :creator, :title, presence: true
+  validates_attachment_content_type :recipe_img, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
   def find_ingredient(ingredient)
     if existing_ingredient = Ingredient.find_by_name(ingredient['name'])

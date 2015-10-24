@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151014080103) do
+ActiveRecord::Schema.define(version: 20151029215140) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string   "name",       null: false
@@ -42,22 +42,30 @@ ActiveRecord::Schema.define(version: 20151014080103) do
   add_index "recipe_ingredients", ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
 
   create_table "recipes", force: :cascade do |t|
-    t.integer  "user_id",     null: false
-    t.string   "title",       null: false
+    t.integer  "user_id",                 null: false
+    t.string   "title",                   null: false
     t.text     "description"
     t.integer  "cook_time"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "recipe_img_file_name"
+    t.string   "recipe_img_content_type"
+    t.integer  "recipe_img_file_size"
+    t.datetime "recipe_img_updated_at"
   end
 
   add_index "recipes", ["user_id"], name: "index_recipes_on_user_id"
 
   create_table "steps", force: :cascade do |t|
-    t.integer  "recipe_id",   null: false
-    t.integer  "step_number", null: false
-    t.text     "description", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "recipe_id",             null: false
+    t.integer  "step_number",           null: false
+    t.text     "description",           null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "step_img_file_name"
+    t.string   "step_img_content_type"
+    t.integer  "step_img_file_size"
+    t.datetime "step_img_updated_at"
   end
 
   add_index "steps", ["recipe_id"], name: "index_steps_on_recipe_id"
@@ -105,6 +113,10 @@ ActiveRecord::Schema.define(version: 20151014080103) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
