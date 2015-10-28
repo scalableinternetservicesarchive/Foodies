@@ -3,13 +3,13 @@ Rails.application.routes.draw do
 
   resources :masterpieces
   resources :recipes
-  post '/recipes/:id' => 'recipes#like'
-  post '/masterpieces/:id' => 'masterpieces#like'
+  post '/recipes/:id/like' => 'recipes#like'
+  post '/masterpieces/:id/like' => 'masterpieces#like'
   resources :profile
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
+  post '/recipes/:id/bookmark' => 'recipes#bookmark'
   # You can have the root of your site routed with "root"
   root 'recipes#index'
 
