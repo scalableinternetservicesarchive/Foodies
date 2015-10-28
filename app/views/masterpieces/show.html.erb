@@ -15,5 +15,7 @@
   <%= @masterpiece.description %>
 </p>
 
+<p>How many people liked this masterpiece: <%= @masterpiece.users_liking_it.count %></p>
+<%= button_to "like", {action: "like", params: {click_page: 'masterpiece_show'}},class: "btn btn-default"%>
 <%= link_to 'Edit', edit_masterpiece_path(@masterpiece) %> |
 <%= link_to 'Back', masterpieces_path %>

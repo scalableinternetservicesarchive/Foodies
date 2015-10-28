@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   resources :masterpieces
   resources :recipes
+  post '/recipes/:id' => 'recipes#like'
+  post '/masterpieces/:id' => 'masterpieces#like'
   resources :profile
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
