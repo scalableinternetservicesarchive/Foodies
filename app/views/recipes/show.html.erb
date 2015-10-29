@@ -38,5 +38,6 @@
 </p>
 <p>How many people liked this recipe: <%= @recipe.users_liking_it.count %></p>
 <%= button_to "like", {action: "like", params: {click_page: 'recipe_show'}},class: "btn btn-default"%>
-<%= link_to 'Edit', edit_recipe_path(@recipe) %> |
+<%= button_to "bookmark", {action: "bookmark", params: {click_page: 'recipe_show'}}, class: "btn btn-default"%>
+<%= link_to 'Edit', edit_recipe_path(@recipe) %>
 <%= link_to 'Back', recipes_path %>

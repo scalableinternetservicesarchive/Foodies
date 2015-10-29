@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :update, :destroy, :like]
-  before_action :authenticate_user!, only: [:like]
+  before_action :set_recipe, only: [:show, :edit, :update, :destroy, :like, :bookmark]
+  before_action :authenticate_user!, only: [:like, :bookmark]
+
   # GET /recipes
   # GET /recipes.json
   def index
@@ -69,6 +70,22 @@ class RecipesController < ApplicationController
       notice = "You've liked this recipe before."
     else
       @recipe.users_liking_it << [current_user]
+      @recipe.save
+    end
+    respond_to do |format|
+      if click_page == 'recipe_show'
+        format.html { redirect_to @recipe, notice: "#{notice}" }
+      end
+    end
+  end
+
+  def bookmark  # saved
+    click_page = params[:click_page]
+    notice = ""
+    if @recipe.users_saving_it.include?(current_user)
+      notice = "You've saved it before."
+    else
+      @recipe.users_saving_it << [current_user]
       @recipe.save
     end
     respond_to do |format|
