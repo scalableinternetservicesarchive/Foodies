@@ -10,5 +10,20 @@ class Recipe < ActiveRecord::Base
   has_many :user_save_recipes
   has_many :users_saving_it, through: :user_save_recipes, source: :user
 
+  accepts_nested_attributes_for :ingredients, reject_if: :find_ingredient, allow_destroy: true
+  accepts_nested_attributes_for :steps, allow_destroy: true
+
   validates :creator, :title, presence: true
+
+  def find_ingredient(ingredient)
+    if existing_ingredient = Ingredient.find_by_name(ingredient['name'])
+      unless self.ingredients.include?(existing_ingredient)
+        self.ingredients << existing_ingredient
+      end
+      return true
+    else
+      return false
+    end
+  end
+
 end

@@ -1,4 +1,4 @@
-<%= form_for(@recipe) do |f| %>
+<%= simple_form_for(@recipe) do |f| %>
   <% if @recipe.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
@@ -11,39 +11,35 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :cook, value: 'Cook Time(in min)' %><br>
-    <%= f.number_field :cook_time %>
-  </div>
+<div class="field">
+  <%= f.input :user_id, label: 'User ID'%>
+  <%= f.input :title, label: 'Recipe Title'%>
+  <%= f.input :description, label: 'Description'%>
+  <%= f.input :cook_time, label: 'Cook Time(in min)'%>
+</div>
 
-
-  <div class="field">
-    <%= f.label :ingredients %><br>
-    <% f.object.ingredients.each do |ingredient| %>
-      <%= f.text_field :ingredient, value: ingredient.name %>
-    <% end %>
-  </div>
-
-
-  <% f.object.steps.each do |step| %>
-  <div class="field">
-    <b>Step</b> <%= f.label :step, value: step.step_number %><br>
-    <%= f.text_area :step, value: step.description %>
+<div class="row">
+  <%= f.simple_fields_for :ingredients do |i| %>
+  <div class="col-xs-2">
+    <%= i.input :name, label: 'Ingredient', required: false %>
   </div>
   <% end %>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+</div>
+
+<div class="row">
+  <%= f.simple_fields_for :steps do |s| %>
+    <div class="col-xs-2">
+    <%= s.input :step_number, collection: 1..10, label: 'Step #', required: false %>
+    </div>
+    <div class="col-xs-10">
+    <%= s.input :description, label: 'Description', required: false %>
+    </div>
+  <% end %>
+</div>
+
+<!-- <%= f.input :file, as: :file, wrapper: :vertical_file_input %> -->
+
+<div class="action">
+  <%= f.button :submit %>
+</div>
 <% end %>
