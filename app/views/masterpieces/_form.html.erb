@@ -1,4 +1,4 @@
-<%= form_for(@masterpiece) do |f| %>
+<%= form_for(@masterpiece, multipart: true) do |f| %>
   <% if @masterpiece.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@masterpiece.errors.count, "error") %> prohibited this masterpiece from being saved:</h2>
@@ -22,6 +22,10 @@
   <div class="field">
     <%= f.label :description %><br>
     <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :masterpiece_img %><br>
+    <%= f.file_field :masterpiece_img %>
   </div>
   <div class="actions">
     <%= f.submit %>

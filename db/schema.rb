@@ -20,11 +20,15 @@ ActiveRecord::Schema.define(version: 20151029215140) do
   end
 
   create_table "masterpieces", force: :cascade do |t|
-    t.integer  "recipe_id",   null: false
-    t.integer  "user_id",     null: false
+    t.integer  "recipe_id",                    null: false
+    t.integer  "user_id",                      null: false
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "masterpiece_img_file_name"
+    t.string   "masterpiece_img_content_type"
+    t.integer  "masterpiece_img_file_size"
+    t.datetime "masterpiece_img_updated_at"
   end
 
   add_index "masterpieces", ["recipe_id"], name: "index_masterpieces_on_recipe_id"

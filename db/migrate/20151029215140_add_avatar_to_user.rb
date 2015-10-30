@@ -1,9 +1,5 @@
 class AddAvatarToUser < ActiveRecord::Migration
-  def self.up
+  def change
     add_attachment :users, :avatar
-  end
-
-  def self.down
-    remove_attachment :users, :avatar
   end
 end
