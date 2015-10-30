@@ -85,6 +85,6 @@ class MasterpiecesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def masterpiece_params
-      params.require(:masterpiece).permit(:recipe_id, :user_id, :description)
+      params.require(:masterpiece).permit(:recipe_id, :user_id, :description, :masterpiece_img)
     end
 end

@@ -1,4 +1,4 @@
-<%= simple_form_for(@recipe) do |f| %>
+<%= simple_form_for(@recipe, multipart: true) do |f| %>
   <% if @recipe.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
@@ -37,7 +37,7 @@
   <% end %>
 </div>
 
-<!-- <%= f.input :file, as: :file, wrapper: :vertical_file_input %> -->
+<%= f.input :recipe_img, as: :file, wrapper: :vertical_file_input %>
 
 <div class="action">
   <%= f.button :submit %>

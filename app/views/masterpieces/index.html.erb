@@ -18,6 +18,7 @@
         <td><%= masterpiece.recipe.title %></td>
         <td><%= masterpiece.cook.email %></td>
         <td><%= masterpiece.description %></td>
+        <%= image_tag masterpiece.masterpiece_img.url(:square) %>
         <td><%= link_to 'Show', masterpiece %></td>
         <td><%= link_to 'Edit', edit_masterpiece_path(masterpiece) %></td>
         <td><%= link_to 'Destroy', masterpiece, method: :delete, data: { confirm: 'Are you sure?' } %></td>
