@@ -10,14 +10,9 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :recipe_id %><br>
-    <%= f.text_field :recipe_id %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
+  <div>
+    <%= f.hidden_field :recipe_id, value: @recipe_id %>
+    <%= f.hidden_field :user_id, value: @user_id %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
@@ -28,6 +23,6 @@
     <%= f.file_field :masterpiece_img %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-warning "%>
   </div>
 <% end %>

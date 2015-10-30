@@ -15,6 +15,8 @@ class MasterpiecesController < ApplicationController
   # GET /masterpieces/new
   def new
     @masterpiece = Masterpiece.new
+    @recipe_id = masterpiece_params[:recipe_id]
+    @user_id = current_user.id if current_user
   end
 
   # GET /masterpieces/1/edit
