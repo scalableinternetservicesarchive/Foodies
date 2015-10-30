@@ -85,6 +85,7 @@ Rails.application.configure do
       :region => 'us-west-2'
     },
     :fog_directory => 'scalableinternetservices',
-    :path => 'Foodies/'
+    :path => 'Foodies/images/:class/:attachment/:id/:style/:filename',
+    :url => '/images/:class/:attachment/:id/:style/:filename'
   }
 end

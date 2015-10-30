@@ -18,3 +18,4 @@
 /public/system/*
 .DS_Store
 *.pem
+aws.rb
