@@ -16,8 +16,22 @@
 </p>
 
 <p>How many people liked this masterpiece: <%= @masterpiece.users_liking_it.count %></p>
-<%= button_to "like", {action: "like", params: {click_page: 'masterpiece_show'}},class: "btn btn-default"%>
 
+<% if user_signed_in? %>
+  <% if @masterpiece.users_liking_it.include?(current_user) %>
+    <%= button_to masterpiece_unlike_path(@masterpiece), class: "btn btn-danger", params: {click_page: 'masterpiece_show'} do %>
+      <span class="glyphicon glyphicon-heart"></span> unlike
+    <% end %>
+  <% else %>
+    <%= button_to masterpiece_like_path(@masterpiece), class: "btn btn-default", params: {click_page: 'masterpiece_show'} do %>
+      <span class="glyphicon glyphicon-heart"></span> like
+    <% end %>
+  <% end %>
+<% else %>
+    <%= button_to masterpiece_like_path(@masterpiece), class: "btn btn-default", :disabled => true, params: {click_page: 'masterpiece_show'} do %>
+      <span class="glyphicon glyphicon-heart"></span> like
+    <% end %>
+<% end %>
 <p>
   <strong>Recipe:</strong>
   <%= @masterpiece.recipe.title %>

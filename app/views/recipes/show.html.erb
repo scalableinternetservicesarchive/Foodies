@@ -35,13 +35,37 @@
     </p>
   <% end %>
 </p>
+
 <p>How many people liked this recipe: <%= @recipe.users_liking_it.count %></p>
-<%= button_to recipe_like_path(@recipe), class: "btn btn-default", params: {click_page: 'recipe_show'} do %>
-  <span class="glyphicon glyphicon-heart"></span> like
+<p>How many people saved this recipe: <%= @recipe.users_saving_it.count %></p>
+<% if user_signed_in? %>
+  <% if @recipe.users_liking_it.include?(current_user) %>
+    <%= button_to recipe_unlike_path(@recipe), class: "btn btn-danger", params: {click_page: 'recipe_show'} do %>
+      <span class="glyphicon glyphicon-heart"></span> unlike
+    <% end %>
+  <% else %>
+    <%= button_to recipe_like_path(@recipe), class: "btn btn-default", params: {click_page: 'recipe_show'} do %>
+      <span class="glyphicon glyphicon-heart"></span> like
+    <% end %>
+  <% end %>
+  <% if @recipe.users_saving_it.include?(current_user) %>
+    <%= button_to recipe_unbookmark_path(@recipe), class: "btn btn-warning", params: {click_page: 'recipe_show'} do %>
+      <span class="glyphicon glyphicon-bookmark"></span> unbookmark
+    <% end %>
+  <% else %>
+    <%= button_to recipe_bookmark_path(@recipe), class: "btn btn-default", params: {click_page: 'recipe_show'} do %>
+      <span class="glyphicon glyphicon-bookmark"></span> bookmark
+    <% end %>
+  <% end %>
+<% else %>
+    <%= button_to recipe_like_path(@recipe), class: "btn btn-default", :disabled => true, params: {click_page: 'recipe_show'} do %>
+      <span class="glyphicon glyphicon-heart"></span> like
+    <% end %>
+    <%= button_to recipe_bookmark_path(@recipe), class: "btn btn-default", :disabled => true, params: {click_page: 'recipe_show'} do %>
+      <span class="glyphicon glyphicon-bookmark"></span> bookmark
+    <% end %> 
 <% end %>
-<%= button_to recipe_bookmark_path(@recipe), class: "btn btn-default", params: {click_page: 'recipe_show'} do %>
-  <span class="glyphicon glyphicon-bookmark"></span> bookmark
-<% end %>
+
 <p>
   <strong>Masterpieces:</strong>
   <% @recipe.masterpieces.each do |masterpiece| %>
@@ -54,8 +78,7 @@
   <% end %>
 </p>
 
-
-<%= link_to 'Edit', edit_recipe_path(@recipe) %> |
+<%= link_to 'Edit', edit_recipe_path(@recipe) %>
 <%= link_to 'Back', recipes_path %>
 
 <!-- <%= params.inspect %> -->

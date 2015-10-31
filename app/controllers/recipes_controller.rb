@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
-  before_action :set_recipe, only: [:show, :edit, :update, :destroy, :like, :bookmark]
-  before_action :authenticate_user!, only: [:like, :bookmark]
+  before_action :set_recipe, only: [:show, :edit, :update, :destroy, :like, :unlike, :bookmark, :unbookmark]
+  before_action :authenticate_user!, only: [:like, :unlike, :bookmark, :unbookmark]
 
   # GET /recipes
   # GET /recipes.json
@@ -82,6 +82,23 @@ class RecipesController < ApplicationController
     end
   end
 
+def unlike
+    click_page = params[:click_page]
+    notice = ""
+    if @recipe.users_liking_it.include?(current_user)
+      @recipe.users_liking_it.destroy(current_user)
+      @recipe.save
+      notice = "You've liked it before."
+    else
+      notice = "You haven't liked it yet."
+    end
+    respond_to do |format|
+      if click_page == 'recipe_show'
+        format.html { redirect_to @recipe, notice: "#{notice}" }
+      end
+    end
+  end
+
   def bookmark  # saved
     click_page = params[:click_page]
     notice = ""
@@ -90,6 +107,23 @@ class RecipesController < ApplicationController
     else
       @recipe.users_saving_it << [current_user]
       @recipe.save
+    end
+    respond_to do |format|
+      if click_page == 'recipe_show'
+        format.html { redirect_to @recipe, notice: "#{notice}" }
+      end
+    end
+  end
+
+   def unbookmark  # saved
+    click_page = params[:click_page]
+    notice = ""
+    if @recipe.users_saving_it.include?(current_user)
+      @recipe.users_saving_it.destroy(current_user)
+      @recipe.save
+      notice = "You've saved it before."
+    else
+      notice = "You haven't saved it yet."
     end
     respond_to do |format|
       if click_page == 'recipe_show'
