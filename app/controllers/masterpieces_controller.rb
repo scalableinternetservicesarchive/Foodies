@@ -1,6 +1,6 @@
 class MasterpiecesController < ApplicationController
-  before_action :set_masterpiece, only: [:show, :edit, :update, :destroy, :like]
-  before_action :authenticate_user!, only: [:like]
+  before_action :set_masterpiece, only: [:show, :edit, :update, :destroy, :like, :unlike]
+  before_action :authenticate_user!, only: [:like, :unlike]
   # GET /masterpieces
   # GET /masterpieces.json
   def index
@@ -71,6 +71,23 @@ class MasterpiecesController < ApplicationController
     else
       @masterpiece.users_liking_it << [current_user]
       @masterpiece.save
+    end
+    respond_to do |format|
+      if click_page == 'masterpiece_show'
+        format.html { redirect_to @masterpiece, notice: "#{notice}" }
+      end
+    end
+  end
+
+ def unlike
+    click_page = params[:click_page]
+    notice = ""
+    if @masterpiece.users_liking_it.include?(current_user)
+      @masterpiece.users_liking_it.destroy(current_user)
+      @masterpiece.save
+      notice = "You've liked it before."
+    else
+      notice = "You haven't liked it yet."
     end
     respond_to do |format|
       if click_page == 'masterpiece_show'

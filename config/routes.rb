@@ -5,14 +5,14 @@ Rails.application.routes.draw do
   resources :recipes
   resources :profile
   devise_for :users
-
   post '/recipes/:id/like', to: 'recipes#like', as: :recipe_like
+  post '/recipes/:id/unlike', to: 'recipes#unlike', as: :recipe_unlike
   post '/masterpieces/:id/like', to: 'masterpieces#like', as: :masterpiece_like
+  post '/masterpieces/:id/unlike', to: 'masterpieces#unlike', as: :masterpiece_unlike
   post '/recipes/:id/bookmark', to: 'recipes#bookmark', as: :recipe_bookmark
-
+  post '/recipes/:id/unbookmark', to: 'recipes#unbookmark', as: :recipe_unbookmark
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
   # You can have the root of your site routed with "root"
   root 'recipes#index'
 
