@@ -3,11 +3,7 @@ require 'test_helper'
 class MasterpiecesControllerTest < ActionController::TestCase
   setup do
     @masterpiece = masterpieces(:masterpiece1)
-    @user = User.create!({
-      :email => 'a@aa.com',
-      :password => '11111111',
-      :password_confirmation => '11111111'
-    })
+    @user = users(:user1)
     sign_in @user
   end
 
@@ -18,8 +14,9 @@ class MasterpiecesControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
-    # get :new
-    # assert_response :success
+    @recipe = recipes(:recipe1)
+    get :new, masterpiece: { recipe_id: @recipe }
+    assert_response :success
   end
 
   test "should create masterpiece" do

@@ -1,6 +1,8 @@
 class MasterpiecesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_masterpiece, only: [:show, :edit, :update, :destroy, :like, :unlike]
-  before_action :authenticate_user!, only: [:like, :unlike]
+  before_action :check_permission, only: [:edit, :update, :destroy]
+
   # GET /masterpieces
   # GET /masterpieces.json
   def index
@@ -100,6 +102,10 @@ class MasterpiecesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_masterpiece
       @masterpiece = Masterpiece.find(params[:id])
+    end
+
+    def check_permission
+      raise SecurityTransgression unless current_user == @masterpiece.cook
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -16,6 +16,12 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'recipes#index'
 
+  # Errors
+  get '404', to: 'errors#not_found'
+  get '422', to: 'errors#unacceptable'
+  get '500', to: 'errors#internal_server_error'
+  get 'errors/security_transgression_error', as: :security_transgression_error
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
