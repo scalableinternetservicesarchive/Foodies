@@ -16,6 +16,7 @@
 !/log/.keep
 /tmp
 /public/system/*
+/public/images/*
 .DS_Store
 *.pem
 aws.rb
