@@ -55,7 +55,7 @@ body {
 
 .boxed {
     background-color: #fff;
-    padding: 70px 40px 25px 40px;
+    padding: 25px 40px 25px 40px;
 }
 
 .boxed .full-width {
@@ -441,11 +441,11 @@ header#sub-page .dropdown-hover {color: #c3c7c9;}
 
 .btn-custom {
     margin: 10px 10px 10px 0px;
-    padding: 12px 0px;
-    width: 200px;
+    padding: 5px 0px;
+    width: 80px;
     color: #333739;
     line-height: 25px;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 300;
     background: #fff;
     border: 1px solid #fff;
@@ -972,9 +972,8 @@ body.modal-open {
 #blog {overflow: hidden;}
 
 #blog > li {
-    margin-bottom: 5%; 
-    padding-bottom: 5%;
-    border-bottom: 1px solid #f3f7f9;
+    margin-bottom: 0%;
+    padding-bottom: 0%;
     overflow: hidden;
 }
 

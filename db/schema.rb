@@ -60,12 +60,13 @@ ActiveRecord::Schema.define(version: 20151104054110) do
   add_index "masterpieces", ["user_id"], name: "index_masterpieces_on_user_id"
 
   create_table "recipes", force: :cascade do |t|
-    t.integer  "user_id",                 null: false
-    t.string   "title",                   null: false
+    t.integer  "user_id",                             null: false
+    t.string   "title",                               null: false
     t.text     "description"
     t.integer  "cook_time"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "user_save_count",         default: 0, null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "recipe_img_file_name"
     t.string   "recipe_img_content_type"
     t.integer  "recipe_img_file_size"
@@ -73,6 +74,7 @@ ActiveRecord::Schema.define(version: 20151104054110) do
   end
 
   add_index "recipes", ["user_id"], name: "index_recipes_on_user_id"
+  add_index "recipes", ["user_save_count"], name: "index_recipes_on_user_save_count"
 
   create_table "steps", force: :cascade do |t|
     t.integer  "recipe_id",             null: false

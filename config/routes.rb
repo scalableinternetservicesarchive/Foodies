@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :collections
+  get 'homepage/show'
   get 'profile/index'
 
   resources :masterpieces
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   # You can have the root of your site routed with "root"
-  root 'recipes#index'
+  root 'homepage#show'
 
   # Errors
   get '404', to: 'errors#not_found'
