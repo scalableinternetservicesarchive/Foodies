@@ -23,6 +23,8 @@ class MasterpiecesController < ApplicationController
 
   # GET /masterpieces/1/edit
   def edit
+    @recipe_id = @masterpiece.recipe.id
+    @user_id = @masterpiece.cook.id
   end
 
   # POST /masterpieces
