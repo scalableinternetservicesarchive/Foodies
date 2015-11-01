@@ -1,6 +1,7 @@
 class RecipesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_recipe, only: [:show, :edit, :update, :destroy, :like, :unlike, :bookmark, :unbookmark]
-  before_action :authenticate_user!, only: [:like, :unlike, :bookmark, :unbookmark]
+  before_action :check_permission, only: [:edit, :update, :destroy]
 
   # GET /recipes
   # GET /recipes.json
@@ -143,5 +144,9 @@ def unlike
       params.require(:recipe).permit(:user_id, :title, :description, :cook_time, :recipe_img,
                                       ingredients_attributes: [:id, :name],
                                       steps_attributes: [:id, :step_number, :description])
+    end
+
+    def check_permission
+      raise SecurityTransgression unless current_user == @recipe.creator
     end
 end
