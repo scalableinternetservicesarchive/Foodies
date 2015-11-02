@@ -1,4 +1,4 @@
-<%= simple_form_for(@recipe, multipart: true) do |f| %>
+<%= simple_nested_form_for(@recipe, multipart: true) do |f| %>
   <% if @recipe.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
@@ -11,33 +11,40 @@
     </div>
   <% end %>
 <%= f.hidden_field :user_id, value: current_user.id %>
+
 <div class="field">
 
-  <%= f.input :title, label: 'Recipe Title'%>
-  <%= f.input :description, label: 'Description'%>
-  <%= f.input :cook_time, label: 'Cook Time(in min)'%>
+  <%= f.input :title, label: 'Recipe Title', placeholder: 'Enter recipe title' %>
+  <%= f.input :description, label: 'Description', placeholder: 'Enter recipe description' %>
+  <%= f.input :cook_time, label: 'Cook Time(in min)', placeholder: 'Enter cook time in minute' %>
 </div>
 
-<div class="row">
+<div class="field">
+  <%= f.label 'Ingredients' %>
+  <ul class="list-group">
   <%= f.simple_fields_for :ingredients do |i| %>
-  <div class="col-xs-2">
-    <%= i.input :name, label: 'Ingredient', required: false %>
-  </div>
+    <div class="input-group">
+      <%= i.input :name, label: false, required: false, placeholder: 'Enter ingredient\'s name' %>
+      <span class="input-group-btn">
+        <%= i.link_to_remove "<span class='glyphicon glyphicon-remove'></span>".html_safe, class:'btn btn-default' %>
+      </span>
+    </div>
   <% end %>
+<%= f.link_to_add "<span class='glyphicon glyphicon-plus'></span> Add".html_safe, :ingredients, class:'btn btn-default' %>
 </div>
 
-<div class="row">
+<div class="field">
+  <%= f.label 'Steps' %>
   <%= f.simple_fields_for :steps do |s| %>
-    <div class="col-xs-2">
-    <%= s.input :step_number, collection: 1..10, label: 'Step #', required: false %>
-    </div>
-    <div class="col-xs-10">
-    <%= s.input :description, label: 'Description', required: false %>
-    </div>
+    <%= s.input :step_number, label: false, required: false, placeholder: 'Enter step number' %>
+    <%= s.input :description, label: false, required: false, placeholder: 'Enter step description' %>
+    <%= f.input :step_img, as: :file, wrapper: :vertical_file_input, label: false %>
+    <%= s.link_to_remove "<span class='glyphicon glyphicon-remove'></span>".html_safe, class:'btn btn-default' %>
   <% end %>
+<%= f.link_to_add "<span class='glyphicon glyphicon-plus'></span> Add".html_safe, :steps, class:'btn btn-default' %>
 </div>
 
-<%= f.input :recipe_img, as: :file, wrapper: :vertical_file_input %>
+<%= f.input :recipe_img, as: :file, wrapper: :vertical_file_input, label:'Recipe Picture' %>
 
 <div class="action">
   <%= f.button :submit %>
