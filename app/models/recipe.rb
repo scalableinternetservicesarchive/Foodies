@@ -15,21 +15,21 @@ class Recipe < ActiveRecord::Base
     medium: '300x300>'
   }
 
-  accepts_nested_attributes_for :ingredients, reject_if: :find_ingredient, allow_destroy: true
+  accepts_nested_attributes_for :ingredients, reject_if: lambda { |a| a[:name].blank?}, allow_destroy: true
   accepts_nested_attributes_for :steps, allow_destroy: true
 
   validates :creator, :title, presence: true
   validates_attachment_content_type :recipe_img, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
-  def find_ingredient(ingredient)
-    if existing_ingredient = Ingredient.find_by_name(ingredient['name'])
-      unless self.ingredients.include?(existing_ingredient)
-        self.ingredients << existing_ingredient
-      end
-      return true
-    else
-      return false
-    end
-  end
+  # def find_ingredient(ingredient)
+  #   if existing_ingredient = Ingredient.find_by_name(ingredient['name'])
+  #     unless self.ingredients.include?(existing_ingredient)
+  #       self.ingredients << existing_ingredient
+  #     end
+  #     return true
+  #   else
+  #     return false
+  #   end
+  # end
 
 end
