@@ -328,25 +328,35 @@ step2_5 = Step.create(
 # Ingredients
 ######################################
 
-ingredient1 = Ingredient.create(
-  name: 'ing1'
-)
-ingredient2 = Ingredient.create(
-  name: 'ing2'
-)
-ingredient3 = Ingredient.create(
-  name: 'ing3'
-)
-ingredient4 = Ingredient.create(
-  name: 'ing4'
+ingredient1_1 = Ingredient.create(
+  recipe: recipe1,
+  name: 'ing1',
+  quantity: '1g'
 )
 
-######################################
-# Recipe - Ingredient
-######################################
+ingredient1_2 = Ingredient.create(
+  recipe: recipe1,
+  name: 'ing2',
+  quantity: '1g'
+)
 
-recipe1.ingredients << [ingredient1, ingredient2, ingredient3]
-recipe2.ingredients << [ingredient2, ingredient4]
+ingredient1_3 = Ingredient.create(
+  recipe: recipe1,
+  name: 'ing3',
+  quantity: '1g'
+)
+
+ingredient2_1 = Ingredient.create(
+  recipe: recipe2,
+  name: 'ing2',
+  quantity: '1g'
+)
+
+ingredient2_2 = Ingredient.create(
+  recipe: recipe2,
+  name: 'ing4',
+  quantity: '1g'
+)
 
 ######################################
 # User - Saved Recipes

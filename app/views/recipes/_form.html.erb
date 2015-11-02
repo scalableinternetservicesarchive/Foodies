@@ -25,6 +25,8 @@
   <%= f.simple_fields_for :ingredients do |i| %>
     <div class="input-group">
       <%= i.input :name, label: false, required: false, placeholder: 'Enter ingredient\'s name' %>
+      <span class="input-group-btn" style="width:0px;"></span>
+      <%= i.input :quantity, label: false, required: false, placeholder: 'Enter quantity' %>
       <span class="input-group-btn">
         <%= i.link_to_remove "<span class='glyphicon glyphicon-remove'></span>".html_safe, class:'btn btn-default' %>
       </span>

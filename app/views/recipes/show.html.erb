@@ -56,7 +56,10 @@
 <h3>Ingredients:</h3>
 <p>
   <% @ingredients.each do |ingredient| %>
-    <%= ingredient.name %>
+    <p>
+      <%= ingredient.name %>
+      <%= ingredient.quantity %>
+    </p>
   <% end %>
 </p>
 
