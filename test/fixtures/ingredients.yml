@@ -1,7 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-ingredient1:
-  name: 'a'
+ingredient1-1:
+  recipe: recipe1
+  name: a
+  quantity: 1g
 
-ingredient2:
-  name: 'b'
+ingredient1-2:
+  recipe: recipe1
+  name: b
+  quantity: 1g
