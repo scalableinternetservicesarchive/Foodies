@@ -17,6 +17,7 @@
 /tmp
 /public/system/*
 /public/images/*
+!/public/images/default/
 .DS_Store
 *.pem
 aws.rb
