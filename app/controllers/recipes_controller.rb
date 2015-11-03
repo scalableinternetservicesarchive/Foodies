@@ -145,7 +145,7 @@ def unlike
     def recipe_params
       params.require(:recipe).permit(:user_id, :title, :description, :cook_time, :recipe_img,
                                       ingredients_attributes: [:id, :recipe_id, :name, :quantity, :_destroy],
-                                      steps_attributes: [:id, :recipe_id, :step_number, :description, :_destroy])
+                                      steps_attributes: [:id, :recipe_id, :step_number, :description, :step_img, :_destroy])
     end
 
     def check_permission

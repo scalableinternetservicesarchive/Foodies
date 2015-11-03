@@ -21,7 +21,6 @@
 
 <div class="field">
   <%= f.label 'Ingredients' %>
-  <ul class="list-group">
   <%= f.simple_fields_for :ingredients do |i| %>
     <div class="input-group">
       <%= i.input :name, label: false, required: false, placeholder: 'Enter ingredient\'s name' %>
@@ -38,15 +37,17 @@
 <div class="field">
   <%= f.label 'Steps' %>
   <%= f.simple_fields_for :steps do |s| %>
-    <%= s.input :step_number, label: false, required: false, placeholder: 'Enter step number' %>
-    <%= s.input :description, label: false, required: false, placeholder: 'Enter step description' %>
-    <%= f.input :step_img, as: :file, wrapper: :vertical_file_input, label: false %>
-    <%= s.link_to_remove "<span class='glyphicon glyphicon-remove'></span>".html_safe, class:'btn btn-default' %>
+    <div class="row">
+      <%= s.input :step_number, label: false, required: false, placeholder: 'Enter step number', wrapper_html: { class: 'col-md-1' }, input_html: { style: 'height: 150px;' } %>
+      <%= s.input :description, label: false, required: false, placeholder: 'Enter step description', wrapper_html: { class: 'col-md-8' }, input_html: { style: 'height: 150px;' } %>
+      <%= s.input :step_img, as: :step_img, label: false, wrapper_html: { class: 'col-md-2' } %>
+      <%= s.link_to_remove "<span class='glyphicon glyphicon-remove'></span>".html_safe, class:'btn btn-default' %>
+    </div>
   <% end %>
 <%= f.link_to_add "<span class='glyphicon glyphicon-plus'></span> Add".html_safe, :steps, class:'btn btn-default' %>
 </div>
 
-<%= f.input :recipe_img, as: :file, wrapper: :vertical_file_input, label:'Recipe Picture' %>
+<%= f.input :recipe_img, as: :recipe_img, label:'Recipe Picture' %>
 
 <div class="action">
   <%= f.button :submit %>

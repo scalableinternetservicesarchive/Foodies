@@ -74,6 +74,7 @@
     <p>
       Step <%= step.step_number %>
       <%= step.description %>
+      <%= image_tag step.step_img.url(:square)%>
     </p>
   <% end %>
 </p>
