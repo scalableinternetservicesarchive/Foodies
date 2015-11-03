@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :user_like_masterpieces
   has_many :liked_masterpieces, through: :user_like_masterpieces, source: :masterpiece
   has_attached_file :avatar, styles: {
+    tiny: '48x48#',
     thumb: '100x100>',
     square: '200x200#',
     medium: '300x300>'
