@@ -12,7 +12,7 @@ class Recipe < ActiveRecord::Base
     thumb: '100x100>',
     square: '200x200#',
     medium: '300x300>'
-  }
+  }, default_url: "/images/default/missing_:attachment_:style.jpg"
 
   accepts_nested_attributes_for :ingredients, reject_if: lambda { |a| a[:name].blank?}, allow_destroy: true
   accepts_nested_attributes_for :steps, allow_destroy: true
