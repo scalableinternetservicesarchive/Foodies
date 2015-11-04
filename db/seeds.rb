@@ -29,7 +29,7 @@ user3 = User.create(
 
 recipe1 = Recipe.create(
   user_id: user1.id,
-  title: 'Coke chicken wing',
+  title: 'Coke Chicken Wing',
   description: 'bla',
   cook_time: 30,
   user_save_count: 1,
@@ -38,12 +38,104 @@ recipe1 = Recipe.create(
 
 recipe2 = Recipe.create(
   user_id: user2.id,
-  title: 'Potato salad',
+  title: 'Potato Salad',
   description: 'blabla',
   cook_time: 20,
   user_save_count: 1,
   recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/potato-salad/recipe.jpg")
 )
+
+recipe3 = Recipe.create(
+  user_id: user3.id,
+  title: 'Cherry Blossom Mousse',
+  description: 'blabla',
+  cook_time: 60,
+  user_save_count: 0,
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/recipe.jpg")
+)
+
+recipe4 = Recipe.create(
+  user_id: user1.id,
+  title: 'grape fruit jam',
+  description: 'blabla',
+  cook_time: 30,
+  user_save_count: 0,
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/grape-fruit-jam/recipe.jpg")
+)
+
+recipe5 = Recipe.create(
+  user_id: user1.id,
+  title: 'honey grape fruit tea',
+  description: 'blabla',
+  cook_time: 30,
+  user_save_count: 0,
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/honey-grape-fruit-tea/recipe.jpg")
+)
+
+recipe6 = Recipe.create(
+  user_id: user1.id,
+  title: 'sweet grape fruit peel',
+  description: 'blabla',
+  cook_time: 30,
+  user_save_count: 0,
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/sweet-grape-fruit-peel/recipe.jpg")
+)
+
+recipe7 = Recipe.create(
+  user_id: user1.id,
+  title: 'grape fruit totoro',
+  description: 'blabla',
+  cook_time: 30,
+  user_save_count: 0,
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/grape-fruit-totoro/recipe.jpg")
+)
+
+recipe8 = Recipe.create(
+  user_id: user1.id,
+  title: 'saute grape fruit',
+  description: 'blabla',
+  cook_time: 30,
+  user_save_count: 0,
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/saute-grape-fruit/recipe.jpg")
+)
+
+recipe9 = Recipe.create(
+  user_id: user1.id,
+  title: 'grape fruit soda',
+  description: 'blabla',
+  cook_time: 30,
+  user_save_count: 0,
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/grape-fruit-soda/recipe.jpg")
+)
+
+recipe10 = Recipe.create(
+  user_id: user1.id,
+  title: 'grape fruit ice cream',
+  description: 'blabla',
+  cook_time: 30,
+  user_save_count: 0,
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/grape-fruit-ice-cream/recipe.jpg")
+)
+
+recipe11 = Recipe.create(
+  user_id: user1.id,
+  title: 'rio cocktail ice pop',
+  description: 'blabla',
+  cook_time: 30,
+  user_save_count: 0,
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/rio-cocktail-ice-pop/recipe.jpg")
+)
+
+recipe12 = Recipe.create(
+  user_id: user1.id,
+  title: 'fry potato button',
+  description: 'blabla',
+  cook_time: 30,
+  user_save_count: 0,
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/fry-potato-button/recipe.jpg")
+)
+
+
 
 ######################################
 # Masterpieces
@@ -217,6 +309,49 @@ masterpiece2_12 = Masterpiece.create(
   masterpiece_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/potato-salad/masterpiece12.jpg")
 )
 
+masterpiece3_1 = Masterpiece.create(
+  recipe_id: recipe3.id,
+  user_id: user1.id,
+  description: 'bla',
+  masterpiece_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/masterpiece1.jpg")
+)
+
+masterpiece3_2 = Masterpiece.create(
+  recipe_id: recipe3.id,
+  user_id: user1.id,
+  description: 'bla',
+  masterpiece_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/masterpiece2.jpg")
+)
+
+masterpiece3_3 = Masterpiece.create(
+  recipe_id: recipe3.id,
+  user_id: user1.id,
+  description: 'bla',
+  masterpiece_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/masterpiece3.jpg")
+)
+
+masterpiece3_4 = Masterpiece.create(
+  recipe_id: recipe3.id,
+  user_id: user1.id,
+  description: 'bla',
+  masterpiece_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/masterpiece4.jpg")
+)
+
+masterpiece3_5 = Masterpiece.create(
+  recipe_id: recipe3.id,
+  user_id: user1.id,
+  description: 'bla',
+  masterpiece_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/masterpiece5.jpg")
+)
+
+masterpiece3_6 = Masterpiece.create(
+  recipe_id: recipe3.id,
+  user_id: user1.id,
+  description: 'bla',
+  masterpiece_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/masterpiece6.jpg")
+)
+
+
 ######################################
 # Steps
 ######################################
@@ -324,6 +459,83 @@ step2_5 = Step.create(
   step_number: 5,
   description: '5th step',
   step_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/potato-salad/step5.jpg")
+)
+
+step3_1 = Step.create(
+  recipe: recipe3,
+  step_number: 1,
+  description: '1st step',
+  step_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/step1.jpg")
+)
+
+step3_2 = Step.create(
+  recipe: recipe3,
+  step_number: 2,
+  description: '2nd step',
+  step_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/step2.jpg")
+)
+
+step3_3 = Step.create(
+  recipe: recipe3,
+  step_number: 3,
+  description: '3rd step',
+  step_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/step3.jpg")
+)
+
+step3_4 = Step.create(
+  recipe: recipe3,
+  step_number: 4,
+  description: '4th step',
+  step_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/step4.jpg")
+)
+
+step3_5 = Step.create(
+  recipe: recipe3,
+  step_number: 5,
+  description: '5th step',
+  step_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/step5.jpg")
+)
+
+step3_6 = Step.create(
+  recipe: recipe3,
+  step_number: 6,
+  description: '6th step',
+  step_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/step6.jpg")
+)
+
+step3_7 = Step.create(
+  recipe: recipe3,
+  step_number: 7,
+  description: '7th step',
+  step_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/step7.jpg")
+)
+
+step3_8 = Step.create(
+  recipe: recipe3,
+  step_number: 8,
+  description: '8th step',
+  step_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/step8.jpg")
+)
+
+step3_9 = Step.create(
+  recipe: recipe3,
+  step_number: 9,
+  description: '9th step',
+  step_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/step9.jpg")
+)
+
+step3_10 = Step.create(
+  recipe: recipe3,
+  step_number: 10,
+  description: '10th step',
+  step_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/step10.jpg")
+)
+
+step3_10 = Step.create(
+  recipe: recipe3,
+  step_number: 11,
+  description: '11th step',
+  step_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/step11.jpg")
 )
 
 ######################################
