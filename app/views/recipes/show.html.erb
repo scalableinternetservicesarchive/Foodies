@@ -13,9 +13,9 @@
       <%= @recipe.creator.email %>
     </p>
 
-    <p><%= @recipe.users_liking_it.count %> people liked it</p>
-    <p><%= @recipe.users_saving_it.count %> people bookmarked it</p>
-    <p><%= @recipe.cooks.count %> people cooked it</p>
+    <p><span class="count-number"><%= @recipe.users_liking_it.count %></span> people liked it</p>
+    <p><span class="count-number"><%= @recipe.users_saving_it.count %></span> people bookmarked it</p>
+    <p><span class="count-number"><%= @recipe.cooks.count %></span> people cooked it</p>
 
     <% if user_signed_in? %>
       <% if @recipe.users_liking_it.include?(current_user) %>
@@ -72,9 +72,9 @@
 <p>
   <% @recipe.steps.each do |step| %>
     <p>
-      Step <%= step.step_number %>
-      <%= step.description %>
       <%= image_tag step.step_img.url(:square)%>
+      <span class="step-number"><%= step.step_number %></span>
+      <%= step.description %>
     </p>
   <% end %>
 </p>

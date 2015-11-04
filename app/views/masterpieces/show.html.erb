@@ -8,7 +8,7 @@
   <%= @masterpiece.cook.email %>
 </p>
 <p>
-  <%= @masterpiece.users_liking_it.count %> people liked it
+  <span class="count-number"><%= @masterpiece.users_liking_it.count %></span> people liked it
 </p>
 
 <% if user_signed_in? %>

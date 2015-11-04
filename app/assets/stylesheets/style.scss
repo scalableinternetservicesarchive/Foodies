@@ -824,7 +824,7 @@ body.modal-open {
     width: 32px;
     height: 32px;
     background-color: transparent;
-    background-image: url(../images/work-icons.png);
+    background-image: url(../images/default/work-icons.png);
     background-repeat: no-repeat;
     border: 1px solid #fff;
     border: 1px solid rgba(255,255,255,.7);
@@ -1448,4 +1448,22 @@ p.to-top a:hover {
     font-weight: 600;
 }
 
+/*--------------------------------
+    MORE
+--------------------------------*/
 
+.count-number {
+    padding-right: 5px;
+    line-height: 40px;
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.step-number {
+    color: #FF6837;
+    padding-left: 50px;
+    padding-right: 50px;
+    line-height: 100px;
+    font-size: 100px;
+    font-weight: 500;
+}
