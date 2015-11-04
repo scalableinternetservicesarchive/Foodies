@@ -11,7 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029215140) do
+ActiveRecord::Schema.define(version: 20151104054110) do
+
+  create_table "collection_recipes", force: :cascade do |t|
+    t.integer  "recipe_id"
+    t.integer  "collection_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "collection_recipes", ["collection_id"], name: "index_collection_recipes_on_collection_id"
+  add_index "collection_recipes", ["recipe_id"], name: "index_collection_recipes_on_recipe_id"
+
+  create_table "collections", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "collections", ["user_id"], name: "index_collections_on_user_id"
 
   create_table "ingredients", force: :cascade do |t|
     t.integer  "recipe_id",  null: false
@@ -87,6 +107,16 @@ ActiveRecord::Schema.define(version: 20151029215140) do
 
   add_index "user_like_recipes", ["recipe_id"], name: "index_user_like_recipes_on_recipe_id"
   add_index "user_like_recipes", ["user_id"], name: "index_user_like_recipes_on_user_id"
+
+  create_table "user_save_collections", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "collection_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "user_save_collections", ["collection_id"], name: "index_user_save_collections_on_collection_id"
+  add_index "user_save_collections", ["user_id"], name: "index_user_save_collections_on_user_id"
 
   create_table "user_save_recipes", force: :cascade do |t|
     t.integer  "user_id",    null: false

@@ -8,6 +8,10 @@ class Recipe < ActiveRecord::Base
   has_many :users_liking_it, through: :user_like_recipes, source: :user
   has_many :user_save_recipes
   has_many :users_saving_it, through: :user_save_recipes, source: :user
+
+  has_many :collection_recipes
+  has_many :collections, through: :collection_recipes, source: :collection
+
   has_attached_file :recipe_img, styles: {
     thumb: '100x100>',
     square: '200x200#',
