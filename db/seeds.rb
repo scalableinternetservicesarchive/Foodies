@@ -4,6 +4,7 @@
 
 user1 = User.create(
   email: 'a@a.com',
+  username: 'usera',
   password: '88888888',
   password_confirmation: '88888888',
   avatar: URI.parse("https://octodex.github.com/images/pusheencat.png")
@@ -11,6 +12,7 @@ user1 = User.create(
 
 user2 = User.create(
   email: 'b@b.com',
+  username: 'userb',
   password: '88888888',
   password_confirmation: '88888888',
   avatar: URI.parse("https://octodex.github.com/images/dojocat.jpg")
@@ -18,6 +20,7 @@ user2 = User.create(
 
 user3 = User.create(
   email: 'c@c.com',
+  username: 'userc',
   password: '88888888',
   password_confirmation: '88888888',
   avatar: URI.parse("https://octodex.github.com/images/octobiwan.jpg")
