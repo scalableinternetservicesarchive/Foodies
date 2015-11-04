@@ -1,2 +1,19 @@
-<h1>Errors#security_transgression_error</h1>
-<p id="notice"><%= notice %></p>
+<div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="page-404 text-center">
+        <p>401</p>
+        <h3>
+          <% if notice != nil %>
+            <%= notice %>
+          <% else %>
+            Sorry, you don't have permission
+          <% end %>
+        </h3>
+        <small>
+          Go back to <a href="/">Home</a>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>

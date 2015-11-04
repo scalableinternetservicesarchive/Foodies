@@ -1,2 +1,19 @@
-<h1>Errors#internal_server_error</h1>
-<p id="notice"><%= notice %></p>
+<div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="page-404 text-center">
+        <p>500</p>
+        <h3>
+          <% if notice != nil %>
+            <%= notice %>
+          <% else %>
+            Sorry, there was an internal server error.
+          <% end %>
+        </h3>
+        <small>
+          Go back to <a href="/">Home</a>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
