@@ -1,4 +1,4 @@
-<%= form_for(@masterpiece, multipart: true) do |f| %>
+<%= simple_nested_form_for(@masterpiece, multipart: true) do |f| %>
   <% if @masterpiece.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@masterpiece.errors.count, "error") %> prohibited this masterpiece from being saved:</h2>
@@ -15,12 +15,10 @@
     <%= f.hidden_field :user_id, value: @user_id %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+    <%= f.input :description, label: 'Description', placeholder: 'Enter masterpiece description', input_html: { rows: 8 } %>
   </div>
   <div class="field">
-    <%= f.label :masterpiece_img %><br>
-    <%= f.file_field :masterpiece_img %>
+    <%= f.input :masterpiece_img, as: :masterpiece_img, label:'Masterpiece Picture' %>
   </div>
   <div class="actions">
     <%= f.submit class: "btn btn-warning "%>
