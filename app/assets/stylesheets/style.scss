@@ -199,7 +199,7 @@ header#sub-page  > .container {
 
 .custom-nav {
     margin: 0px;
-    padding: 18px 0px 18px;
+    padding: 13px 0px 13px;
     border: none;
     z-index: 1000;
 }
@@ -219,11 +219,21 @@ header#sub-page .custom-nav {padding-left: 20px;}
     margin-right: -10px;
 }
 
+.custom-nav .navbar-collapse .navbar-nav .profile-image {
+    margin-top: -6px;
+    margin-bottom: -6px;
+}
+
+.custom-nav .navbar-collapse .navbar-nav .profile-image .dropdown-toggle{
+    padding: 0
+}
+
 .custom-nav .navbar-brand {
     padding: 5px 0;
     color: #232729;
     line-height: 24px;
     font-size: 24px;
+    height: inherit;
 }
 
 .custom-nav li a.selected,

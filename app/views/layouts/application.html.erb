@@ -27,29 +27,27 @@
             <li><a href="/">Home</a></li>
             <li><a href="/recipes">Recipes</a></li>
             <li><a href="/masterpieces">Masterpieces</a></li>
-            <li class="dropdown custom-dropdown">
-              <a href="#" class="dropdown-toggle selected" data-toggle="dropdown">Other +</a>
-              <ul class="dropdown-menu">
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="404.html">404 page</a></li>
-              </ul>
-            </li>
-            <li class="dropdown custom-dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile</a>
+            <li class="dropdown custom-dropdown profile-image">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <% if user_signed_in? %>
+                  <%= image_tag current_user.avatar.url(:tiny)%>
+                <% else %>
+                  <img src="/images/default/profile.png" style="opacity:0.7"></img>
+                <% end %>
+              </a>
               <ul class="dropdown-menu">
                 <% unless user_signed_in? %>
                       <li><a href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> SignUp</a></li>
                       <li><a href="/users/sign_in"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 <% else %>
-                      <li><a href="/profile"><span class="glyphicon glyphicon-th"></span> <b><%=  current_user.email %></b></a></li>
+                      <li><a href="/profile"><span class="glyphicon glyphicon-th"></span> <b><%= current_user.email %></b></a></li>
                       <li><%= link_to destroy_user_session_path, :method => :delete do %><span class="glyphicon glyphicon-log-out"></span> LogOut <% end %></li>
                 <% end %>
               </ul>
             </li>
           </ul>
         </div><!-- /.navbar-collapse -->
+
       </nav>
     </div>
   </header>
