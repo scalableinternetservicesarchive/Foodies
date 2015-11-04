@@ -32,6 +32,7 @@ recipe1 = Recipe.create(
   title: 'Coke chicken wing',
   description: 'bla',
   cook_time: 30,
+  user_save_count: 1,
   recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/coke-chicken-wing/recipe.jpg")
 )
 
@@ -40,6 +41,7 @@ recipe2 = Recipe.create(
   title: 'Potato salad',
   description: 'blabla',
   cook_time: 20,
+  user_save_count: 1,
   recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/potato-salad/recipe.jpg")
 )
 
