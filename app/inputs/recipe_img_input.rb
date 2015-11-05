@@ -1,5 +1,5 @@
 class RecipeImgInput < SimpleForm::Inputs::FileInput
-def input
+def input(wrapper_options)
   out = '' # the output string we're going to build
   # check if there's an uploaded file (eg: edit mode or form not saved)
   if object.send("#{attribute_name}?")
