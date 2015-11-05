@@ -1,21 +1,21 @@
 /*
-*   Item: 
+*   Item:
 *   Author: http://themeforest.net/user/navigator
 *   Only At: ThemeForest.net
 *
 *
 *       C O N T E N T S
 *   -----------------------
-* 
+*
 * 1. BACKGROUND STYLES
-* 
+*
 * 2. GENERIC STYLES
-* 
+*
 * 3. HEADER STYLES
 *       3.1 Navigation
 *           3.1.1 Custom Dropdown
 *       3.2 Home Slider
-* 
+*
 * 4. CONTENT STYLES
 *       4.1 Buttons
 *       4.2 Services
@@ -30,7 +30,7 @@
 *       4.10 Page 404
 *       4.11 Pricing Tables
 *       4.12 Preloader
-* 
+*
 * 5. FOOTER STYLES
 *       5.1 Social Networks
 *       5.2 Footer Bottom
@@ -66,7 +66,7 @@ body {
 ::selection {background: #bdddee;}
 ::-moz-selection {background: #bdddee;}
 
-@media screen and (max-width: 767px) { 
+@media screen and (max-width: 767px) {
     body {line-height: 28px; font-size: 16px;}
     .boxed {padding: 30px;}
     .boxed .full-width {
@@ -80,7 +80,7 @@ body {
     .boxed .full-width {
         margin-right: -20px;
         margin-left: -20px;
-    } 
+    }
 }
 
 
@@ -125,7 +125,7 @@ h4 {
     font-weight: 400;
 }
 
-@media screen and (max-width: 480px) { 
+@media screen and (max-width: 480px) {
     h1 {line-height: 40px; font-size: 35px;}
     h2 {line-height: 40px; font-size: 30px;}
     h3 {line-height: 30px; font-size: 23px;}
@@ -189,7 +189,7 @@ header .slogan .transparent {
 }
 
 header#sub-page  > .container {
-    background: #fff; 
+    background: #fff;
     margin-bottom: 1px;
 }
 
@@ -255,7 +255,10 @@ header#sub-page .custom-nav {padding-left: 20px;}
 .custom-nav .navbar-collapse {box-shadow: none;}
 .custom-nav .navbar-toggle {margin: 0px;}
 .custom-nav .navbar-toggle .icon-bar {background: #333739;}
-
+.custom-nav .navbar-form {
+    margin-top: 0;
+    margin-bottom: 0;
+}
 @media screen and (max-width: 767px) {
     .custom-nav li a.selected,
     .custom-nav li a:hover {
@@ -309,8 +312,8 @@ header#sub-page .dropdown-hover {color: #c3c7c9;}
             border-radius: 0px;
 }
 
-.nav .open>a, 
-.nav .open>a:hover, 
+.nav .open>a,
+.nav .open>a:hover,
 .nav .open>a:focus {
     background-color: transparent;
     border-color: transparent;
@@ -412,18 +415,18 @@ header#sub-page .dropdown-hover {color: #c3c7c9;}
 #home-slider .btn-slider a:hover {background: rgba(255,255,255,.2)}
 #home-slider .btn-slider a.active-slide {background: #f3f7f9;}
 
-@media screen and (max-width: 1199px) { 
+@media screen and (max-width: 1199px) {
     #home-slider #slides li .container {padding-top: 120px;}
     #home-slider img.me {left: 60%;}
 }
 
-@media screen and (max-width: 767px) { 
-    #home-slider img.me {display: none;} 
+@media screen and (max-width: 767px) {
+    #home-slider img.me {display: none;}
 }
 
-@media screen and (max-width: 481px) { 
+@media screen and (max-width: 481px) {
     #home-slider #slides li .container {padding-top: 70px;}
-    #home-slider #slides li .container p {line-height: 26px; font-size: 16px;} 
+    #home-slider #slides li .container p {line-height: 26px; font-size: 16px;}
     #home-slider .btn-slider {left: 85%;}
     #home-slider {text-align: center;}
 }
@@ -494,14 +497,14 @@ header#sub-page .dropdown-hover {color: #c3c7c9;}
 .btn-custom.black:hover {background: #434749; border: 1px solid #434749;}
 
 
-.orange, .red, 
-.purple, .blue, 
+.orange, .red,
+.purple, .blue,
 .cyan, .green,
 .gray, .black {color: #f3f7f9;}
 
-.orange:hover, .red:hover, 
-.purple:hover, .blue:hover, 
-.cyan:hover, .green:hover, 
+.orange:hover, .red:hover,
+.purple:hover, .blue:hover,
+.cyan:hover, .green:hover,
 .gray:hover, .black:hover {color: #f3f7f9;}
 
 .btn-custom.empty {
@@ -613,7 +616,7 @@ header#sub-page .dropdown-hover {color: #c3c7c9;}
     #subscribe input[type=text] {
         width: 230px;
         margin-right: 0px;
-    } 
+    }
 }
 
 #confirm-subscribe {
@@ -623,7 +626,7 @@ header#sub-page .dropdown-hover {color: #c3c7c9;}
     font-weight: 600;
 }
 
-@-moz-document url-prefix() { 
+@-moz-document url-prefix() {
     #confirm-subscribe {
         padding: 19px 0px;
         line-height: 30px;
@@ -664,8 +667,8 @@ header#sub-page .dropdown-hover {color: #c3c7c9;}
 }
 
 @media screen and (max-width: 991px) {
-   .testimonials p {margin-bottom: 60px} 
-   .testimonials div:last-child p {margin-bottom: 20px} 
+   .testimonials p {margin-bottom: 60px}
+   .testimonials div:last-child p {margin-bottom: 20px}
 }
 
 .testimonials p:before {
@@ -675,8 +678,8 @@ header#sub-page .dropdown-hover {color: #c3c7c9;}
 }
 
 .testimonials p:after {
-    content: "\201D"; 
-    color: #fe4444; 
+    content: "\201D";
+    color: #fe4444;
     font-size: 20px;
 }
 
@@ -794,9 +797,9 @@ body.modal-open {
 
 @media screen and (max-width: 380px) {
     .item-info h4 {
-        line-height: 17px; 
-        font-size: 16px; 
-        padding-bottom: 5px; 
+        line-height: 17px;
+        font-size: 16px;
+        padding-bottom: 5px;
         margin: 0 0 5px 0;
     }
     .item-info p {line-height: 16px; font-size: 14px;}

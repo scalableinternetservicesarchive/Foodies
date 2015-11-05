@@ -26,6 +26,7 @@
         <%= form_tag(search_find_by_recipe_path, method: "get", class:"navbar-form navbar-left", role:"search") do%>
         <div class="form-group">
           <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
+          <%= submit_tag "Search", class: 'form-control' %>
           <% end %>
         </div>
 

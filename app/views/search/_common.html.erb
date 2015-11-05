@@ -1,40 +1,44 @@
 <!-- Common search bar using Pills -->
 <div class="col-md-6">
-	<ul class="nav nav-pills">
-		<li><a href="#pill1" data-toggle="tab">Recipe</a></li>
-		<li><a href="#pill2" data-toggle="tab">Masterpiece</a></li>
-		<li><a href="#pill3" data-toggle="tab">Ingredient</a></li>
-		<li><a href="#pill4" data-toggle="tab">User</a></li>
-	</ul>
+  <ul class="nav nav-pills">
+    <li><a href="#pill1" data-toggle="tab">Recipe</a></li>
+    <li><a href="#pill2" data-toggle="tab">Masterpiece</a></li>
+    <li><a href="#pill3" data-toggle="tab">Ingredient</a></li>
+    <li><a href="#pill4" data-toggle="tab">User</a></li>
+  </ul>
 
-	<div class="tab-content">
-		<div class="tab-pane fade in active" id="pill1">
-			<%= form_tag(search_find_by_recipe_path, method: "get", class:"navbar-form navbar-left", role:"search") do%>
-			<div class="form-group">
-      <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
-      <% end %>
-      </div>
-		</div>
-		<div class="tab-pane fade" id="pill2">
-      <%= form_tag(search_find_by_masterpiece_path, method: "get", class:"navbar-form navbar-left", role:"search") do%>
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="pill1">
+      <%= form_tag(search_find_by_recipe_path, method: "get", class:"navbar-form navbar-left", role:"search") do%>
       <div class="form-group">
-      <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
-      <% end %>
-    	</div>
-		</div>
-		<div class="tab-pane fade" id="pill3">
-      <%= form_tag(search_find_by_ingredient_path, method: "get", class:"navbar-form navbar-left", role:"search") do%>
-      <div class="form-group">
-      <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
-      <% end %>
+        <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
+        <%= submit_tag "Search", class: 'form-control' %>
+        <% end %>
       </div>
     </div>
-		<div class="tab-pane fade" id="pill4">
+    <div class="tab-pane fade" id="pill2">
+      <%= form_tag(search_find_by_masterpiece_path, method: "get", class:"navbar-form navbar-left", role:"search") do%>
+      <div class="form-group">
+        <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
+        <%= submit_tag "Search", class: 'form-control' %>
+        <% end %>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="pill3">
+      <%= form_tag(search_find_by_ingredient_path, method: "get", class:"navbar-form navbar-left", role:"search") do%>
+      <div class="form-group">
+        <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
+        <%= submit_tag "Search", class: 'form-control' %>
+        <% end %>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="pill4">
       <%= form_tag(search_find_by_user_path, method: "get", class:"navbar-form navbar-left", role:"search") do%>
       <div class="form-group">
-      <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
-    	<% end %>
+        <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
+        <%= submit_tag "Search", class: 'form-control' %>
+        <% end %>
       </div>
-		</div>
-	</div>
+    </div>
+  </div>
 </div>

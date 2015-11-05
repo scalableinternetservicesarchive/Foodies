@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
   get 'search/index'
-
   resources :collections
   get 'homepage/show'
   get 'profile/index'
-  get 'search/recipe', to: 'search#recipe', as: :search_recipe
   get 'search/find_by_recipe', to: 'search#find_by_recipe', as: :search_find_by_recipe
   get 'search/find_by_masterpiece', to: 'search#find_by_masterpiece', as: :search_find_by_masterpiece
   get 'search/find_by_ingredient', to: 'search#find_by_ingredient', as: :search_find_by_ingredient
@@ -12,7 +10,6 @@ Rails.application.routes.draw do
   resources :masterpieces
   resources :recipes
   resources :profile
-  resources :search
   devise_for :users
   post '/recipes/:id/like', to: 'recipes#like', as: :recipe_like
   post '/recipes/:id/unlike', to: 'recipes#unlike', as: :recipe_unlike
