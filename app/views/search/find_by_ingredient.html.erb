@@ -1,0 +1,24 @@
+<!-- Begin ingredient search result -->
+<div class="row">
+  <%= render 'common' %>
+  <div class="col-md-12">
+    <h2>Ingredient Search Result</h2>
+  </div>
+
+  <hr class="medium" />
+  <% @ingredients.each do |ingredient| %>
+  <!-- result list -->
+  <div class="col-md-6">
+    <ul class="media-list">
+      <li class="media">
+        <a class="pull-left" href="#">
+          <img class="media-object" src = "<%= ingredient.recipe.recipe_img.url(:square) %>">
+        </a>
+        <div class="media-body">
+          <h4 class="media-heading"><%= link_to ingredient.recipe.title , ingredient.recipe %></h4>
+          <p>ingredient: <%= ingredient.name %></p>
+          <p>created by:<%= ingredient.recipe.creator.email %></p>
+        </div>
+      </div>
+      <% end %>
+</div>

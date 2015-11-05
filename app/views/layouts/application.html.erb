@@ -21,6 +21,14 @@
           </button>
           <a class="navbar-brand" href="#">Foodies</a>
         </div>
+
+        <!-- default: search recipe -->
+        <%= form_tag(search_find_by_recipe_path, method: "get", class:"navbar-form navbar-left", role:"search") do%>
+        <div class="form-group">
+          <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
+          <% end %>
+        </div>
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="custom-nav">
           <ul class="nav navbar-nav navbar-right">
