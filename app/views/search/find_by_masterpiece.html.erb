@@ -16,7 +16,7 @@
         </a>
         <div class="media-body">
           <h4 class="media-heading"><%= link_to masterpiece.description , masterpiece %></h4>
-          <p><%= masterpiece.users_liking_it.count %>people liked it</p>
+          <p><span class="count-number"><%= masterpiece.users_liking_it.count %></span> people liked it</p>
           <p>created by:<%= masterpiece.cook.email %></p>
         </div>
       </div>
