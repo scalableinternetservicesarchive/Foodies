@@ -6,16 +6,10 @@
   </div>
 
   <hr class="medium" />
-  <!-- result list -->
-  <!-- <% @ingredients = @ingredients.uniq { |ingredient| ingredient.name } %> -->
-  <% @ingredient_name = Array.new %>
-  <% @ingredients.each do |ingredient| %>
-  <% @ingredient_name.push(ingredient.name) %>
-  <%end%>
-  <!-- display unique results -->
-  <% @ingredient_name = @ingredient_name.uniq  %>
-  <% @ingredient_name.each do |name| %>
-  <p>ingredient: <%= name %></p>
-  <% end %>
+  <div class="col-md-12">
+    <% @ingredients.each do |ingredient| %>
+      <a class="btn btn-custom light-gray"><%= ingredient.name %><a>
+    <% end %>
+  </div>
 
 </div>
