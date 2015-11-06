@@ -19,7 +19,7 @@
           <p><span class="count-number"><%= recipe.users_liking_it.count %></span> people liked it</p>
           <p><span class="count-number"><%= recipe.users_saving_it.count %></span> people saved it</p>
           <p><span class="count-number"><%= recipe.cooks.count %></span> people cooked it</p>
-          <p>created by:<%= recipe.creator.email %></p>
+          <p>created by: <%= recipe.creator.username %></p>
         </div>
   </div>
   <% end %>
