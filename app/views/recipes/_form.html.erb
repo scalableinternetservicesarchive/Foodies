@@ -15,7 +15,7 @@
 <div class="field">
 
   <%= f.input :title, label: 'Recipe Title', placeholder: 'Enter recipe title' %>
-  <%= f.input :tag_list, label: 'Tag', placeholder: 'Enter tags(separated by comma)' %>
+  <%= f.input :tag_list, label: 'Tag', placeholder: 'Enter tags(separated by comma)' , :input_html => { :value => @recipe.tag_list.join(", ") }%>
   <%= f.input :description, label: 'Description', placeholder: 'Enter recipe description' %>
   <%= f.input :cook_time, label: 'Cook Time(in min)', placeholder: 'Enter cook time in minute' %>
 </div>

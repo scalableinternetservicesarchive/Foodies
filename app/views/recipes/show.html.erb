@@ -4,7 +4,7 @@
     <h3><%= @recipe.title %></h3>
     <h4>Tags: <h4>
       <% @recipe.tags.each  do |tag| %>
-        <%= link_to tag.name, tagged_path(:tag => tag.name) %>
+        <%= link_to tag.name, tagged_path(:tag => tag.name), class: "btn btn-custom light-gray" %>
       <% end %>
   </div>
 </div>
