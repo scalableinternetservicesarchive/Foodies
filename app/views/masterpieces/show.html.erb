@@ -38,7 +38,12 @@
   <%= @masterpiece.description %>
 </p>
 
+<h3>Parent Recipe:</h3>
+<p>
+  <%= image_tag @masterpiece.recipe.recipe_img.url(:thumb)%>
+  <%= link_to @masterpiece.recipe.title , @masterpiece.recipe %>
+</p>
+
 <% if current_user == @masterpiece.cook%>
   <%= link_to 'Edit', edit_masterpiece_path(@masterpiece), :class => "btn btn-default" %>
 <% end %>
-<%= link_to 'Back', masterpieces_path, :class => "btn btn-default" %>

@@ -134,6 +134,5 @@
 <% if current_user == @recipe.creator%>
   <%= link_to 'Edit', edit_recipe_path(@recipe), :class => "btn btn-default" %>
 <% end %>
-<%= link_to 'Back', recipes_path, :class => "btn btn-default" %>
 
 <!-- <%= params.inspect %> -->
