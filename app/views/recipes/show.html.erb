@@ -99,16 +99,23 @@
                 <%= masterpiece.description%>
               </p>
               <ul class="item-options">
-                <li><a class="enlarge" data-toggle="modal" href="#"></a></li>
-                <li><a class="view slower" href="#"></a></li>
+                <li><a class="enlarge" data-toggle="modal" href=<%= "#modal#{masterpiece.id}" %>></a></li>
+                <li><a class="view slower" href=<%= masterpiece_path(masterpiece) %>></a></li>
               </ul>
             </div>
           </div>
         </div>
+        <!-- Modal -->
+        <div class="modal custom-modal fade" id=<%= "modal#{masterpiece.id}" %> tabindex="-1" role="dialog" aria-labelledby="modal1" aria-hidden="true">
+          <div class="modal-dialog" >
+            <img class="img-responsive" src=<%= masterpiece.masterpiece_img.url %> alt="">
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
       </div>
     <% end %>
   </div>
 </div>
+
 
 <% if current_user != nil %>
   <%= link_to "Upload new masterpiece", {controller: 'masterpieces', action: 'new', masterpiece: {recipe_id: @recipe.id}},:class => "btn btn-default"%>
