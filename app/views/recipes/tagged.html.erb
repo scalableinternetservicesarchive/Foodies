@@ -1,0 +1,18 @@
+<ul id="blog" class="list-unstyled">
+  <div class="row">
+    <h3 class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-4">Recipes with tag <%= @tag%></h3>
+  </div>
+  <li class="row">
+    <% @recipes.each do |recipe| %>
+    <div class="col-md-12">
+          <h4 class="page-header">
+            <%= recipe.title %>
+          </h4>
+    </div>
+  	<img class="col-md-12 img-responsive" src=<%= recipe.recipe_img.url(:square)%> alt="" />
+  	<ul class="article-data col-md-12">
+    	<li><%= link_to 'Show', recipe %></li>
+  	</ul>
+    <% end %>
+  </li>
+</ul>

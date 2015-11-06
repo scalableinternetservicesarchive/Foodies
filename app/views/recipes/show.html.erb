@@ -2,6 +2,10 @@
 <div class="row">
   <div class="col-sm-12">
     <h3><%= @recipe.title %></h3>
+    <h4>Tags: <h4>
+      <% @recipe.tags.each  do |tag| %>
+        <%= link_to tag.name, tagged_path(:tag => tag.name) %>
+      <% end %>
   </div>
 </div>
 <div class="row">

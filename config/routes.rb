@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'search/find_by_masterpiece', to: 'search#find_by_masterpiece', as: :search_find_by_masterpiece
   get 'search/find_by_ingredient', to: 'search#find_by_ingredient', as: :search_find_by_ingredient
   get 'search/find_by_user', to: 'search#find_by_user', as: :search_find_by_user
+  get 'tags/:tag', to: 'recipes#tagged', as: :tagged
   resources :masterpieces
   resources :recipes
   resources :profile

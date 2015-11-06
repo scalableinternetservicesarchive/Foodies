@@ -18,7 +18,7 @@ class Recipe < ActiveRecord::Base
     medium: '300x300>',
     slide: '1120x400#'
   }, default_url: "/images/default/missing_:attachment_:style.jpg"
-
+  acts_as_taggable_on :tags
   accepts_nested_attributes_for :ingredients, reject_if: lambda { |a| a[:name].blank?}, allow_destroy: true
   accepts_nested_attributes_for :steps, allow_destroy: true
 
