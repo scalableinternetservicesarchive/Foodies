@@ -16,7 +16,7 @@ def find_by_user
 end
 
 def find_by_ingredient
-  @ingredients = Ingredient.search(params[:search]).order("name ASC")
+  @ingredients = Ingredient.search(params[:search]).select(:name).distinct.order("name ASC")
 end
 
 end
