@@ -12,9 +12,9 @@
           </a>
           <div class="media-body">
             <h4 class="media-heading"><%= link_to recipe.title , recipe %></h4>
-            <p><%= recipe.users_liking_it.count %>people liked it</p>
-            <p><%= recipe.users_saving_it.count %>people saved it</p>
-            <p><%= recipe.cooks.count %>people cooked it</p>
+            <p><span class="count-number"><%= recipe.users_liking_it.count %></span>people liked it</p>
+            <p><span class="count-number"><%= recipe.users_saving_it.count %></span>people saved it</p>
+            <p><span class="count-number"><%= recipe.cooks.count %></span>people cooked it</p>
             <p>created by:<%= recipe.creator.email %></p>
           </div>
         </li>
