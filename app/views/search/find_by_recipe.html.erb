@@ -1,0 +1,26 @@
+<!-- Begin recipe search result -->
+<div class="row">
+  <%= render 'common' %>
+  <div class="col-md-12">
+    <h2>Recipe Search Result</h2>
+  </div>
+
+  <hr class="medium" />
+  <% @recipes.each do |recipe| %>
+  <!-- result list -->
+  <div class="col-md-6">
+    <ul class="media-list">
+      <li class="media">
+        <a class="pull-left" href="#">
+          <img class="media-object" src = "<%= recipe.recipe_img.url(:square) %>">
+        </a>
+        <div class="media-body">
+          <h4 class="media-heading"><%= link_to recipe.title , recipe %></h4>
+          <p><%= recipe.users_liking_it.count %>people liked it</p>
+          <p><%= recipe.users_saving_it.count %>people saved it</p>
+          <p><%= recipe.cooks.count %>people cooked it</p>
+          <p>created by:<%= recipe.creator.email %></p>
+        </div>
+  </div>
+  <% end %>
+</div>

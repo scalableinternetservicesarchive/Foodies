@@ -23,4 +23,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+
+  def self.search(search)
+    search_condition = "%"+search+"%"
+    where("email LIKE ?  ",  search_condition)
+  end
+
 end

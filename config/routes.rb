@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
+  get 'search/index'
   resources :collections
   get 'homepage/show'
   get 'profile/index'
-
+  get 'search/find_by_recipe', to: 'search#find_by_recipe', as: :search_find_by_recipe
+  get 'search/find_by_masterpiece', to: 'search#find_by_masterpiece', as: :search_find_by_masterpiece
+  get 'search/find_by_ingredient', to: 'search#find_by_ingredient', as: :search_find_by_ingredient
+  get 'search/find_by_user', to: 'search#find_by_user', as: :search_find_by_user
   resources :masterpieces
   resources :recipes
   resources :profile

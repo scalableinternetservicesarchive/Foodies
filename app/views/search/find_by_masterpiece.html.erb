@@ -1,0 +1,24 @@
+<!-- Begin masterpiece search result -->
+<div class="row">
+  <%= render 'common' %>
+  <div class="col-md-12">
+    <h2>Masterpiece Search Result</h2>
+  </div>
+
+  <hr class="medium" />
+  <% @masterpieces.each do |masterpiece| %>
+  <!-- result list -->
+  <div class="col-md-6">
+    <ul class="media-list">
+      <li class="media">
+        <a class="pull-left" href="#">
+          <img class="media-object" src = "<%= masterpiece.masterpiece_img.url(:square) %>">
+        </a>
+        <div class="media-body">
+          <h4 class="media-heading"><%= link_to masterpiece.description , masterpiece %></h4>
+          <p><%= masterpiece.users_liking_it.count %>people liked it</p>
+          <p>created by:<%= masterpiece.cook.email %></p>
+        </div>
+      </div>
+      <% end %>
+</div>

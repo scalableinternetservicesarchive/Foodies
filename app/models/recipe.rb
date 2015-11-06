@@ -25,15 +25,9 @@ class Recipe < ActiveRecord::Base
   validates :creator, :title, presence: true
   validates_attachment_content_type :recipe_img, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
-  # def find_ingredient(ingredient)
-  #   if existing_ingredient = Ingredient.find_by_name(ingredient['name'])
-  #     unless self.ingredients.include?(existing_ingredient)
-  #       self.ingredients << existing_ingredient
-  #     end
-  #     return true
-  #   else
-  #     return false
-  #   end
-  # end
+  def self.search(search)
+     search_condition = "%"+search+"%"
+     where("title LIKE ? OR description LIKE ?  ",  search_condition, search_condition)
+  end
 
 end
