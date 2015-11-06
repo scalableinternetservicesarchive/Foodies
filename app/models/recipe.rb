@@ -13,9 +13,9 @@ class Recipe < ActiveRecord::Base
   has_many :collections, through: :collection_recipes, source: :collection
 
   has_attached_file :recipe_img, styles: {
-    thumb: '100x100>',
+    thumb: '100x100#',
     square: '200x200#',
-    medium: '300x300>',
+    medium: '300x300#',
     slide: '1120x400#'
   }, default_url: "/images/default/missing_:attachment_:style.jpg"
   acts_as_taggable_on :tags

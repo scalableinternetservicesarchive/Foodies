@@ -14,9 +14,8 @@ class User < ActiveRecord::Base
   has_many :saved_collections, through: :user_save_collections, source: :collection
   has_attached_file :avatar, styles: {
     tiny: '48x48#',
-    thumb: '100x100>',
-    square: '200x200#',
-    medium: '300x300>'
+    thumb: '100x100#',
+    square: '200x200#'
   }, default_url: "/images/default/missing_:attachment_:style.jpg"
 
   devise :database_authenticatable, :registerable,
