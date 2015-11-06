@@ -15,7 +15,8 @@
           <img class="media-object" src = "<%= user.avatar.url(:square) %>">
         </a>
         <div class="media-body">
-          <h4 class="media-heading"><%= user.email %></h4>
+          <h4 class="media-heading"><%= user.username %></h4>
+          <p><%= user.email %></p>
         </div>
   </div>
   <% end %>

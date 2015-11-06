@@ -2,24 +2,19 @@
 <div class="row">
   <div class="col-sm-12">
     <h3><%= @recipe.title %></h3>
-    <h4>Tags: <h4>
-      <% @recipe.tags.each  do |tag| %>
-        <%= link_to tag.name, tagged_path(:tag => tag.name), class: "btn btn-custom light-gray" %>
-      <% end %>
+    <p>Tags:
+    <% @recipe.tags.each  do |tag| %>
+      <%= link_to tag.name, tagged_path(:tag => tag.name), class: "btn btn-custom light-gray" %>
+    <% end %>
+    </p>
   </div>
 </div>
 <div class="row">
   <%= image_tag @recipe.recipe_img.url, class: "col-md-8 img-responsive"%>
 
   <div class="col-md-4">
-    <p>
-      <%= image_tag @recipe.creator.avatar.url(:square)%>
-      <%= @recipe.creator.email %>
-    </p>
-
-    <p><span class="count-number"><%= @recipe.users_liking_it.count %></span> people liked it</p>
-    <p><span class="count-number"><%= @recipe.users_saving_it.count %></span> people bookmarked it</p>
-    <p><span class="count-number"><%= @recipe.cooks.count %></span> people cooked it</p>
+    <p><%= image_tag @recipe.creator.avatar.url(:thumb)%></p>
+    <p>Created by: <%= @recipe.creator.username %></p>
 
     <% if user_signed_in? %>
       <% if @recipe.users_liking_it.include?(current_user) %>
@@ -48,6 +43,21 @@
           <span class="glyphicon glyphicon-bookmark"></span> bookmark
         <% end %>
     <% end %>
+
+    <p><span class="count-number"><%= @recipe.users_liking_it.count %></span> people liked it</p>
+    <p>
+      <% @recipe.users_liking_it.each do |user| %>
+        <%= image_tag user.avatar.url(:tiny)%>
+      <% end %>
+    </p>
+    <p><span class="count-number"><%= @recipe.users_saving_it.count %></span> people bookmarked it</p>
+    <p>
+      <% @recipe.users_saving_it.each do |user| %>
+        <%= image_tag user.avatar.url(:tiny)%>
+      <% end %>
+    </p>
+    <p><span class="count-number"><%= @recipe.cooks.count %></span> people cooked it</p>
+
   </div>
 </div>
 

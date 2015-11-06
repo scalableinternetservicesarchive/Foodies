@@ -4,11 +4,8 @@
 <%= image_tag @masterpiece.masterpiece_img.url, class: "img-responsive"%>
 
 <p>
+  Cooked by: <%= @masterpiece.cook.username %> <br>
   <%= image_tag @masterpiece.cook.avatar.url(:thumb)%>
-  <%= @masterpiece.cook.email %>
-</p>
-<p>
-  <span class="count-number"><%= @masterpiece.users_liking_it.count %></span> people liked it
 </p>
 
 <% if user_signed_in? %>
@@ -26,6 +23,15 @@
       <span class="glyphicon glyphicon-heart"></span> like
     <% end %>
 <% end %>
+
+<p>
+  <span class="count-number"><%= @masterpiece.users_liking_it.count %></span> people liked it
+</p>
+<p>
+  <% @masterpiece.users_liking_it.each do |user| %>
+    <%= image_tag user.avatar.url(:tiny)%>
+  <% end %>
+</p>
 
 <h3>Description:</h3>
 <p>

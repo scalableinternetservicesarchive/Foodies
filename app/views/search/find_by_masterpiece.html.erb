@@ -19,7 +19,7 @@
             <h4 class="media-heading"><%= link_to masterpiece.recipe.title , masterpiece %></h4>
             <p><%= masterpiece.description %></p>
             <p><span class="count-number"><%= masterpiece.users_liking_it.count %></span> people liked it</p>
-            <p>created by:<%= masterpiece.cook.email %></p>
+            <p>created by: <%= masterpiece.cook.username %></p>
           </div>
         </li>
       </ul>
