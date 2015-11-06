@@ -1,0 +1,25 @@
+<ul id="blog" class="list-unstyled">
+  <div class="row">
+    <h3 class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-4">Recipes with tag <%= @tag%></h3>
+  </div>
+  <li class="row">
+    <% @recipes.each do |recipe| %>
+    <div class="col-md-6">
+      <ul class="media-list">
+        <li class="media">
+          <a class="pull-left" href="#">
+            <img class="media-object" src = "<%= recipe.recipe_img.url(:square) %>">
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading"><%= link_to recipe.title , recipe %></h4>
+            <p><%= recipe.users_liking_it.count %>people liked it</p>
+            <p><%= recipe.users_saving_it.count %>people saved it</p>
+            <p><%= recipe.cooks.count %>people cooked it</p>
+            <p>created by:<%= recipe.creator.email %></p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <% end %>
+  </li>
+</ul>

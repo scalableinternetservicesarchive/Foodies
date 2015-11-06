@@ -36,8 +36,10 @@ recipe1 = Recipe.create(
   description: 'bla',
   cook_time: 30,
   user_save_count: 1,
-  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/coke-chicken-wing/recipe.jpg")
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/coke-chicken-wing/recipe.jpg"),
+  tag_list:  "chicken"
 )
+
 
 recipe2 = Recipe.create(
   user_id: user2.id,
@@ -45,7 +47,8 @@ recipe2 = Recipe.create(
   description: 'blabla',
   cook_time: 20,
   user_save_count: 1,
-  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/potato-salad/recipe.jpg")
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/potato-salad/recipe.jpg"),
+  tag_list:  "potato, salad"
 )
 
 recipe3 = Recipe.create(
@@ -54,7 +57,8 @@ recipe3 = Recipe.create(
   description: 'blabla',
   cook_time: 60,
   user_save_count: 0,
-  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/recipe.jpg")
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/cherry-blossom-mousse/recipe.jpg"),
+  tag_list:  "dessert"
 )
 
 recipe4 = Recipe.create(
@@ -63,7 +67,8 @@ recipe4 = Recipe.create(
   description: 'blabla',
   cook_time: 30,
   user_save_count: 0,
-  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/grape-fruit-jam/recipe.jpg")
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/grape-fruit-jam/recipe.jpg"),
+  tag_list:  "dessert"
 )
 
 recipe5 = Recipe.create(
@@ -81,7 +86,8 @@ recipe6 = Recipe.create(
   description: 'blabla',
   cook_time: 30,
   user_save_count: 0,
-  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/sweet-grape-fruit-peel/recipe.jpg")
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/sweet-grape-fruit-peel/recipe.jpg"),
+  tag_list:  "dessert"
 )
 
 recipe7 = Recipe.create(
@@ -90,7 +96,8 @@ recipe7 = Recipe.create(
   description: 'blabla',
   cook_time: 30,
   user_save_count: 0,
-  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/grape-fruit-totoro/recipe.jpg")
+  recipe_img: URI.parse("https://dl.dropboxusercontent.com/u/84778126/foodies/seed-images/grape-fruit-totoro/recipe.jpg"),
+  tag_list:  "dessert"
 )
 
 recipe8 = Recipe.create(
