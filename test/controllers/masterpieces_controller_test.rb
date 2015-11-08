@@ -47,6 +47,6 @@ class MasterpiecesControllerTest < ActionController::TestCase
       delete :destroy, id: @masterpiece
     end
 
-    assert_redirected_to masterpieces_path
+    assert_redirected_to root_path
   end
 end
