@@ -4,9 +4,9 @@ class Recipe < ActiveRecord::Base
   has_many :steps, dependent: :destroy
   has_many :masterpieces, dependent: :destroy
   has_many :cooks, through: :masterpieces, source: :cook
-  has_many :user_like_recipes
+  has_many :user_like_recipes, dependent: :destroy
   has_many :users_liking_it, through: :user_like_recipes, source: :user
-  has_many :user_save_recipes
+  has_many :user_save_recipes, dependent: :destroy
   has_many :users_saving_it, through: :user_save_recipes, source: :user
 
   has_many :collection_recipes
