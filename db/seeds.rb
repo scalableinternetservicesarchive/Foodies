@@ -138,9 +138,6 @@ def user_like_recipe(user_id, recipe_id)
     user_id: user_id,
     recipe_id: recipe_id
   )
-  # recipe = Recipe.find(recipe_id)
-  # recipe.user_like_count += 1
-  # recipe.save!
 end
 
 def user_bookmark_recipe(user_id, recipe_id)
@@ -148,9 +145,6 @@ def user_bookmark_recipe(user_id, recipe_id)
     user_id: user_id,
     recipe_id: recipe_id
   )
-  recipe = Recipe.find(recipe_id)
-  recipe.user_save_count += 1
-  recipe.save!
 end
 
 def user_like_masterpiece(user_id, masterpiece_id)
@@ -158,9 +152,6 @@ def user_like_masterpiece(user_id, masterpiece_id)
     user_id: user_id,
     masterpiece_id: masterpiece_id
   )
-  # masterpiece = Masterpiece_id.find(masterpiece_id)
-  # masterpiece.user_like_count += 1
-  # masterpiece.save!
 end
 
 ######################################
