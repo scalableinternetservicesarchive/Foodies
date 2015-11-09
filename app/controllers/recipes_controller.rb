@@ -109,7 +109,6 @@ def unlike
       notice = "You've saved it before."
     else
       @recipe.users_saving_it << [current_user]
-      @recipe.user_save_count += 1
       @recipe.save
     end
     respond_to do |format|
@@ -124,7 +123,6 @@ def unlike
     notice = ""
     if @recipe.users_saving_it.include?(current_user)
       @recipe.users_saving_it.destroy(current_user)
-      @recipe.user_save_count -= 1
       @recipe.save
       notice = "You've saved it before."
     else
