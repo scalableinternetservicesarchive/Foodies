@@ -62,7 +62,7 @@ class MasterpiecesController < ApplicationController
   def destroy
     @masterpiece.destroy
     respond_to do |format|
-      format.html { redirect_to masterpieces_url, notice: 'Masterpiece was successfully destroyed.' }
+      format.html { redirect_to root_url, notice: 'Masterpiece was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

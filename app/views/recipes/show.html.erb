@@ -128,11 +128,15 @@
 
 
 <% if current_user != nil %>
-  <%= link_to "Upload new masterpiece", {controller: 'masterpieces', action: 'new', masterpiece: {recipe_id: @recipe.id}},:class => "btn btn-default"%>
+  <%= link_to "Upload new masterpiece", {controller: 'masterpieces', action: 'new', masterpiece: {recipe_id: @recipe.id}}, class: "btn btn-default"%>
 <% end %>
 
 <% if current_user == @recipe.creator%>
-  <%= link_to 'Edit', edit_recipe_path(@recipe), :class => "btn btn-default" %>
+  <%= link_to 'Edit', edit_recipe_path(@recipe), class: "btn btn-default" %>
+<% end %>
+
+<% if current_user == @recipe.creator%>
+  <%= link_to 'Delete this recipe', @recipe, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default" %>
 <% end %>
 
 <!-- <%= params.inspect %> -->

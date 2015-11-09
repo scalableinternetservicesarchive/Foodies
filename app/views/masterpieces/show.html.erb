@@ -45,5 +45,9 @@
 </p>
 
 <% if current_user == @masterpiece.cook%>
-  <%= link_to 'Edit', edit_masterpiece_path(@masterpiece), :class => "btn btn-default" %>
+  <%= link_to 'Edit', edit_masterpiece_path(@masterpiece), class: "btn btn-default" %>
+<% end %>
+
+<% if current_user == @masterpiece.cook%>
+  <%= link_to 'Destroy', @masterpiece, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default"%>
 <% end %>
