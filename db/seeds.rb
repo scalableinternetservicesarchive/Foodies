@@ -141,7 +141,7 @@ def user_like_recipe(user_id, recipe_id)
 end
 
 def user_bookmark_recipe(user_id, recipe_id)
-  UserSaveRecipe.create(
+  UserBookmarkRecipe.create(
     user_id: user_id,
     recipe_id: recipe_id
   )

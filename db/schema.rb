@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20151104070910) do
 
   create_table "collections", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "name"
+    t.string   "name",        null: false
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20151104070910) do
     t.string   "title",                               null: false
     t.text     "description"
     t.integer  "cook_time"
-    t.integer  "user_save_count",         default: 0, null: false
+    t.integer  "user_bookmark_count",     default: 0, null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "recipe_img_file_name"
@@ -73,8 +73,8 @@ ActiveRecord::Schema.define(version: 20151104070910) do
     t.datetime "recipe_img_updated_at"
   end
 
+  add_index "recipes", ["user_bookmark_count"], name: "index_recipes_on_user_bookmark_count"
   add_index "recipes", ["user_id"], name: "index_recipes_on_user_id"
-  add_index "recipes", ["user_save_count"], name: "index_recipes_on_user_save_count"
 
   create_table "steps", force: :cascade do |t|
     t.integer  "recipe_id",             null: false
@@ -110,6 +110,26 @@ ActiveRecord::Schema.define(version: 20151104070910) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true
 
+  create_table "user_bookmark_collections", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "collection_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "user_bookmark_collections", ["collection_id"], name: "index_user_bookmark_collections_on_collection_id"
+  add_index "user_bookmark_collections", ["user_id"], name: "index_user_bookmark_collections_on_user_id"
+
+  create_table "user_bookmark_recipes", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "recipe_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_bookmark_recipes", ["recipe_id"], name: "index_user_bookmark_recipes_on_recipe_id"
+  add_index "user_bookmark_recipes", ["user_id"], name: "index_user_bookmark_recipes_on_user_id"
+
   create_table "user_like_masterpieces", force: :cascade do |t|
     t.integer  "user_id",        null: false
     t.integer  "masterpiece_id", null: false
@@ -129,26 +149,6 @@ ActiveRecord::Schema.define(version: 20151104070910) do
 
   add_index "user_like_recipes", ["recipe_id"], name: "index_user_like_recipes_on_recipe_id"
   add_index "user_like_recipes", ["user_id"], name: "index_user_like_recipes_on_user_id"
-
-  create_table "user_save_collections", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "collection_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "user_save_collections", ["collection_id"], name: "index_user_save_collections_on_collection_id"
-  add_index "user_save_collections", ["user_id"], name: "index_user_save_collections_on_user_id"
-
-  create_table "user_save_recipes", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "recipe_id",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "user_save_recipes", ["recipe_id"], name: "index_user_save_recipes_on_recipe_id"
-  add_index "user_save_recipes", ["user_id"], name: "index_user_save_recipes_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "username",               default: "", null: false

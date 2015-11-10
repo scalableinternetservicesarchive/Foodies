@@ -78,14 +78,14 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.paperclip_defaults = {
-    :storage => :fog,
-    :fog_credentials => {
-      :use_iam_profile => true,
-      :provider => 'AWS',
-      :region => 'us-west-2'
+    storage: :fog,
+    fog_credentials: {
+      use_iam_profile: true,
+      provider: 'AWS',
+      region: 'us-west-2'
     },
-    :fog_directory => 'scalableinternetservices',
-    :path => 'Foodies/images/:class/:attachment/:id/:style/:filename',
-    :url => '/images/:class/:attachment/:id/:style/:filename'
+    fog_directory: 'scalableinternetservices',
+    path: 'Foodies/images/:class/:attachment/:id/:style/:filename',
+    url: '/images/:class/:attachment/:id/:style/:filename'
   }
 end

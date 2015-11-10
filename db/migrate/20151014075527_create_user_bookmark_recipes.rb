@@ -1,6 +1,6 @@
-class CreateUserSaveRecipes < ActiveRecord::Migration
+class CreateUserBookmarkRecipes < ActiveRecord::Migration
   def change
-    create_table :user_save_recipes do |t|
+    create_table :user_bookmark_recipes do |t|
       t.references :user, index: true, foreign_key: true, null: false
       t.references :recipe, index: true, foreign_key: true, null: false
 

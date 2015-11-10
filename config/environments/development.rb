@@ -44,18 +44,18 @@ Rails.application.configure do
 
   # # Use S3 for paperclip
   # config.paperclip_defaults = {
-  #    :storage => :s3,
-  #    :s3_credentials => {
-  #      :bucket => 'scalableinternetservices/Foodies/',
+  #    storage: :s3,
+  #    s3_credentials: {
+  #      bucket: 'scalableinternetservices/Foodies/',
   #    },
-  #    :s3_host_name => 's3-us-west-2.amazonaws.com',
-  #    :path => 'images/:class/:attachment/:id/:style/:filename',
-  #    :url => 'images/:class/:attachment/:id/:style/:filename'
+  #    s3_host_name: 's3-us-west-2.amazonaws.com',
+  #    path: 'images/:class/:attachment/:id/:style/:filename',
+  #    url: 'images/:class/:attachment/:id/:style/:filename'
   #  }
 
   # Use local file system for paperclip
   config.paperclip_defaults = {
-    :path => ":rails_root/public/images/:class/:attachment/:id/:style/:filename",
-    :url => "/images/:class/:attachment/:id/:style/:filename"
+    path: ":rails_root/public/images/:class/:attachment/:id/:style/:filename",
+    url: "/images/:class/:attachment/:id/:style/:filename"
   }
 end

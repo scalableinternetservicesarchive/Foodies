@@ -17,7 +17,7 @@
         <div class="media-body">
           <h4 class="media-heading"><%= link_to recipe.title , recipe %></h4>
           <p><span class="count-number"><%= recipe.users_liking_it.count %></span> people liked it</p>
-          <p><span class="count-number"><%= recipe.users_saving_it.count %></span> people saved it</p>
+          <p><span class="count-number"><%= recipe.users_bookmarking_it.count %></span> people bookmarked it</p>
           <p><span class="count-number"><%= recipe.cooks.count %></span> people cooked it</p>
           <p>created by: <%= recipe.creator.username %></p>
         </div>

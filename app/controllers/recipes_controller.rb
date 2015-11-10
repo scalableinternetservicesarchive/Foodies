@@ -102,13 +102,13 @@ def unlike
     end
   end
 
-  def bookmark  # saved
+  def bookmark
     click_page = params[:click_page]
     notice = ""
-    if @recipe.users_saving_it.include?(current_user)
-      notice = "You've saved it before."
+    if @recipe.users_bookmarking_it.include?(current_user)
+      notice = "You've bookmarked it before."
     else
-      @recipe.users_saving_it << [current_user]
+      @recipe.users_bookmarking_it << [current_user]
       @recipe.save
     end
     respond_to do |format|
@@ -118,15 +118,15 @@ def unlike
     end
   end
 
-   def unbookmark  # saved
+   def unbookmark
     click_page = params[:click_page]
     notice = ""
-    if @recipe.users_saving_it.include?(current_user)
-      @recipe.users_saving_it.destroy(current_user)
+    if @recipe.users_bookmarking_it.include?(current_user)
+      @recipe.users_bookmarking_it.destroy(current_user)
       @recipe.save
-      notice = "You've saved it before."
+      notice = "You've bookmarked it before."
     else
-      notice = "You haven't saved it yet."
+      notice = "You haven't bookmarked it yet."
     end
     respond_to do |format|
       if click_page == 'recipe_show'
