@@ -18,12 +18,12 @@
   </li>
 </ul>
 
-<!-- Show top saved recipes in pagination-->
+<!-- Show top bookmarked recipes in pagination-->
 <div class="row">
   <div class="col-sm-12">
-    <h4 class="page-header">Most saved recipes</h4>
+    <h4 class="page-header">Most bookmarked recipes</h4>
   </div>
-  <% @top_saved_recipes.each do |recipe|%>
+  <% @top_bookmarked_recipes.each do |recipe|%>
   <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
     <div class="work-item">
       <%= image_tag(recipe.recipe_img.url(:square))%>

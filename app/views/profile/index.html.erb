@@ -9,7 +9,7 @@
 <div>
   <ul class="nav nav-tabs">
     <li class="active"><a href="#tab1" data-toggle="tab">created_recipes</a></li>
-    <li><a href="#tab2" data-toggle="tab">saved_recipes</a></li>
+    <li><a href="#tab2" data-toggle="tab">bookmarked_recipes</a></li>
     <li><a href="#tab3" data-toggle="tab">liked_recipes</a></li>
     <li><a href="#tab4" data-toggle="tab">cooked_masterpieces</a></li>
     <li><a href="#tab5" data-toggle="tab">liked_masterpieces</a></li>
@@ -34,7 +34,7 @@
 
     <div class="tab-pane fade" id="tab2">
       <ul class="media-list">
-        <% @saved_recipes.each do |recipe| %>
+        <% @bookmarked_recipes.each do |recipe| %>
           <li class="media">
             <a class="pull-left">
               <img class="media-object" src=<%= recipe.recipe_img.url(:thumb) %>>

@@ -19,7 +19,7 @@
     <% end %>
   <% end %>
 <% else %>
-    <%= button_to masterpiece_like_path(@masterpiece), class: "btn btn-default", :disabled => true, params: {click_page: 'masterpiece_show'} do %>
+    <%= button_to masterpiece_like_path(@masterpiece), class: "btn btn-default", disabled: true, params: {click_page: 'masterpiece_show'} do %>
       <span class="glyphicon glyphicon-heart"></span> like
     <% end %>
 <% end %>

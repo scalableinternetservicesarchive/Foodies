@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserSaveRecipeTest < ActiveSupport::TestCase
+class UserBookmarkRecipeTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -9,7 +9,7 @@ class Masterpiece < ActiveRecord::Base
     medium: '300x300#'
   }, default_url: "/images/default/missing_:attachment_:style.jpg"
   validates :recipe, :cook, presence: true
-  validates_attachment_content_type :masterpiece_img, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+  validates_attachment_content_type :masterpiece_img, content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
   def self.search(search)
     search_condition = "%"+search+"%"

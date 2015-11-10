@@ -5,7 +5,7 @@ class CreateRecipes < ActiveRecord::Migration
       t.string :title, null: false
       t.text :description
       t.integer :cook_time
-      t.integer :user_save_count, index: true, default: 0, null: false
+      t.integer :user_bookmark_count, index: true, default: 0, null: false
       t.timestamps null: false
     end
   end
