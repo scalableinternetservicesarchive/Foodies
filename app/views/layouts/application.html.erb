@@ -52,8 +52,11 @@
                   <li><a href="/users/sign_up"><span class="glyphicon glyphicon-user"></span> SignUp</a></li>
                   <li><a href="/users/sign_in"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 <% else %>
-                  <li><a href="/profile"><span class="glyphicon glyphicon-th"></span> <b><%= current_user.email %></b></a></li>
-                  <li><%= link_to destroy_user_session_path, method: :delete do %><span class="glyphicon glyphicon-log-out"></span> LogOut <% end %></li>
+                      <li><%= link_to profile_path(current_user) do %>
+                        <span class="glyphicon glyphicon-th"></span> <b><%= current_user.email %></b>
+                        <% end %>
+                      </li>
+                      <li><%= link_to destroy_user_session_path, :method => :delete do %><span class="glyphicon glyphicon-log-out"></span> LogOut <% end %></li>
                 <% end %>
               </ul>
             </li>

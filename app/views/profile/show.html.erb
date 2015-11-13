@@ -1,0 +1,61 @@
+<div class="jumbotron">
+  <h2 class="text-left"><%= @user.username %></h2>
+  <p><%= image_tag @user.avatar.url(:square) %></p>
+  <p><a href="#" class="btn btn-info">Facebook</a>  <a href="#" class="btn btn-info">Twitter</a></p>
+  <%= link_to 'Edit', edit_user_registration_path if current_user.id == @user.id%>
+  <p>Location: </p>
+  <p>About me: </p>
+</div>
+
+<div>
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">created_recipes</a></li>
+    <li><a href="#tab2" data-toggle="tab">bookmarked_recipes</a></li>
+    <li><a href="#tab3" data-toggle="tab">liked_recipes</a></li>
+    <li><a href="#tab4" data-toggle="tab">cooked_masterpieces</a></li>
+    <li><a href="#tab5" data-toggle="tab">liked_masterpieces</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="tab1">
+      <% @created_recipes.each do |recipe| %>
+        <p>
+          <%= recipe.title %>
+        </p>
+      <% end %>
+    </div>
+
+    <div class="tab-pane fade" id="tab2">
+      <% @bookmarked_recipes.each do |recipe| %>
+        <p>
+          <%= recipe.title %>
+        </p>
+      <% end %>
+    </div>
+
+    <div class="tab-pane fade" id="tab3">
+      <% @liked_recipes.each do |recipe| %>
+        <p>
+          <%= recipe.title %>
+        </p>
+      <% end %>
+    </div>
+
+        <div class="tab-pane fade" id="tab4">
+          <% @cooked_masterpieces.each do |masterpiece| %>
+            <p>
+              <%= masterpiece.description %>
+            </p>
+          <% end %>
+        </div>
+
+    <div class="tab-pane fade" id="tab5">
+      <% @liked_masterpieces.each do |masterpiece| %>
+        <p>
+          <%= masterpiece.description %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<br>

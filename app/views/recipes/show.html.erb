@@ -13,8 +13,16 @@
   <%= image_tag @recipe.recipe_img.url, class: "col-md-8 img-responsive"%>
 
   <div class="col-md-4">
-    <p><%= image_tag @recipe.creator.avatar.url(:thumb)%></p>
-    <p>Created by: <%= @recipe.creator.username %></p>
+    <p>
+      <%= image_tag @recipe.creator.avatar.url(:square)%>
+      <%= link_to profile_path(@recipe.creator) do%>
+        <span class="glyphicon glyphicon-th"><b><%= @recipe.creator.email %></b> </span>
+      <% end %>
+    </p>
+
+    <p><span class="count-number"><%= @recipe.users_liking_it.count %></span> people liked it</p>
+    <p><span class="count-number"><%= @recipe.users_bookmarking_it.count %></span> people bookmarked it</p>
+    <p><span class="count-number"><%= @recipe.cooks.count %></span> people cooked it</p>
 
     <% if user_signed_in? %>
       <% if @recipe.users_liking_it.include?(current_user) %>
