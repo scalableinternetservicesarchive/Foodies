@@ -1,9 +1,9 @@
 <div class="jumbotron">
-  <h2 class="text-left"><%= current_user.username %></h2>
-  <p><%= image_tag current_user.avatar.url(:square) %></p>
-  <p><a href="#" class="btn btn-info">Facebook</a>  <a href="#" class="btn btn-info">Twitter</a></p>
-  <p>Location: </p>
-  <p>About me: </p>
+  <h2 class="text-left"><%= @user.username %></h2>
+  <p><%= image_tag @user.avatar.url(:square) %></p>
+  <% if current_user == @user %>
+  <%= link_to 'Edit', edit_user_registration_path, class: "btn btn-default"%>
+  <% end %>
 </div>
 
 <div>
