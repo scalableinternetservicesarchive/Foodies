@@ -8,7 +8,7 @@
 # allow_image_upload = false && total_num_of_users = 500       -- 5 min
 
 
-allow_randomness = true
+allow_randomness = false
 allow_image_upload = false
 
 total_num_of_users = 500
