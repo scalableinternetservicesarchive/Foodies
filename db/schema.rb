@@ -76,13 +76,13 @@ ActiveRecord::Schema.define(version: 20151117013349) do
   add_index "recipes", ["user_bookmark_count"], name: "index_recipes_on_user_bookmark_count"
   add_index "recipes", ["user_id"], name: "index_recipes_on_user_id"
 
-  create_table "seed_mutexes", force: :cascade do |t|
-    t.boolean  "acquired"
+  create_table "seed_statuses", force: :cascade do |t|
+    t.boolean  "status",     null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "seed_mutexes", ["acquired"], name: "index_seed_mutexes_on_acquired", unique: true
+  add_index "seed_statuses", ["status"], name: "index_seed_statuses_on_status", unique: true
 
   create_table "steps", force: :cascade do |t|
     t.integer  "recipe_id",             null: false
