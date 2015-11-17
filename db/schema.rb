@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151104070910) do
+ActiveRecord::Schema.define(version: 20151117013349) do
 
   create_table "collection_recipes", force: :cascade do |t|
     t.integer  "recipe_id"
@@ -75,6 +75,14 @@ ActiveRecord::Schema.define(version: 20151104070910) do
 
   add_index "recipes", ["user_bookmark_count"], name: "index_recipes_on_user_bookmark_count"
   add_index "recipes", ["user_id"], name: "index_recipes_on_user_id"
+
+  create_table "seed_mutexes", force: :cascade do |t|
+    t.boolean  "acquired"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "seed_mutexes", ["acquired"], name: "index_seed_mutexes_on_acquired", unique: true
 
   create_table "steps", force: :cascade do |t|
     t.integer  "recipe_id",             null: false

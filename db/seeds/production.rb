@@ -8,6 +8,14 @@
 # allow_image_upload = false && total_num_of_users = 500       -- 5 min
 
 
+begin
+  mutex = SeedMutex.create(acquired: true)
+rescue ActiveRecord::RecordNotUnique
+  mutex = nil
+end
+
+if mutex
+
 allow_randomness = false
 allow_image_upload = false
 
@@ -205,3 +213,4 @@ p '===='
 p 'Total number of recipes: ' + total_num_of_recipes.to_s
 p 'Total number of masterpieces: ' + total_num_of_masterpieces.to_s
 
+end
