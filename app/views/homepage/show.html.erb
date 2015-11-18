@@ -1,3 +1,4 @@
+
 <!-- Show recommended recipe and menu -->
 <ul id="blog" class="list-unstyled">
   <li class="row">
@@ -29,8 +30,8 @@
       <%= image_tag(recipe.recipe_img.url(:square))%>
       <div class="item-info">
         <div>
-          <h4><%= recipe.title %></h4>
-          <p><%= recipe.description[0...199] %></p>
+          <h4><%= recipe.title.truncate(40, separator: ' ') %></h4>
+          <p><%= recipe.description.truncate(80, separator: ' ') %></p>
           <ul class="item-options">
             <li><a class="enlarge" data-toggle="modal" href=<%= "#modal#{recipe.id}" %>></a></li>
             <li><a class="view slower" href=<%= recipe_path(recipe) %>></a></li>
