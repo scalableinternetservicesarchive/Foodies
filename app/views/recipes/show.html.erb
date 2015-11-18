@@ -4,7 +4,7 @@
     <h3><%= @recipe.title %></h3>
     <p>Tags:
     <% @recipe.tags.each do |tag| %>
-      <%= link_to tag.name, search_find_by_tag_path(search: tag.name), class: "btn btn-custom light-gray" %>
+      <span class="tag-link"><%= link_to tag.name, search_find_by_tag_path(search: tag.name), class: "btn btn-custom light-gray" %></span>
     <% end %>
     </p>
   </div>
@@ -13,13 +13,8 @@
   <%= image_tag @recipe.recipe_img.url, class: "col-md-8 img-responsive"%>
 
   <div class="col-md-4">
-    <p>
-      <%= image_tag @recipe.creator.avatar.url(:thumb)%>
-      <%= link_to profile_path(@recipe.creator) do%>
-        <span class="glyphicon glyphicon-th"><b><%= @recipe.creator.email %></b> </span>
-      <% end %>
-    </p>
-
+    <p><%= image_tag @recipe.creator.avatar.url(:thumb)%></p>
+    <p>Created by: <span class="user-link"><%= link_to @recipe.creator.username, profile_path(@recipe.creator) %></span></p>
     <% if user_signed_in? %>
       <% if @recipe.users_liking_it.include?(current_user) %>
         <%= button_to recipe_unlike_path(@recipe), class: "btn btn-danger", params: {click_page: 'recipe_show'} do %>

@@ -1,10 +1,12 @@
-<h4 class="media-heading"><span class="recipe-link"><%= link_to recipe.title, recipe %></span></h4>
-<span class="glyphicon glyphicon-heart"></span><%= recipe.users_liking_it.count %>
-<span class="glyphicon glyphicon-bookmark"></span><%= recipe.users_bookmarking_it.count %>
-<span class="glyphicon glyphicon-cutlery"></span><%= recipe.cooks.count %>
-<p>
+<h4 class="media-heading"><span class="recipe-link"><%= link_to recipe.title.truncate(40, separator: ' '), recipe %></span></h4>
+<div><%= recipe.description.truncate(80, separator: ' ') %></div>
+<span class="glyphicon glyphicon-heart"></span> <b><%= recipe.users_liking_it.count %></b> |
+<span class="glyphicon glyphicon-bookmark"></span> <b><%= recipe.users_bookmarking_it.count %></b> |
+<span class="glyphicon glyphicon-cutlery"></span> <b><%= recipe.cooks.count %></b>
+<div>
 <% recipe.tags.each do |tag| %>
-<%= link_to tag.name, search_find_by_tag_path(search: tag.name), class: "btn btn-custom light-gray" %>
+<span class="tag-link"><%= link_to tag.name, search_find_by_tag_path(search: tag.name), class: "btn btn-custom light-gray" %></span>
 <% end %>
-</p>
-<h4>created by: <%= recipe.creator.username %></h4>
+</div>
+
+<div>created by: <span class="user-link"><%= link_to recipe.creator.username, profile_path(recipe.creator) %></span></div>

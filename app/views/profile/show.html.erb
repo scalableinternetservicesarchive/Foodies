@@ -1,6 +1,8 @@
 <div class="jumbotron">
   <h2 class="text-left"><%= @user.username %></h2>
   <p><%= image_tag @user.avatar.url(:square) %></p>
+  <p>Email: <%= @user.email %></p>
+  <p>Joined since <%= @user.created_at.strftime("%b %d, %Y") %></p>
   <% if current_user == @user %>
   <%= link_to 'Edit', edit_user_registration_path, class: "btn btn-default"%>
   <% end %>
@@ -8,11 +10,11 @@
 
 <div>
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#tab1" data-toggle="tab">created_recipes</a></li>
-    <li><a href="#tab2" data-toggle="tab">bookmarked_recipes</a></li>
-    <li><a href="#tab3" data-toggle="tab">liked_recipes</a></li>
-    <li><a href="#tab4" data-toggle="tab">cooked_masterpieces</a></li>
-    <li><a href="#tab5" data-toggle="tab">liked_masterpieces</a></li>
+    <li class="active"><a href="#tab1" data-toggle="tab"><b><%= @created_recipes.count %></b> created recipes</a></li>
+    <li><a href="#tab2" data-toggle="tab"><b><%= @bookmarked_recipes.count %></b> bookmarked recipes</a></li>
+    <li><a href="#tab3" data-toggle="tab"><b><%= @liked_recipes.count %></b> liked recipes</a></li>
+    <li><a href="#tab4" data-toggle="tab"><b><%= @cooked_masterpieces.count %></b> cooked masterpieces</a></li>
+    <li><a href="#tab5" data-toggle="tab"><b><%= @liked_masterpieces.count %></b> liked masterpieces</a></li>
   </ul>
 
   <div class="tab-content">

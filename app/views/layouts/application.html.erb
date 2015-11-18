@@ -33,8 +33,7 @@
         <div class="collapse navbar-collapse" id="custom-nav">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/">Home</a></li>
-            <li><a href="/recipes">Recipes</a></li>
-            <li><a href="/masterpieces">Masterpieces</a></li>
+            <li><a href="/search">Search</a></li>
             <% if user_signed_in? %>
             <li>
               <%= link_to  new_recipe_path do %>
@@ -57,7 +56,7 @@
                 <% else %>
                 <li>
                   <%= link_to profile_path(current_user) do %>
-                  <span class="glyphicon glyphicon-th"></span> <b><%= current_user.email %></b><% end %>
+                  <span class="glyphicon glyphicon-th"></span> <b><%= current_user.username %></b><% end %>
                 </li>
                 <li>
                   <%= link_to destroy_user_session_path, method: :delete do %>
