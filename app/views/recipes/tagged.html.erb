@@ -8,10 +8,10 @@
       <ul class="media-list">
         <li class="media">
           <a class="pull-left" href="#">
-            <img class="media-object" src = "<%= recipe.recipe_img.url(:square) %>">
+            <img class="media-object" src="<%= recipe.recipe_img.url(:square) %>">
           </a>
           <div class="media-body">
-            <h4 class="media-heading"><%= link_to recipe.title , recipe %></h4>
+            <h4 class="media-heading"><span class="recipe-link"><%= link_to recipe.title, recipe %></span></h4>
             <p><span class="count-number"><%= recipe.users_liking_it.count %></span>people liked it</p>
             <p><span class="count-number"><%= recipe.users_bookmarking_it.count %></span>people bookmarked it</p>
             <p><span class="count-number"><%= recipe.cooks.count %></span>people cooked it</p>

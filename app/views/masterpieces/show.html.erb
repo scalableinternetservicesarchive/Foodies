@@ -41,7 +41,7 @@
 <h3>Parent Recipe:</h3>
 <p>
   <%= image_tag @masterpiece.recipe.recipe_img.url(:thumb)%>
-  <%= link_to @masterpiece.recipe.title , @masterpiece.recipe %>
+  <span class="recipe-link"><%= link_to @masterpiece.recipe.title , @masterpiece.recipe %></span>
 </p>
 
 <% if current_user == @masterpiece.cook%>
