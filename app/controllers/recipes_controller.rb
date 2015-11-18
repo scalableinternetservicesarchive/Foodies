@@ -135,15 +135,6 @@ def unlike
     end
   end
 
-  def tagged
-    if params[:tag].present?
-      @recipes = Recipe.tagged_with(params[:tag])
-      @tag = params[:tag]
-    else
-      @recipes = Recipe.all
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recipe
@@ -152,7 +143,7 @@ def unlike
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipe_params
-      params.require(:recipe).permit(:user_id, :title, :description, :cook_time, :recipe_img, :tag, :tag_list,
+      params.require(:recipe).permit(:user_id, :title, :description, :cook_time, :recipe_img, :tag_list,
                                       ingredients_attributes: [:id, :recipe_id, :name, :quantity, :_destroy],
                                       steps_attributes: [:id, :recipe_id, :step_number, :description, :step_img, :_destroy])
     end

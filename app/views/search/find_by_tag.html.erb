@@ -1,0 +1,8 @@
+<%= render partial: 'search_bar', locals: {type: 'tag'} %>
+<div clas="row">
+  <div class="col-md-12">
+    <h2>Recipe Search Result: tag <b>"<%= @keyword %>"</b></h2>
+  </div>
+  <hr class="medium" />
+</div>
+<%= render partial: 'search_result_table', locals: {items: @recipes, type: 'recipe'} %>

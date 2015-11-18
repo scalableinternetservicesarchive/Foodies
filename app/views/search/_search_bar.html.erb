@@ -2,22 +2,31 @@
   <div class="col-md-6">
     <ul class="nav nav-pills">
       <li <%= raw 'class="active"' if type == 'recipe' %>><a href="#pill1" data-toggle="tab">Recipe</a></li>
-      <li <%= raw 'class="active"' if type == 'user' %>><a href="#pill2" data-toggle="tab">User</a></li>
+      <li <%= raw 'class="active"' if type == 'tag' %>><a href="#pill2" data-toggle="tab">Tag</a></li>
+      <li <%= raw 'class="active"' if type == 'user' %>><a href="#pill3" data-toggle="tab">User</a></li>
     </ul>
 
     <div class="tab-content">
       <div class="tab-pane fade <%= 'in active' if  type == 'recipe' %>" id="pill1">
         <%= form_tag(search_find_by_recipe_path, method: "get", class: "navbar-form navbar-left") do %>
         <div class="form-group">
-          <%= text_field_tag :search, nil, class: "form-control", placeholder: "Search recipe" %>
+          <%= text_field_tag :search, nil, class: "form-control", placeholder: "Search recipe by name", style: "min-width: 200px"  %>
           <%= submit_tag "Search", class: 'form-control' %>
         </div>
         <% end %>
       </div>
-      <div class="tab-pane fade <%= 'in active' if  type == 'user' %>" id="pill2">
+      <div class="tab-pane fade <%= 'in active' if  type == 'tag' %>" id="pill2">
+        <%= form_tag(search_find_by_tag_path, method: "get", class: "navbar-form navbar-left") do %>
+        <div class="form-group">
+          <%= text_field_tag :search, nil, class: "form-control", placeholder: "Search recipe by tag", style: "min-width: 200px"  %>
+          <%= submit_tag "Search", class: 'form-control' %>
+        </div>
+        <% end %>
+      </div>
+      <div class="tab-pane fade <%= 'in active' if  type == 'user' %>" id="pill3">
         <%= form_tag(search_find_by_user_path, method: "get", class: "navbar-form navbar-left") do %>
         <div class="form-group">
-          <%= text_field_tag :search, nil, class: "form-control", placeholder: "Search user" %>
+          <%= text_field_tag :search, nil, class: "form-control", placeholder: "Search user", style: "min-width: 200px"  %>
           <%= submit_tag "Search", class: 'form-control' %>
         </div>
         <% end %>

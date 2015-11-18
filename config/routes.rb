@@ -1,22 +1,20 @@
 Rails.application.routes.draw do
-  get 'search/index'
-  resources :collections
   get 'homepage/show'
   get 'profile/:id', to: 'profile#show', as: :profile
   get 'search', to: 'search#index'
   get 'search/find_by_recipe', to: 'search#find_by_recipe', as: :search_find_by_recipe
-  get 'search/find_by_ingredient', to: 'search#find_by_ingredient', as: :search_find_by_ingredient
+  get 'search/find_by_tag', to: 'search#find_by_tag', as: :search_find_by_tag
   get 'search/find_by_user', to: 'search#find_by_user', as: :search_find_by_user
-  get 'tags/:tag', to: 'recipes#tagged', as: :tagged
   resources :masterpieces
-  resources :recipes  
+  resources :recipes
+  resources :collections
   devise_for :users
   post '/recipes/:id/like', to: 'recipes#like', as: :recipe_like
   post '/recipes/:id/unlike', to: 'recipes#unlike', as: :recipe_unlike
-  post '/masterpieces/:id/like', to: 'masterpieces#like', as: :masterpiece_like
-  post '/masterpieces/:id/unlike', to: 'masterpieces#unlike', as: :masterpiece_unlike
   post '/recipes/:id/bookmark', to: 'recipes#bookmark', as: :recipe_bookmark
   post '/recipes/:id/unbookmark', to: 'recipes#unbookmark', as: :recipe_unbookmark
+  post '/masterpieces/:id/like', to: 'masterpieces#like', as: :masterpiece_like
+  post '/masterpieces/:id/unlike', to: 'masterpieces#unlike', as: :masterpiece_unlike
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   # You can have the root of your site routed with "root"

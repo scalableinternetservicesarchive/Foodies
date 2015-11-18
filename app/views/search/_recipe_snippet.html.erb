@@ -2,8 +2,9 @@
 <span class="glyphicon glyphicon-heart"></span><%= recipe.users_liking_it.count %>
 <span class="glyphicon glyphicon-bookmark"></span><%= recipe.users_bookmarking_it.count %>
 <span class="glyphicon glyphicon-cutlery"></span><%= recipe.cooks.count %>
-<h4>Ingredients:</h4>
-<% recipe.ingredients.each do |ingredient| %>
-<%= link_to ingredient.name, search_find_by_recipe_path(search: ingredient.name), class: "btn btn-custom light-gray" %>
+<p>
+<% recipe.tags.each do |tag| %>
+<%= link_to tag.name, search_find_by_tag_path(search: tag.name), class: "btn btn-custom light-gray" %>
 <% end %>
+</p>
 <h4>created by: <%= recipe.creator.username %></h4>
