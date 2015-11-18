@@ -75,7 +75,8 @@
   </header>
 
   <div class="container boxed">
-    <%= yield %>
+
+    <%= raw yield.indent(4) %>
 
     <footer>
       <div class="row">
