@@ -113,16 +113,16 @@
                 <%= masterpiece.description%>
               </p>
               <ul class="item-options">
-                <li><a class="enlarge" data-toggle="modal" href=<%= "#modal#{masterpiece.id}" %>></a></li>
-                <li><a class="view slower" href=<%= masterpiece_path(masterpiece) %>></a></li>
+                <li><span class="masterpiece-modal-link"><a class="enlarge" data-toggle="modal" href="#modal<%= masterpiece.id %>"></a></span></li>
+                <li><span class="masterpiece-link"><a class="view slower" href="<%= masterpiece_path(masterpiece) %>"></a></span></li>
               </ul>
             </div>
           </div>
         </div>
         <!-- Modal -->
-        <div class="modal custom-modal fade" id=<%= "modal#{masterpiece.id}" %> tabindex="-1" role="dialog" aria-labelledby="modal1" aria-hidden="true">
+        <div class="modal custom-modal fade" id="modal<%= masterpiece.id %>" tabindex="-1" role="dialog" aria-labelledby="modal<%= masterpiece.id %>" aria-hidden="true">
           <div class="modal-dialog" >
-            <img class="img-responsive" src=<%= masterpiece.masterpiece_img.url %> alt="">
+            <%= image_tag(masterpiece.masterpiece_img.url)%>
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
       </div>

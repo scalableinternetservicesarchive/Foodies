@@ -21,10 +21,10 @@
         <% @created_recipes.each do |recipe| %>
           <li class="media">
             <a class="pull-left">
-              <img class="media-object" src=<%= recipe.recipe_img.url(:thumb) %>>
+              <img class="media-object" src="<%= recipe.recipe_img.url(:thumb) %>">
             </a>
             <div class="media-body">
-              <h4 class="media-heading"><%= link_to recipe.title, recipe %></h4>
+              <h4 class="media-heading"><span class="recipe-link"><%= link_to recipe.title, recipe %></span></h4>
               <p><%= recipe.description %></p>
             </div>
           </li>
@@ -37,10 +37,10 @@
         <% @bookmarked_recipes.each do |recipe| %>
           <li class="media">
             <a class="pull-left">
-              <img class="media-object" src=<%= recipe.recipe_img.url(:thumb) %>>
+              <img class="media-object" src="<%= recipe.recipe_img.url(:thumb) %>">
             </a>
             <div class="media-body">
-              <h4 class="media-heading"><%= link_to recipe.title, recipe %></h4>
+              <h4 class="media-heading"><span class="recipe-link"><%= link_to recipe.title, recipe %></span></h4>
               <p><%= recipe.description %></p>
             </div>
           </li>
@@ -53,10 +53,10 @@
         <% @liked_recipes.each do |recipe| %>
           <li class="media">
             <a class="pull-left">
-              <img class="media-object" src=<%= recipe.recipe_img.url(:thumb) %>>
+              <img class="media-object" src="<%= recipe.recipe_img.url(:thumb) %>">
             </a>
             <div class="media-body">
-              <h4 class="media-heading"><%= link_to recipe.title, recipe %></h4>
+              <h4 class="media-heading"><span class="recipe-link"><%= link_to recipe.title, recipe %></span></h4>
               <p><%= recipe.description %></p>
             </div>
           </li>
@@ -69,10 +69,10 @@
         <% @cooked_masterpieces.each do |masterpiece| %>
           <li class="media">
             <a class="pull-left">
-              <img class="media-object" src=<%= masterpiece.masterpiece_img.url(:thumb) %>>
+              <img class="media-object" src="<%= masterpiece.masterpiece_img.url(:thumb) %>">
             </a>
             <div class="media-body">
-              <h4 class="media-heading"><%= link_to masterpiece.recipe.title, masterpiece %></h4>
+              <h4 class="media-heading"><span class="masterpiece-link"><%= link_to masterpiece.recipe.title, masterpiece %></span></h4>
               <p><%= masterpiece.description %></p>
             </div>
           </li>
@@ -85,10 +85,10 @@
         <% @liked_masterpieces.each do |masterpiece| %>
           <li class="media">
             <a class="pull-left">
-              <img class="media-object" src=<%= masterpiece.masterpiece_img.url(:thumb) %>>
+              <img class="media-object" src="<%= masterpiece.masterpiece_img.url(:thumb) %>">
             </a>
             <div class="media-body">
-              <h4 class="media-heading"><%= link_to masterpiece.recipe.title, masterpiece %></h4>
+              <h4 class="media-heading"><span class="masterpiece-link"><%= link_to masterpiece.recipe.title, masterpiece %></span></h4>
               <p><%= masterpiece.description %></p>
             </div>
           </li>
