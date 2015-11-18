@@ -1,0 +1,22 @@
+<div class="row">
+  <ul class="media-list">
+    <% items.each do |item| %>
+    <li class="media col-md-6">
+      <a class="pull-left" href="#">
+        <% if type == 'recipe' %>
+        <%= render partial: 'recipe_image', locals: {recipe: item} %>
+        <% elsif type == 'user' %>
+        <%= render partial: 'user_image', locals: {user: item} %>
+        <% end %>
+      </a>
+      <div class="media-body">
+        <% if type == 'recipe' %>
+        <%= render partial: 'recipe_snippet', locals: {recipe: item} %>
+        <% elsif type == 'user' %>
+        <%= render partial: 'user_snippet', locals: {user: item} %>
+        <% end %>
+      </div>
+    </li>
+    <% end %>
+  </ul>
+</div>
