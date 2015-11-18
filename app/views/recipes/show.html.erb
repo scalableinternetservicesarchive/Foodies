@@ -3,8 +3,8 @@
   <div class="col-sm-12">
     <h3><%= @recipe.title %></h3>
     <p>Tags:
-    <% @recipe.tags.each  do |tag| %>
-      <%= link_to tag.name, tagged_path(tag: tag.name), class: "btn btn-custom light-gray" %>
+    <% @recipe.tags.each do |tag| %>
+      <%= link_to tag.name, search_find_by_tag_path(search: tag.name), class: "btn btn-custom light-gray" %>
     <% end %>
     </p>
   </div>
