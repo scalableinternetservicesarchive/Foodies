@@ -69,7 +69,7 @@ end
 ######################################
 
 total_num_of_users.times do |n_user|
-  p 'Creating user: user_' + (n_user + 1).to_s
+  puts 'Creating user: user_' + (n_user + 1).to_s
   user = User.create(
     username: "user_" + (n_user + 1).to_s,
     email: "user_" + (n_user + 1).to_s + "@example.com",
@@ -84,7 +84,7 @@ end
 ######################################
 total_num_of_users.times do |n_user|
   user_id = n_user + 1
-  p 'User ' + user_id.to_s + ' creates recipes'
+  puts 'User ' + user_id.to_s + ' creates recipes'
   num_of_recipes = allow_randomness ? rand(avg_num_of_recipes_per_user * 2 + 1) : avg_num_of_recipes_per_user
 
   num_of_recipes.times do
@@ -106,13 +106,13 @@ total_num_of_users.times do |n_user|
 
     recipe_id = recipe.id
 
-    p 'Created recipe:' + recipe_id.to_s
+    puts 'Created recipe:' + recipe_id.to_s
 
     ######################################
     # add ingredients to each recipe
     ######################################
 
-    p '- Adding ingredients'
+    puts '- Adding ingredients'
     num_of_ingredients = allow_randomness ? rand(avg_num_of_ingredients_per_recipe * 2 + 1) : avg_num_of_ingredients_per_recipe
     ingredients_array.sample(num_of_ingredients).each do |ingredient_name|
       ingredient = Ingredient.create(
@@ -126,7 +126,7 @@ total_num_of_users.times do |n_user|
     # add steps to each recipe
     ######################################
 
-    p '- Adding steps'
+    puts '- Adding steps'
     num_of_steps = allow_randomness ? rand(avg_num_of_steps_per_recipe * 2 + 1) : avg_num_of_steps_per_recipe
     num_of_steps.times do |n_step|
       step = Step.create(
@@ -150,10 +150,10 @@ recipe_ids_array = (1..total_num_of_recipes).to_a
 ######################################
 total_num_of_users.times do |n_user|
   user_id = n_user + 1
-  p 'User ' + user_id.to_s + ' creates masterpieces'
+  puts 'User ' + user_id.to_s + ' creates masterpieces'
   num_of_masterpieces = allow_randomness ? rand(avg_num_of_masterpieces_per_user * 2 + 1) : avg_num_of_masterpieces_per_user
   recipe_ids_array.sample(num_of_masterpieces).each do |recipe_id|
-    p '- adding masterpiece to recipe:' + recipe_id.to_s
+    puts '- adding masterpiece to recipe:' + recipe_id.to_s
     masterpiece = Masterpiece.create(
       recipe_id: recipe_id,
       user_id: user_id,
@@ -168,13 +168,13 @@ masterpiece_ids_array = (1..total_num_of_masterpieces).to_a
 
 total_num_of_users.times do |n_user|
   user_id = n_user + 1
-  p 'User' + user_id.to_s
+  puts 'User' + user_id.to_s
 
   ######################################
   # user like recipes
   ######################################
 
-  p '- likes recipes'
+  puts '- likes recipes'
   user_like_recipe_count = allow_randomness ? rand(avg_num_of_liked_recipes_per_user * 2 + 1) : avg_num_of_liked_recipes_per_user
   recipe_ids_array.sample(user_like_recipe_count).each do |recipe_id|
     user_like_recipe(user_id, recipe_id)
@@ -184,7 +184,7 @@ total_num_of_users.times do |n_user|
   # user bookmark recipes
   ######################################
 
-  p '- bookmarks recipes'
+  puts '- bookmarks recipes'
   user_bookmark_recipe_count = allow_randomness ? rand(avg_num_of_bookmarked_recipes_per_user * 2 + 1) : avg_num_of_bookmarked_recipes_per_user
   recipe_ids_array.sample(user_bookmark_recipe_count).each do |recipe_id|
     user_bookmark_recipe(user_id, recipe_id)
@@ -194,14 +194,14 @@ total_num_of_users.times do |n_user|
   # user like masterpieces
   ######################################
 
-  p '- likes masterpieces'
+  puts '- likes masterpieces'
   user_like_masterpiece_count = allow_randomness ? rand(avg_num_of_liked_masterpieces_per_user * 2 + 1) : avg_num_of_liked_masterpieces_per_user
   masterpiece_ids_array.sample(user_like_masterpiece_count).each do |masterpiece_id|
     user_like_masterpiece(user_id, masterpiece_id)
   end
 end
 
-p '===='
-p 'Total number of recipes: ' + total_num_of_recipes.to_s
-p 'Total number of masterpieces: ' + total_num_of_masterpieces.to_s
+puts '===='
+puts 'Total number of recipes: ' + total_num_of_recipes.to_s
+puts 'Total number of masterpieces: ' + total_num_of_masterpieces.to_s
 
