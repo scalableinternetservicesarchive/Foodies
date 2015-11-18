@@ -3,10 +3,8 @@
 <h3>Masterpiece - <%= @masterpiece.recipe.title %></h3>
 <%= image_tag @masterpiece.masterpiece_img.url, class: "img-responsive"%>
 
-<p>
-  Cooked by: <%= @masterpiece.cook.username %> <br>
-  <%= image_tag @masterpiece.cook.avatar.url(:thumb)%>
-</p>
+<p><%= image_tag @masterpiece.cook.avatar.url(:thumb)%></p>
+<p>Cooked by: <span class="user-link"><%= link_to @masterpiece.cook.username, profile_path(@masterpiece.cook) %></span></p>
 
 <% if user_signed_in? %>
   <% if @masterpiece.users_liking_it.include?(current_user) %>

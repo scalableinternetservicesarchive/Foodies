@@ -57,7 +57,7 @@
                 <% else %>
                 <li>
                   <%= link_to profile_path(current_user) do %>
-                  <span class="glyphicon glyphicon-th"></span> <b><%= current_user.email %></b><% end %>
+                  <span class="glyphicon glyphicon-th"></span> <b><%= current_user.username %></b><% end %>
                 </li>
                 <li>
                   <%= link_to destroy_user_session_path, method: :delete do %>

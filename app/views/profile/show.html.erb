@@ -1,6 +1,8 @@
 <div class="jumbotron">
   <h2 class="text-left"><%= @user.username %></h2>
   <p><%= image_tag @user.avatar.url(:square) %></p>
+  <p>Email: <%= @user.email %></p>
+  <p>Joined since <%= @user.created_at.strftime("%b %d, %Y") %></p>
   <% if current_user == @user %>
   <%= link_to 'Edit', edit_user_registration_path, class: "btn btn-default"%>
   <% end %>
