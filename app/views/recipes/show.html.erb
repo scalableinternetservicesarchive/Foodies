@@ -17,22 +17,30 @@
     <p>Created by: <span class="user-link"><%= link_to @recipe.creator.username, profile_path(@recipe.creator) %></span></p>
     <% if user_signed_in? %>
       <% if @recipe.users_liking_it.include?(current_user) %>
+        <div id="unlike-recipe-form">
         <%= button_to recipe_unlike_path(@recipe), class: "btn btn-danger", params: {click_page: 'recipe_show'} do %>
           <span class="glyphicon glyphicon-heart"></span> unlike
         <% end %>
+        </div>
       <% else %>
+        <div id="like-recipe-form">
         <%= button_to recipe_like_path(@recipe), class: "btn btn-default", params: {click_page: 'recipe_show'} do %>
           <span class="glyphicon glyphicon-heart"></span> like
         <% end %>
+        </div>
       <% end %>
       <% if @recipe.users_bookmarking_it.include?(current_user) %>
+        <div id="unbookmark-recipe-form">
         <%= button_to recipe_unbookmark_path(@recipe), class: "btn btn-warning", params: {click_page: 'recipe_show'} do %>
           <span class="glyphicon glyphicon-bookmark"></span> unbookmark
         <% end %>
+        </div>
       <% else %>
+        <div id="bookmark-recipe-form">
         <%= button_to recipe_bookmark_path(@recipe), class: "btn btn-default", params: {click_page: 'recipe_show'} do %>
           <span class="glyphicon glyphicon-bookmark"></span> bookmark
         <% end %>
+        </div>
       <% end %>
     <% else %>
         <%= button_to recipe_like_path(@recipe), class: "btn btn-default", disabled: true, params: {click_page: 'recipe_show'} do %>
