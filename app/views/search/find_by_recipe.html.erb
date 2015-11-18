@@ -9,48 +9,50 @@
 
     <div class="tab-content">
       <div class="tab-pane fade in active" id="pill1">
-        <%= form_tag(search_find_by_recipe_path, method: "get", class:"navbar-form navbar-left", role:"search") do%>
+        <%= form_tag(search_find_by_recipe_path, method: "get", class: "navbar-form navbar-left") do %>
         <div class="form-group">
-          <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
+          <%= text_field_tag :search, nil, class: "form-control", placeholder: "Search recipe" %>
           <%= submit_tag "Search", class: 'form-control' %>
-          <% end %>
         </div>
+        <% end %>
       </div>
       <div class="tab-pane fade" id="pill2">
-        <%= form_tag(search_find_by_user_path, method: "get", class:"navbar-form navbar-left", role:"search") do%>
+        <%= form_tag(search_find_by_user_path, method: "get", class: "navbar-form navbar-left") do %>
         <div class="form-group">
-          <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
+          <%= text_field_tag :search, nil, class: "form-control", placeholder: "Search user" %>
           <%= submit_tag "Search", class: 'form-control' %>
-          <% end %>
         </div>
+        <% end %>
       </div>
     </div>
   </div>
 
   <div class="col-md-12">
-    <h2>Recipe Search Result</h2>
+    <h2>Recipe Search Result: <b>"<%= @keyword %>"</b></h2>
   </div>
 
   <hr class="medium" />
-  <% @recipes.each do |recipe| %>
+
   <!-- result list -->
-  <div class="col-md-6">
-    <ul class="media-list">
-      <li class="media">
-        <a class="pull-left" href="#">
-          <img class="media-object" src="<%= recipe.recipe_img.url(:square) %>">
-        </a>
-        <div class="media-body">
-          <h4 class="media-heading"><span class="recipe-link"><%= link_to recipe.title, recipe %></span></h4>
-          <span class="glyphicon glyphicon-heart"><span><%= recipe.users_liking_it.count %>
-          <span class="glyphicon glyphicon-bookmark"></span><%= recipe.users_bookmarking_it.count %>
-          <span class="glyphicon glyphicon-cutlery"></span><%= recipe.cooks.count %>
-          <h4>Ingredients:</h4>
-          <% recipe.ingredients.each do |ingredient| %>
-          <%= link_to ingredient.name, search_find_by_recipe_path(search: ingredient.name), class: "btn btn-custom light-gray" %>
-          <% end %>
-          <h4>created by: <%= recipe.creator.username %></h4>
-        </div>
-  </div>
-  <% end %>
+  <ul class="media-list">
+    <% @recipes.each do |recipe| %>
+    <li class="media col-md-6">
+      <a class="pull-left" href="#">
+        <%= image_tag recipe.recipe_img.url(:square), class: "media-object"%>
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading"><span class="recipe-link"><%= link_to recipe.title, recipe %></span></h4>
+        <span class="glyphicon glyphicon-heart"></span><%= recipe.users_liking_it.count %>
+        <span class="glyphicon glyphicon-bookmark"></span><%= recipe.users_bookmarking_it.count %>
+        <span class="glyphicon glyphicon-cutlery"></span><%= recipe.cooks.count %>
+        <h4>Ingredients:</h4>
+        <% recipe.ingredients.each do |ingredient| %>
+        <%= link_to ingredient.name, search_find_by_recipe_path(search: ingredient.name), class: "btn btn-custom light-gray" %>
+        <% end %>
+        <h4>created by: <%= recipe.creator.username %></h4>
+      </div>
+    </li>
+    <% end %>
+  </ul>
+
 </div>

@@ -1,25 +1,30 @@
-<ul id="blog" class="list-unstyled">
-  <div class="row">
-    <h3 class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-4">Recipes with tag <%= @tag%></h3>
+<div class="row">
+  <div class="col-md-12">
+    <h2>Recipes with tag <b>"<%= @tag %>"</b></h2>
   </div>
-  <li class="row">
+
+  <hr class="medium" />
+
+  <!-- result list -->
+  <ul class="media-list">
     <% @recipes.each do |recipe| %>
-    <div class="col-md-6">
-      <ul class="media-list">
-        <li class="media">
-          <a class="pull-left" href="#">
-            <img class="media-object" src="<%= recipe.recipe_img.url(:square) %>">
-          </a>
-          <div class="media-body">
-            <h4 class="media-heading"><span class="recipe-link"><%= link_to recipe.title, recipe %></span></h4>
-            <p><span class="count-number"><%= recipe.users_liking_it.count %></span>people liked it</p>
-            <p><span class="count-number"><%= recipe.users_bookmarking_it.count %></span>people bookmarked it</p>
-            <p><span class="count-number"><%= recipe.cooks.count %></span>people cooked it</p>
-            <p>created by: <%= recipe.creator.username %></p>
-          </div>
-        </li>
-      </ul>
-    </div>
+    <li class="media col-md-6">
+      <a class="pull-left" href="#">
+        <%= image_tag recipe.recipe_img.url(:square), class: "media-object"%>
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading"><span class="recipe-link"><%= link_to recipe.title, recipe %></span></h4>
+        <span class="glyphicon glyphicon-heart"></span><%= recipe.users_liking_it.count %>
+        <span class="glyphicon glyphicon-bookmark"></span><%= recipe.users_bookmarking_it.count %>
+        <span class="glyphicon glyphicon-cutlery"></span><%= recipe.cooks.count %>
+        <h4>Ingredients:</h4>
+        <% recipe.ingredients.each do |ingredient| %>
+        <%= link_to ingredient.name, search_find_by_recipe_path(search: ingredient.name), class: "btn btn-custom light-gray" %>
+        <% end %>
+        <h4>created by: <%= recipe.creator.username %></h4>
+      </div>
+    </li>
     <% end %>
-  </li>
-</ul>
+  </ul>
+
+</div>

@@ -9,41 +9,43 @@
 
     <div class="tab-content">
       <div class="tab-pane fade" id="pill1">
-        <%= form_tag(search_find_by_recipe_path, method: "get", class:"navbar-form navbar-left", role:"search") do%>
+        <%= form_tag(search_find_by_recipe_path, method: "get", class: "navbar-form navbar-left") do %>
         <div class="form-group">
-          <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
+          <%= text_field_tag :search, nil, class: "form-control", placeholder: "Search recipe" %>
           <%= submit_tag "Search", class: 'form-control' %>
-          <% end %>
         </div>
+        <% end %>
       </div>
       <div class="tab-pane fade in active" id="pill2">
-        <%= form_tag(search_find_by_user_path, method: "get", class:"navbar-form navbar-left", role:"search") do%>
+        <%= form_tag(search_find_by_user_path, method: "get", class: "navbar-form navbar-left") do %>
         <div class="form-group">
-          <%= text_field_tag :search, params[:search], class: "form-control",placeholder: "Search.."%>
+          <%= text_field_tag :search, nil, class: "form-control", placeholder: "Search user" %>
           <%= submit_tag "Search", class: 'form-control' %>
-          <% end %>
         </div>
+        <% end %>
       </div>
     </div>
   </div>
 
-    <div class="col-md-12">
-      <h2>User Search Result</h2>
-    </div>
+  <div class="col-md-12">
+    <h2>User Search Result: <b>"<%= @keyword %>"</b></h2>
+  </div>
 
   <hr class="medium" />
-  <% @users.each do |user| %>
+
   <!-- result list -->
-  <div class="col-md-6">
-    <ul class="media-list">
-      <li class="media">
-        <a class="pull-left" href="#">
-          <img class="media-object" src="<%= user.avatar.url(:square) %>">
-        </a>
-        <div class="media-body">
-          <h4 class="media-heading"><%= user.username %></h4>
-          <p><%= user.email %></p>
-        </div>
-  </div>
-  <% end %>
+  <ul class="media-list">
+    <% @users.each do |user| %>
+    <li class="media col-md-6">
+      <a class="pull-left" href="#">
+        <%= image_tag user.avatar.url(:square), class: "media-object"%>
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading"><%= user.username %></h4>
+        <p><%= user.email %></p>
+      </div>
+    </li>
+    <% end %>
+  </ul>
+
 </div>
