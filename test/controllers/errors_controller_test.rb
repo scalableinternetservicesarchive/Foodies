@@ -18,7 +18,7 @@ class ErrorsControllerTest < ActionController::TestCase
 
   test "should get security_transgression_error" do
     get :security_transgression_error
-    assert_response :success
+    assert_response 401
   end
 
 end
