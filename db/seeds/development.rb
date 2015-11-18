@@ -159,7 +159,7 @@ end
 ######################################
 
 total_num_of_users.times do |n_user|
-  p 'Creating user: user_' + (n_user + 1).to_s
+  puts 'Creating user: user_' + (n_user + 1).to_s
   user = User.create(
     username: "user_" + (n_user + 1).to_s,
     email: "user_" + (n_user + 1).to_s + "@example.com",
@@ -174,7 +174,7 @@ end
 ######################################
 
 total_num_of_recipes.times do |n_recipe|
-  p 'Creating recipe: ' + recipes_config[n_recipe][:recipe_base_url]
+  puts 'Creating recipe: ' + recipes_config[n_recipe][:recipe_base_url]
   recipe = Recipe.create(
     user_id: rand(total_num_of_users) + 1,
     title: recipes_config[n_recipe][:recipe_base_url].gsub('-',' ').camelize,
@@ -188,7 +188,7 @@ total_num_of_recipes.times do |n_recipe|
   # add ingredients to each recipe
   ######################################
 
-  p '- Adding ingredients'
+  puts '- Adding ingredients'
   ingredient_names = recipes_config[n_recipe][:ingredient_list].split(',')
   ingredient_names.each do |ingredient_name|
     ingredient = Ingredient.create(
@@ -202,7 +202,7 @@ total_num_of_recipes.times do |n_recipe|
   # add steps to each recipe
   ######################################
 
-  p '- Adding steps'
+  puts '- Adding steps'
   num_of_steps = recipes_config[n_recipe][:num_of_steps]
   num_of_steps.times do |n_step|
     step = Step.create(
@@ -217,10 +217,10 @@ total_num_of_recipes.times do |n_recipe|
   # add masterpieces to each recipe
   ######################################
 
-  p '- Adding masterpieces'
+  puts '- Adding masterpieces'
   num_of_masterpieces = recipes_config[n_recipe][:num_of_masterpieces]
   num_of_masterpieces.times do |n_masterpiece|
-    p '  - Creating masterpiece ' + (n_masterpiece + 1).to_s
+    puts '  - Creating masterpiece ' + (n_masterpiece + 1).to_s
     masterpiece = Masterpiece.create(
       recipe_id: n_recipe + 1,
       user_id: rand(total_num_of_users) + 1,
@@ -236,13 +236,13 @@ recipe_ids_array = (1..total_num_of_recipes).to_a
 masterpiece_ids_array = (1..total_num_of_masterpieces).to_a
 
 total_num_of_users.times do |n_user|
-  p 'User' + (n_user + 1).to_s
+  puts 'User' + (n_user + 1).to_s
 
   ######################################
   # user like recipes
   ######################################
 
-  p '- likes recipes'
+  puts '- likes recipes'
   user_like_recipe_count = rand(total_num_of_recipes)
   recipe_ids_array.sample(user_like_recipe_count).each do |recipe_id|
     user_like_recipe(n_user + 1, recipe_id)
@@ -252,7 +252,7 @@ total_num_of_users.times do |n_user|
   # user bookmark recipes
   ######################################
 
-  p '- bookmarks recipes'
+  puts '- bookmarks recipes'
   user_bookmark_recipe_count = rand(total_num_of_recipes)
   recipe_ids_array.sample(user_bookmark_recipe_count).each do |recipe_id|
     user_bookmark_recipe(n_user + 1, recipe_id)
@@ -262,7 +262,7 @@ total_num_of_users.times do |n_user|
   # user like masterpieces
   ######################################
 
-  p '- likes masterpieces'
+  puts '- likes masterpieces'
   user_like_masterpiece_count = rand(total_num_of_masterpieces)
   masterpiece_ids_array.sample(user_like_masterpiece_count).each do |masterpiece_id|
     user_like_masterpiece(n_user + 1, masterpiece_id)
