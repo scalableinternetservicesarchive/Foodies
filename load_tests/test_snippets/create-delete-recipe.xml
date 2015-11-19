@@ -1,0 +1,259 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/home/ec2-user/opt/tsung-1.5.0/share/tsung/tsung-1.0.dtd">
+<!-- <tsung loglevel="notice" version="1.0"> -->
+<!-- dumptraffic="protocol" will dump the http traffic to a file tsung.dump -->
+<tsung loglevel="notice" dumptraffic="protocol" version="1.0">
+
+  <!-- Client side setup -->
+  <clients>
+    <client host="localhost" use_controller_vm="true" maxusers='15000'/>
+  </clients>
+
+  <!-- Server side setup -->
+  <servers>
+    <server host="" port="80" type="tcp"></server>
+  </servers>
+
+  <load>
+    <arrivalphase phase="1" duration="30" unit="second">
+      <users arrivalrate="1" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="2" duration="30" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="3" duration="30" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+
+   <!-- <arrivalphase phase="4" duration="30" unit="second">
+     <users arrivalrate="8" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="5" duration="30" unit="second">
+     <users arrivalrate="16" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="6" duration="30" unit="second">
+     <users arrivalrate="32" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="7" duration="30" unit="second">
+     <users arrivalrate="64" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="8" duration="30" unit="second">
+     <users arrivalrate="128" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="9" duration="30" unit="second">
+     <users arrivalrate="256" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="10" duration="30" unit="second">
+     <users arrivalrate="512" unit="second"></users>
+   </arrivalphase> -->
+
+  </load>
+
+  <options>
+    <!-- Set connection timeout to 2 seconds -->
+    <option name="global_ack_timeout" value="2000"></option>
+
+    <option type="ts_http" name="user_agent">
+      <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
+    </option>
+
+    <!-- The lorem_words.csv file contains a list of lorem words -->
+    <!-- The words are used for generating search keywords -->
+    <!-- <option name="file_server" id='lorem_words' value="./lorem_words.csv"></option> -->
+  </options>
+
+  <sessions>
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                 create-delete-recipe              -->
+    <!--                     prob: 100%                    -->
+    <!-- ================================================= -->
+    <!-- 1. set up current user randomly -->
+    <!-- 2. login -->
+    <!-- 3. go to recipes/new page -->
+    <!-- 4. create a recipe -->
+    <!-- 5. redirected to recipe page just created -->
+    <!-- 6. delete the recipe just created -->
+    <!-- 7. log out -->
+    <!-- ================================================= -->
+
+    <session name="create-delete-recipe" probability="100" type="ts_http">
+
+      <!-- 1. set up current user randomly -->
+      <!-- [sample value] - current_user_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="current_user_id" />
+      </setdynvars>
+
+      <!-- 2. login -->
+      <!-- go to users/sign_in page -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <request>
+        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <http url="/users/sign_in" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <if var="authenticity_token" neq="">
+
+      <!-- log in using username and password -->
+      <!-- [sample value] - login: user_1 -->
+      <!-- [sample value] - password: 88888888 -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <!-- [sample value] - remember_me: 0 -->
+      <request subst="true">
+        <http url="/users/sign_in" method="POST" version="1.1" 
+          content_type="application/x-www-form-urlencoded"
+          contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Blogin%5D=user_%%_current_user_id%%&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- repeat step [3,4,5,6] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 3. go to recipes/new page -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <request>
+        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <http url="/recipes/new" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- if we got the authenticity_token, do step [4,5,6] -->
+      <!-- otherwise, do nothing -->
+      <if var="authenticity_token" neq="">
+
+      <!-- 4. create a recipe -->
+
+      <!-- setting up the recipe data -->
+
+      <!-- [sample value] - title: abcdefg.... -->
+      <setdynvars sourcetype="random_string" length="11">
+        <var name="title" />
+      </setdynvars>
+
+      <!-- [notice] tag generation need more thoughts -->
+      <!-- [sample value] - tag_list: tag1,tag2,tag3 -->
+      <setdynvars sourcetype="eval" 
+                  code="fun({Pid,DynVars})->
+                          Tag = &quot;tag&quot;,
+                          Tag1 = string:concat(Tag,integer_to_list(random:uniform(100))),
+                          Tag2 = string:concat(Tag,integer_to_list(random:uniform(100))),
+                          Tag3 = string:concat(Tag,integer_to_list(random:uniform(100))),
+                          StringList = [Tag1,Tag2,Tag3],
+                          Tag_list = list_to_binary(string:join(StringList, &quot;,&quot;))
+                        end.">
+        <var name="tag_list" />
+      </setdynvars>
+
+      <!-- [sample value] - description: abcdefg.... -->
+      <setdynvars sourcetype="random_string" length="11">
+        <var name="description" />
+      </setdynvars>
+
+      <!-- [sample value] - cook_time: 10 -->
+      <setdynvars sourcetype="random_number" start="10" end="60">
+        <var name="cook_time" />
+      </setdynvars>
+
+      <!-- [sample value] - ingredient_0_name: ingredient1 -->
+      <setdynvars sourcetype="value" value="ingredient1">
+        <var name="ingredient_0_name" />
+      </setdynvars>
+
+      <!-- [sample value] - ingredient_0_quantity: 10g -->
+      <setdynvars sourcetype="value" value="10g">
+        <var name="ingredient_0_quantity" />
+      </setdynvars>
+
+      <!-- [sample value] - ingredient_1_name: ingredient2 -->
+      <setdynvars sourcetype="value" value="ingredient2">
+        <var name="ingredient_1_name" />
+      </setdynvars>
+
+      <!-- [sample value] - ingredient_1_quantity: 20g -->
+      <setdynvars sourcetype="value" value="20g">
+        <var name="ingredient_1_quantity" />
+      </setdynvars>
+
+      <!-- [sample value] - step_0_description: abcdefg.... -->
+      <setdynvars sourcetype="random_string" length="11">
+        <var name="step_0_description" />
+      </setdynvars>
+
+      <!-- [sample value] - step_1_description: abcdefg.... -->
+      <setdynvars sourcetype="random_string" length="11">
+        <var name="step_1_description" />
+      </setdynvars>
+
+      <!-- [sample value] - step_2_description: abcdefg.... -->
+      <setdynvars sourcetype="random_string" length="11">
+        <var name="step_2_description" />
+      </setdynvars>
+
+      <!-- [sample value] - nl: CRLF -->
+      <setdynvars sourcetype="eval" code='fun({Pid,DynVars})-> [[13, 10]] end.'>
+        <var name="nl" />
+      </setdynvars>
+
+<!-- 
+      <setdynvars sourcetype="eval"
+            code='fun({Pid,DynVars})->
+                    {ok, Bin} = file:read_file("sample.png"),
+                    Bin
+                  end.'>
+        <var name="recipe_img_file" />
+      </setdynvars>
+ -->
+
+      <!-- make the request to the server to create the recipe -->
+      <!-- [sample value] - created_recipe_url: /recipes/1001 -->
+      <request subst="true">
+        <dyn_variable name="created_recipe_url" re="[Ll]ocation: (http://.*)\r"/>
+        <http
+          url='/recipes'
+          version='1.1'
+          method='POST'
+          content_type='multipart/form-data; boundary=----FormBoundary'
+          contents='------FormBoundary%%_nl%%Content-Disposition: form-data; name="utf8"%%_nl%%%%_nl%%%E2%9C%93%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="authenticity_token"%%_nl%%%%_nl%%%%_authenticity_token%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[user_id]"%%_nl%%%%_nl%%%%_current_user_id%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[title]"%%_nl%%%%_nl%%%%_title%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[tag_list]"%%_nl%%%%_nl%%%%_tag_list%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[description]"%%_nl%%%%_nl%%%%_description%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[cook_time]"%%_nl%%%%_nl%%%%_cook_time%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[ingredients_attributes][0][name]"%%_nl%%%%_nl%%%%_ingredient_0_name%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[ingredients_attributes][0][quantity]"%%_nl%%%%_nl%%%%_ingredient_0_quantity%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[ingredients_attributes][0][_destroy]"%%_nl%%%%_nl%%false%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[ingredients_attributes][1][name]"%%_nl%%%%_nl%%%%_ingredient_1_name%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[ingredients_attributes][1][quantity]"%%_nl%%%%_nl%%%%_ingredient_1_quantity%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[ingredients_attributes][1][_destroy]"%%_nl%%%%_nl%%false%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][0][step_number]"%%_nl%%%%_nl%%1%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][0][description]"%%_nl%%%%_nl%%%%_step_0_description%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][0][step_img]"; filename=""%%_nl%%Content-Type: application/octet-stream%%_nl%%%%_nl%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][0][_destroy]"%%_nl%%%%_nl%%false%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][1][step_number]"%%_nl%%%%_nl%%2%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][1][description]"%%_nl%%%%_nl%%%%_step_1_description%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][1][step_img]"; filename=""%%_nl%%Content-Type: application/octet-stream%%_nl%%%%_nl%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][1][_destroy]"%%_nl%%%%_nl%%false%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][2][step_number]"%%_nl%%%%_nl%%3%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][2][description]"%%_nl%%%%_nl%%%%_step_2_description%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][2][step_img]"; filename=""%%_nl%%Content-Type: application/octet-stream%%_nl%%%%_nl%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][2][_destroy]"%%_nl%%%%_nl%%false%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[recipe_img]"; filename=""%%_nl%%Content-Type: application/octet-stream%%_nl%%%%_nl%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="commit"%%_nl%%%%_nl%%Create Recipe%%_nl%%------FormBoundary--%%_nl%%%%_nl%%'>
+        </http>
+      </request>
+
+      <!-- 5. redirected to recipe page just created -->
+
+      <if var="created_recipe_url" neq="">
+        <request subst="true">
+          <http url="%%_created_recipe_url%%" version="1.1" method="GET"></http>
+        </request>
+      </if>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- 6. delete the recipe just created -->
+      <if var="created_recipe_url" neq="">
+        <request subst="true">
+          <http url="%%_created_recipe_url%%" method="DELETE">
+          </http>
+        </request>
+      </if>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </if>
+
+      </for>
+
+      <!-- 7. log out -->
+      <request>
+        <http url='/users/sign_out' version='1.1' method='DELETE'></http>
+      </request>
+
+      </if>
+    </session>
+
+  </sessions>
+</tsung>

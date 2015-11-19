@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/home/ec2-user/opt/tsung-1.5.0/share/tsung/tsung-1.0.dtd">
+<!-- <tsung loglevel="notice" version="1.0"> -->
+<!-- dumptraffic="protocol" will dump the http traffic to a file tsung.dump -->
+<tsung loglevel="notice" dumptraffic="protocol" version="1.0">
+
+  <!-- Client side setup -->
+  <clients>
+    <client host="localhost" use_controller_vm="true" maxusers='15000'/>
+  </clients>
+
+  <!-- Server side setup -->
+  <servers>
+    <server host="" port="80" type="tcp"></server>
+  </servers>
+
+  <load>
+    <arrivalphase phase="1" duration="30" unit="second">
+      <users arrivalrate="1" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="2" duration="30" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="3" duration="30" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+
+   <!-- <arrivalphase phase="4" duration="30" unit="second">
+     <users arrivalrate="8" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="5" duration="30" unit="second">
+     <users arrivalrate="16" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="6" duration="30" unit="second">
+     <users arrivalrate="32" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="7" duration="30" unit="second">
+     <users arrivalrate="64" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="8" duration="30" unit="second">
+     <users arrivalrate="128" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="9" duration="30" unit="second">
+     <users arrivalrate="256" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="10" duration="30" unit="second">
+     <users arrivalrate="512" unit="second"></users>
+   </arrivalphase> -->
+
+  </load>
+
+  <options>
+    <!-- Set connection timeout to 2 seconds -->
+    <option name="global_ack_timeout" value="2000"></option>
+
+    <option type="ts_http" name="user_agent">
+      <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
+    </option>
+
+    <!-- The lorem_words.csv file contains a list of lorem words -->
+    <!-- The words are used for generating search keywords -->
+    <!-- <option name="file_server" id='lorem_words' value="./lorem_words.csv"></option> -->
+  </options>
+
+  <sessions>
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                     like-masterpiece                   -->
+    <!--                     prob: 100%                    -->
+    <!-- ================================================= -->
+    <!-- 1. set up current user randomly -->
+    <!-- 2. login -->
+    <!-- 3. random generate a masterpiece id to visit -->
+    <!-- 4. visit a random masterpiece -->
+    <!-- 5. like/unlike this masterpiece -->
+    <!-- 6. redirected to this masterpiece page -->
+    <!-- 7. log out -->
+    <!-- ================================================= -->
+
+    <session name="like-masterpiece" probability="100" type="ts_http">
+
+      <!-- 1. set up current user randomly -->
+      <!-- [sample value] - current_user_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="current_user_id" />
+      </setdynvars>
+
+      <!-- 2. login -->
+      <!-- go to users/sign_in page -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <request>
+        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <http url="/users/sign_in" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <if var="authenticity_token" neq="">
+
+      <!-- log in using username and password -->
+      <!-- [sample value] - login: user_1 -->
+      <!-- [sample value] - password: 88888888 -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <!-- [sample value] - remember_me: 0 -->
+      <request subst="true">
+        <http url="/users/sign_in" method="POST" version="1.1" 
+          content_type="application/x-www-form-urlencoded"
+          contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Blogin%5D=user_%%_current_user_id%%&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- 3. random generate a masterpiece id to visit -->
+      <!-- [sample value] - random_masterpiece_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="2000">
+        <var name="random_masterpiece_id" />
+      </setdynvars>
+
+      <!-- 4. visit a random masterpiece -->
+      <!-- [case] the user hasn't liked the masterpiece -->
+      <!-- [sample value] - url: /masterpieces/1 -->
+      <!-- [sample value] - like_masterpiece_url: /masterpieces/1/like -->
+      <!-- [sample value] - like_masterpiece_token: ... -->
+      <!-- [sample value] - unlike_masterpiece_url: "" -->
+      <!-- [sample value] - unlike_masterpiece_token: "" -->
+      <!-- [case] the user has already liked the masterpiece -->
+      <!-- [sample value] - url: /masterpieces/1 -->
+      <!-- [sample value] - like_masterpiece_url: "" -->
+      <!-- [sample value] - like_masterpiece_token: "" -->
+      <!-- [sample value] - unlike_masterpiece_url: /masterpieces/1/unlike -->
+      <!-- [sample value] - unlike_masterpiece_token: ... -->
+      <request subst="true">
+        <dyn_variable name="like_masterpiece_url" xpath="//div[@id='like-masterpiece-form']/form/@action"/>
+        <dyn_variable name="like_masterpiece_token" xpath="//div[@id='like-masterpiece-form']/form/input[@name='authenticity_token']/@value"/>
+        <dyn_variable name="unlike_masterpiece_url" xpath="//div[@id='unlike-masterpiece-form']/form/@action"/>
+        <dyn_variable name="unlike_masterpiece_token" xpath="//div[@id='unlike-masterpiece-form']/form/input[@name='authenticity_token']/@value"/>
+        <http url="/masterpieces/%%_random_masterpiece_id%%" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- repeat step [5,6] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 5. like/unlike this masterpiece -->
+      <!-- [case] the user hasn't liked the masterpiece -->
+      <!-- [sample value] - url: /masterpieces/1/like -->
+      <!-- [sample value] - like_masterpiece_url: /masterpieces/1/like -->
+      <!-- [sample value] - like_masterpiece_token: ... -->
+      <!-- [sample value] - redirected_masterpiece_url: /masterpieces/1 -->
+      <if var="like_masterpiece_url" neq="">
+        <request subst="true">
+          <dyn_variable name="redirected_masterpiece_url" re="[Ll]ocation: (http://.*)\r"/>
+          <http url="%%_like_masterpiece_url%%" method="POST" version="1.1" 
+            content_type="application/x-www-form-urlencoded"
+            contents="authenticity_token=%%_like_masterpiece_token%%&amp;click_page=masterpiece_show"/>
+        </request>
+      </if>
+
+      <!-- [case] the user has already liked the masterpiece -->
+      <!-- [sample value] - url: /masterpieces/1/unlike -->
+      <!-- [sample value] - unlike_masterpiece_url: /masterpieces/1/unlike -->
+      <!-- [sample value] - unlike_masterpiece_token: ... -->
+      <!-- [sample value] - redirected_masterpiece_url: /masterpieces/1 -->
+      <if var="unlike_masterpiece_url" neq="">
+        <request subst="true">
+          <dyn_variable name="redirected_masterpiece_url" re="[Ll]ocation: (http://.*)\r"/>
+          <http url="%%_unlike_masterpiece_url%%" method="POST" version="1.1" 
+            content_type="application/x-www-form-urlencoded"
+            contents="authenticity_token=%%_unlike_masterpiece_token%%&amp;click_page=masterpiece_show"/>
+        </request>
+      </if>
+
+      <!-- 6. redirected to this masterpiece page -->
+      <if var="redirected_masterpiece_url" neq="">
+        <request subst="true">
+          <dyn_variable name="like_masterpiece_url" xpath="//div[@id='like-masterpiece-form']/form/@action"/>
+          <dyn_variable name="like_masterpiece_token" xpath="//div[@id='like-masterpiece-form']/form/input[@name='authenticity_token']/@value"/>
+          <dyn_variable name="unlike_masterpiece_url" xpath="//div[@id='unlike-masterpiece-form']/form/@action"/>
+          <dyn_variable name="unlike_masterpiece_token" xpath="//div[@id='unlike-masterpiece-form']/form/input[@name='authenticity_token']/@value"/>
+          <http url="%%_redirected_masterpiece_url%%" version="1.1" method="GET"></http>
+        </request>
+      </if>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+      <!-- 6. log out -->
+      <request>
+        <http url='/users/sign_out' version='1.1' method='DELETE'></http>
+      </request>
+
+      </if>
+    </session>
+
+  </sessions>
+</tsung>
