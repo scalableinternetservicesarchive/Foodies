@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/home/ec2-user/opt/tsung-1.5.0/share/tsung/tsung-1.0.dtd">
+<!-- <tsung loglevel="notice" version="1.0"> -->
+<!-- dumptraffic="protocol" will dump the http traffic to a file tsung.dump -->
+<tsung loglevel="notice" dumptraffic="protocol" version="1.0">
+
+  <!-- Client side setup -->
+  <clients>
+    <client host="localhost" use_controller_vm="true" maxusers='15000'/>
+  </clients>
+
+  <!-- Server side setup -->
+  <servers>
+    <server host="" port="80" type="tcp"></server>
+  </servers>
+
+  <load>
+    <arrivalphase phase="1" duration="30" unit="second">
+      <users arrivalrate="1" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="2" duration="30" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="3" duration="30" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+
+   <!-- <arrivalphase phase="4" duration="30" unit="second">
+     <users arrivalrate="8" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="5" duration="30" unit="second">
+     <users arrivalrate="16" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="6" duration="30" unit="second">
+     <users arrivalrate="32" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="7" duration="30" unit="second">
+     <users arrivalrate="64" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="8" duration="30" unit="second">
+     <users arrivalrate="128" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="9" duration="30" unit="second">
+     <users arrivalrate="256" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="10" duration="30" unit="second">
+     <users arrivalrate="512" unit="second"></users>
+   </arrivalphase> -->
+
+  </load>
+
+  <options>
+    <!-- Set connection timeout to 2 seconds -->
+    <option name="global_ack_timeout" value="2000"></option>
+
+    <option type="ts_http" name="user_agent">
+      <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
+    </option>
+
+    <!-- The lorem_words.csv file contains a list of lorem words -->
+    <!-- The words are used for generating search keywords -->
+    <!-- <option name="file_server" id='lorem_words' value="./lorem_words.csv"></option> -->
+  </options>
+
+  <sessions>
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                    search-by-tag                  -->
+    <!--                     prob: 100%                    -->
+    <!-- ================================================= -->
+    <!-- 1. random generate a tag name to search -->
+    <!-- 2. search recipe by tag based on the tag name -->
+    <!-- ================================================= -->
+
+    <session name="search-by-tag" probability="100" type="ts_http">
+
+      <!-- repeat step [1,2] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 1. random generate a tag name to search -->
+      <!-- [sample value] - random_tag_suffix: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="100">
+        <var name="random_tag_suffix" />
+      </setdynvars>
+
+      <!-- 2. search recipe by tag based on the tag name -->
+      <!-- [sample value] - url: /search/find_by_tag?search=tag1 -->
+      <request subst="true">
+        <http url='/search/find_by_tag?search=tag%%_random_tag_suffix%%' version='1.1' method='GET'></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                   search-by-user                  -->
+    <!--                     prob: 100%                    -->
+    <!-- ================================================= -->
+    <!-- 1. random generate a username to search -->
+    <!-- 2. search user based on the username -->
+    <!-- ================================================= -->
+
+    <session name="search-by-user" probability="100" type="ts_http">
+
+      <!-- repeat step [1,2] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 1. random generate a username to search -->
+      <!-- [sample value] - random_username_suffix: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="random_username_suffix" />
+      </setdynvars>
+
+      <!-- 2. search user based on the username -->
+      <!-- [sample value] - url: /search/find_by_user?search=user_1 -->
+      <request subst="true">
+        <http url='/search/find_by_user?search=user_%%_random_username_suffix%%' version='1.1' method='GET'></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+    </session>
+
+  </sessions>
+</tsung>

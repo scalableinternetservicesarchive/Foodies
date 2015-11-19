@@ -11,7 +11,7 @@
 
   <!-- Server side setup -->
   <servers>
-    <server host="ec2-52-10-33-75.us-west-2.compute.amazonaws.com" port="80" type="tcp"></server>
+    <server host="" port="80" type="tcp"></server>
   </servers>
 
   <load>
@@ -24,8 +24,8 @@
     <arrivalphase phase="3" duration="30" unit="second">
       <users arrivalrate="4" unit="second"></users>
     </arrivalphase>
-<!-- 
-   <arrivalphase phase="4" duration="30" unit="second">
+
+   <!-- <arrivalphase phase="4" duration="30" unit="second">
      <users arrivalrate="8" unit="second"></users>
    </arrivalphase>
    <arrivalphase phase="5" duration="30" unit="second">
@@ -45,8 +45,8 @@
    </arrivalphase>
    <arrivalphase phase="10" duration="30" unit="second">
      <users arrivalrate="512" unit="second"></users>
-   </arrivalphase>
- -->
+   </arrivalphase> -->
+
   </load>
 
   <options>
@@ -56,55 +56,56 @@
     <option type="ts_http" name="user_agent">
       <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
     </option>
+
+    <!-- The lorem_words.csv file contains a list of lorem words -->
+    <!-- The words are used for generating search keywords -->
+    <option name="file_server" id='lorem_words' value="./lorem_words.csv"></option>
   </options>
+
+<!-- ================================================= -->
+<!--                     Sessions Weight               -->
+<!-- [login-logout]                 1                  -->
+<!-- [visit-homepage]               10                 -->
+<!-- [visit-recipe]                 20                 -->
+<!-- [visit-masterpiece]            5                  -->
+<!-- [visit-user-profile]           5                  -->
+<!-- [visit-search-index]           1                  -->
+<!-- [search-by-name]               5                  -->
+<!-- [search-by-tag]                4                  -->
+<!-- [search-by-user]               1                  -->
+<!-- [create-delete-recipe]         1                  -->
+<!-- [create-delete-masterpiece]    1                  -->
+<!-- [like-recipe]                  2                  -->
+<!-- [bookmark-recipe]              2                  -->
+<!-- [like-masterpiece]             1                  -->
+<!-- ================================================= -->
+
 
   <sessions>
 
-    <!-- 1. visit homepage -->
-    <!-- 2. visit a random recipe -->
-    <!-- 3. visit a random masterpiece -->
-    <session name="visit-randomly" probability="80" type="ts_http">
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                    login-logout                   -->
+    <!-- ================================================= -->
+    <!-- 1. set up current user randomly -->
+    <!-- 2. login -->
+    <!-- 3. log out -->
+    <!-- ================================================= -->
 
-      <!-- 1. visit homepage -->
-      <request>
-        <http url='/' version='1.1' method='GET'></http>
-      </request>
+    <session name="login-logout" weight="1" type="ts_http">
 
-      <thinktime value="2" random="true"></thinktime>
-
-      <!-- 2. visit a random recipe -->
-      <setdynvars sourcetype="random_number" start="1" end="1000">
-        <var name="random_recipe_id" />
+      <!-- 1. set up current user randomly -->
+      <!-- [sample value] - current_user_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="current_user_id" />
       </setdynvars>
 
-      <request subst="true">
-        <http url='/recipes/%%_random_recipe_id%%' version='1.1' method='GET'></http>
-      </request>
+      <!-- repeat step [2,3] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
 
-      <thinktime value="2" random="true"></thinktime>
-
-      <!-- 3. visit a random masterpiece -->
-      <setdynvars sourcetype="random_number" start="1" end="2000">
-        <var name="random_masterpiece_id" />
-      </setdynvars>
-
-      <request subst="true">
-        <http url='/masterpieces/%%_random_masterpiece_id%%' version='1.1' method='GET'></http>
-      </request>
-
-      <thinktime value="2" random="true"></thinktime>
-
-    </session>
-
-    <!-- 1. log in -->
-    <!-- 2. create a recipe -->
-    <!-- 3. delete the recipe just created -->
-    <session name="recipe-create-delete" probability="20" type="ts_http">
-      <setdynvars sourcetype="eval" code='fun({Pid,DynVars})-> [[13, 10]] end.'>
-        <var name="nl" />
-      </setdynvars>
-
-      <!-- 1. log in -->
+      <!-- 2. login -->
+      <!-- go to users/sign_in page -->
+      <!-- [sample value] - authenticity_token: ... -->
       <request>
         <dyn_variable name="authenticity_token" ></dyn_variable> 
         <http url="/users/sign_in" version="1.1" method="GET"></http>
@@ -112,10 +113,12 @@
 
       <thinktime value="2" random="true"></thinktime>
 
-      <setdynvars sourcetype="random_number" start="1" end="500">
-        <var name="current_user_id" />
-      </setdynvars>
-
+      <if var="authenticity_token" neq="">
+      <!-- log in using username and password -->
+      <!-- [sample value] - login: user_1 -->
+      <!-- [sample value] - password: 88888888 -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <!-- [sample value] - remember_me: 0 -->
       <request subst="true">
         <http url="/users/sign_in" method="POST" version="1.1" 
           content_type="application/x-www-form-urlencoded"
@@ -124,7 +127,307 @@
 
       <thinktime value="2" random="true"></thinktime>
 
-      <!-- 2. create a recipe -->
+      <!-- 3. log out -->
+      <request>
+        <http url='/users/sign_out' version='1.1' method='DELETE'></http>
+      </request>
+
+      </if>
+      </for>
+
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                   visit-homepage                  -->
+    <!-- ================================================= -->
+    <!-- 1. visit homepage -->
+    <!-- ================================================= -->
+
+    <session name="visit-homepage" weight="10" type="ts_http">
+      <!-- repeat step [1] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 1. visit homepage -->
+      <request>
+        <http url='/' version='1.1' method='GET'></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                    visit-recipe                   -->
+    <!-- ================================================= -->
+    <!-- 1. random generate a recipe id to visit -->
+    <!-- 2. visit a random recipe -->
+    <!-- ================================================= -->
+
+    <session name="visit-recipe" weight="20" type="ts_http">
+
+      <!-- repeat step [1,2] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 1. random generate a recipe id to visit -->
+      <!-- [sample value] - random_recipe_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="1000">
+        <var name="random_recipe_id" />
+      </setdynvars>
+
+      <!-- 2. visit a random recipe -->
+      <!-- [sample value] - url: /recipes/1 -->
+      <request subst="true">
+        <http url="/recipes/%%_random_recipe_id%%" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                 visit-masterpiece                 -->
+    <!-- ================================================= -->
+    <!-- 1. random generate a masterpiece id to visit -->
+    <!-- 2. visit a random masterpiece -->
+    <!-- ================================================= -->
+
+    <session name="visit-masterpiece" weight="5" type="ts_http">
+
+      <!-- repeat step [1,2] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 1. random generate a masterpiece id to visit -->
+      <!-- [sample value] - random_masterpiece_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="2000">
+        <var name="random_masterpiece_id" />
+      </setdynvars>
+
+      <!-- 2. visit a random masterpiece -->
+      <!-- [sample value] - url: /masterpieces/1 -->
+      <request subst="true">
+        <http url="/masterpieces/%%_random_masterpiece_id%%" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                 visit-user-profile                -->
+    <!-- ================================================= -->
+    <!-- 1. random generate a user id to visit -->
+    <!-- 2. visit a random user profile -->
+    <!-- ================================================= -->
+
+    <session name="visit-user-profile" weight="5" type="ts_http">
+
+      <!-- repeat step [1,2] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 1. random generate a user id to visit -->
+      <!-- [sample value] - random_user_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="random_user_id" />
+      </setdynvars>
+
+      <!-- 2. visit a random user profile -->
+      <!-- [sample value] - url: /profile/1 -->
+      <request subst="true">
+        <http url="/profile/%%_random_user_id%%" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                 visit-search-index                -->
+    <!-- ================================================= -->
+    <!-- 1. visit search index page -->
+    <!-- ================================================= -->
+
+    <session name="visit-search-index" weight="1" type="ts_http">
+
+      <!-- repeat step [1] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 1. visit search index page -->
+      <request>
+        <http url='/search' version='1.1' method='GET'></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                   search-by-name                  -->
+    <!-- ================================================= -->
+    <!-- 1. random generate search keyword from lorem words -->
+    <!-- 2. search recipe by name based on the keyword -->
+    <!-- ================================================= -->
+
+    <session name="search-by-name" weight="5" type="ts_http">
+
+      <!-- repeat step [1,2] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 1. random generate search keyword from lorem words -->
+      <!-- [sample value] - random_search_keyword: dolorem -->
+      <setdynvars sourcetype="file" fileid="lorem_words" delimiter=";" order="random">
+        <var name="random_search_keyword" />
+      </setdynvars>
+
+      <!-- 2. search recipe by name based on the keyword -->
+      <!-- [sample value] - url: /search/find_by_recipe?search=dolorem -->
+      <request subst="true">
+        <http url='/search/find_by_recipe?search=%%_random_search_keyword%%' version='1.1' method='GET'></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                    search-by-tag                  -->
+    <!-- ================================================= -->
+    <!-- 1. random generate a tag name to search -->
+    <!-- 2. search recipe by tag based on the tag name -->
+    <!-- ================================================= -->
+
+    <session name="search-by-tag" weight="4" type="ts_http">
+
+      <!-- repeat step [1,2] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 1. random generate a tag name to search -->
+      <!-- [sample value] - random_tag_suffix: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="100">
+        <var name="random_tag_suffix" />
+      </setdynvars>
+
+      <!-- 2. search recipe by tag based on the tag name -->
+      <!-- [sample value] - url: /search/find_by_tag?search=tag1 -->
+      <request subst="true">
+        <http url='/search/find_by_tag?search=tag%%_random_tag_suffix%%' version='1.1' method='GET'></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                   search-by-user                  -->
+    <!-- ================================================= -->
+    <!-- 1. random generate a username to search -->
+    <!-- 2. search user based on the username -->
+    <!-- ================================================= -->
+
+    <session name="search-by-user" weight="1" type="ts_http">
+
+      <!-- repeat step [1,2] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 1. random generate a username to search -->
+      <!-- [sample value] - random_username_suffix: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="random_username_suffix" />
+      </setdynvars>
+
+      <!-- 2. search user based on the username -->
+      <!-- [sample value] - url: /search/find_by_user?search=user_1 -->
+      <request subst="true">
+        <http url='/search/find_by_user?search=user_%%_random_username_suffix%%' version='1.1' method='GET'></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                 create-delete-recipe              -->
+    <!-- ================================================= -->
+    <!-- 1. set up current user randomly -->
+    <!-- 2. login -->
+    <!-- 3. go to recipes/new page -->
+    <!-- 4. create a recipe -->
+    <!-- 5. redirected to recipe page just created -->
+    <!-- 6. delete the recipe just created -->
+    <!-- 7. log out -->
+    <!-- ================================================= -->
+
+    <session name="create-delete-recipe" weight="1" type="ts_http">
+
+      <!-- 1. set up current user randomly -->
+      <!-- [sample value] - current_user_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="current_user_id" />
+      </setdynvars>
+
+      <!-- 2. login -->
+      <!-- go to users/sign_in page -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <request>
+        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <http url="/users/sign_in" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <if var="authenticity_token" neq="">
+
+      <!-- log in using username and password -->
+      <!-- [sample value] - login: user_1 -->
+      <!-- [sample value] - password: 88888888 -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <!-- [sample value] - remember_me: 0 -->
+      <request subst="true">
+        <http url="/users/sign_in" method="POST" version="1.1" 
+          content_type="application/x-www-form-urlencoded"
+          contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Blogin%5D=user_%%_current_user_id%%&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- repeat step [3,4,5,6] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 3. go to recipes/new page -->
+      <!-- [sample value] - authenticity_token: ... -->
       <request>
         <dyn_variable name="authenticity_token" ></dyn_variable> 
         <http url="/recipes/new" version="1.1" method="GET"></http>
@@ -132,49 +435,84 @@
 
       <thinktime value="2" random="true"></thinktime>
 
-      <setdynvars sourcetype="random_string" length="13">
+
+      <!-- if we got the authenticity_token, do step [4,5,6] -->
+      <!-- otherwise, do nothing -->
+      <if var="authenticity_token" neq="">
+
+      <!-- 4. create a recipe -->
+
+      <!-- setting up the recipe data -->
+
+      <!-- [sample value] - title: abcdefg.... -->
+      <setdynvars sourcetype="random_string" length="11">
         <var name="title" />
       </setdynvars>
 
-      <setdynvars sourcetype="value" value="tag1,tag2,tag3">
+      <!-- [notice] tag generation need more thoughts -->
+      <!-- [sample value] - tag_list: tag1,tag2,tag3 -->
+      <setdynvars sourcetype="eval" 
+                  code="fun({Pid,DynVars})->
+                          Tag = &quot;tag&quot;,
+                          Tag1 = string:concat(Tag,integer_to_list(random:uniform(100))),
+                          Tag2 = string:concat(Tag,integer_to_list(random:uniform(100))),
+                          Tag3 = string:concat(Tag,integer_to_list(random:uniform(100))),
+                          StringList = [Tag1,Tag2,Tag3],
+                          Tag_list = list_to_binary(string:join(StringList, &quot;,&quot;))
+                        end.">
         <var name="tag_list" />
       </setdynvars>
 
-      <setdynvars sourcetype="random_string" length="13">
+      <!-- [sample value] - description: abcdefg.... -->
+      <setdynvars sourcetype="random_string" length="11">
         <var name="description" />
       </setdynvars>
 
-      <setdynvars sourcetype="random_number" start="1" end="5">
+      <!-- [sample value] - cook_time: 10 -->
+      <setdynvars sourcetype="random_number" start="10" end="60">
         <var name="cook_time" />
       </setdynvars>
 
+      <!-- [sample value] - ingredient_0_name: ingredient1 -->
       <setdynvars sourcetype="value" value="ingredient1">
         <var name="ingredient_0_name" />
       </setdynvars>
 
+      <!-- [sample value] - ingredient_0_quantity: 10g -->
       <setdynvars sourcetype="value" value="10g">
         <var name="ingredient_0_quantity" />
       </setdynvars>
 
+      <!-- [sample value] - ingredient_1_name: ingredient2 -->
       <setdynvars sourcetype="value" value="ingredient2">
         <var name="ingredient_1_name" />
       </setdynvars>
 
+      <!-- [sample value] - ingredient_1_quantity: 20g -->
       <setdynvars sourcetype="value" value="20g">
         <var name="ingredient_1_quantity" />
       </setdynvars>
 
-      <setdynvars sourcetype="random_string" length="13">
+      <!-- [sample value] - step_0_description: abcdefg.... -->
+      <setdynvars sourcetype="random_string" length="11">
         <var name="step_0_description" />
       </setdynvars>
 
-      <setdynvars sourcetype="random_string" length="13">
+      <!-- [sample value] - step_1_description: abcdefg.... -->
+      <setdynvars sourcetype="random_string" length="11">
         <var name="step_1_description" />
       </setdynvars>
 
-      <setdynvars sourcetype="random_string" length="13">
+      <!-- [sample value] - step_2_description: abcdefg.... -->
+      <setdynvars sourcetype="random_string" length="11">
         <var name="step_2_description" />
       </setdynvars>
+
+      <!-- [sample value] - nl: CRLF -->
+      <setdynvars sourcetype="eval" code='fun({Pid,DynVars})-> [[13, 10]] end.'>
+        <var name="nl" />
+      </setdynvars>
+
 <!-- 
       <setdynvars sourcetype="eval"
             code='fun({Pid,DynVars})->
@@ -184,9 +522,11 @@
         <var name="recipe_img_file" />
       </setdynvars>
  -->
+
+      <!-- make the request to the server to create the recipe -->
+      <!-- [sample value] - created_recipe_url: /recipes/1001 -->
       <request subst="true">
         <dyn_variable name="created_recipe_url" re="[Ll]ocation: (http://.*)\r"/>
-        <dyn_variable name="created_recipe_id" re="[Ll]ocation: http://.*/recipes/(.*)\r"/>
         <http
           url='/recipes'
           version='1.1'
@@ -195,15 +535,569 @@
           contents='------FormBoundary%%_nl%%Content-Disposition: form-data; name="utf8"%%_nl%%%%_nl%%%E2%9C%93%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="authenticity_token"%%_nl%%%%_nl%%%%_authenticity_token%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[user_id]"%%_nl%%%%_nl%%%%_current_user_id%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[title]"%%_nl%%%%_nl%%%%_title%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[tag_list]"%%_nl%%%%_nl%%%%_tag_list%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[description]"%%_nl%%%%_nl%%%%_description%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[cook_time]"%%_nl%%%%_nl%%%%_cook_time%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[ingredients_attributes][0][name]"%%_nl%%%%_nl%%%%_ingredient_0_name%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[ingredients_attributes][0][quantity]"%%_nl%%%%_nl%%%%_ingredient_0_quantity%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[ingredients_attributes][0][_destroy]"%%_nl%%%%_nl%%false%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[ingredients_attributes][1][name]"%%_nl%%%%_nl%%%%_ingredient_1_name%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[ingredients_attributes][1][quantity]"%%_nl%%%%_nl%%%%_ingredient_1_quantity%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[ingredients_attributes][1][_destroy]"%%_nl%%%%_nl%%false%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][0][step_number]"%%_nl%%%%_nl%%1%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][0][description]"%%_nl%%%%_nl%%%%_step_0_description%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][0][step_img]"; filename=""%%_nl%%Content-Type: application/octet-stream%%_nl%%%%_nl%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][0][_destroy]"%%_nl%%%%_nl%%false%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][1][step_number]"%%_nl%%%%_nl%%2%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][1][description]"%%_nl%%%%_nl%%%%_step_1_description%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][1][step_img]"; filename=""%%_nl%%Content-Type: application/octet-stream%%_nl%%%%_nl%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][1][_destroy]"%%_nl%%%%_nl%%false%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][2][step_number]"%%_nl%%%%_nl%%3%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][2][description]"%%_nl%%%%_nl%%%%_step_2_description%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][2][step_img]"; filename=""%%_nl%%Content-Type: application/octet-stream%%_nl%%%%_nl%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[steps_attributes][2][_destroy]"%%_nl%%%%_nl%%false%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="recipe[recipe_img]"; filename=""%%_nl%%Content-Type: application/octet-stream%%_nl%%%%_nl%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="commit"%%_nl%%%%_nl%%Create Recipe%%_nl%%------FormBoundary--%%_nl%%%%_nl%%'>
         </http>
       </request>
- 
+
+      <!-- 5. redirected to recipe page just created -->
+
+      <if var="created_recipe_url" neq="">
+        <request subst="true">
+          <http url="%%_created_recipe_url%%" version="1.1" method="GET"></http>
+        </request>
+      </if>
+
       <thinktime value="2" random="true"></thinktime>
 
-      <!-- 3. delete the recipe just created -->
+      <!-- 6. delete the recipe just created -->
+      <if var="created_recipe_url" neq="">
+        <request subst="true">
+          <http url="%%_created_recipe_url%%" method="DELETE">
+          </http>
+        </request>
+      </if>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </if>
+
+      </for>
+
+      <!-- 7. log out -->
+      <request>
+        <http url='/users/sign_out' version='1.1' method='DELETE'></http>
+      </request>
+
+      </if>
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--              create-delete-masterpiece            -->
+    <!-- ================================================= -->
+    <!-- 1. set up current user randomly -->
+    <!-- 2. login -->
+    <!-- 3. random generate a recipe id to upload masterpiece -->
+    <!-- 4. go to masterpieces/new page -->
+    <!-- 5. create a masterpiece -->
+    <!-- 6. redirected to masterpiece page just created -->
+    <!-- 7. delete the masterpiece just created -->
+    <!-- 8. log out -->
+    <!-- ================================================= -->
+
+    <session name="create-delete-masterpiece" weight="1" type="ts_http">
+
+      <!-- 1. set up current user randomly -->
+      <!-- [sample value] - current_user_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="current_user_id" />
+      </setdynvars>
+
+      <!-- 2. login -->
+      <!-- go to users/sign_in page -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <request>
+        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <http url="/users/sign_in" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <if var="authenticity_token" neq="">
+
+      <!-- log in using username and password -->
+      <!-- [sample value] - login: user_1 -->
+      <!-- [sample value] - password: 88888888 -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <!-- [sample value] - remember_me: 0 -->
       <request subst="true">
-        <http url="%%_created_recipe_url%%" method="DELETE">
+        <http url="/users/sign_in" method="POST" version="1.1" 
+          content_type="application/x-www-form-urlencoded"
+          contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Blogin%5D=user_%%_current_user_id%%&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- repeat step [3,4,5,6,7] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 3. random generate a recipe id to upload masterpiece -->
+      <setdynvars sourcetype="random_number" start="1" end="1000">
+        <var name="random_recipe_id" />
+      </setdynvars>
+
+      <!-- 4. go to masterpieces/new page -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <request  subst="true">
+        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <http url="/masterpieces/new?masterpiece%5Brecipe_id%5D=%%_random_recipe_id%%" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+
+      <!-- if we got the authenticity_token, do step [5,6,7] -->
+      <!-- otherwise, do nothing -->
+      <if var="authenticity_token" neq="">
+
+      <!-- 5. create a masterpiece -->
+
+      <!-- setting up the masterpiece data -->
+
+      <!-- [sample value] - description: abcdefg.... -->
+      <setdynvars sourcetype="random_string" length="11">
+        <var name="description" />
+      </setdynvars>
+
+      <!-- [sample value] - nl: CRLF -->
+      <setdynvars sourcetype="eval" code='fun({Pid,DynVars})-> [[13, 10]] end.'>
+        <var name="nl" />
+      </setdynvars>
+
+<!-- 
+      <setdynvars sourcetype="eval"
+            code='fun({Pid,DynVars})->
+                    {ok, Bin} = file:read_file("sample.png"),
+                    Bin
+                  end.'>
+        <var name="masterpiece_img_file" />
+      </setdynvars>
+ -->
+
+      <!-- make the request to the server to create the masterpiece -->
+      <!-- [sample value] - created_masterpiece_url: /masterpieces/1001 -->
+      <request subst="true">
+        <dyn_variable name="created_masterpiece_url" re="[Ll]ocation: (http://.*)\r"/>
+        <http
+          url='/masterpieces'
+          version='1.1'
+          method='POST'
+          content_type='multipart/form-data; boundary=----FormBoundary'
+          contents='------FormBoundary%%_nl%%Content-Disposition: form-data; name="utf8"%%_nl%%%%_nl%%%E2%9C%93%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="authenticity_token"%%_nl%%%%_nl%%%%_authenticity_token%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="masterpiece[recipe_id]"%%_nl%%%%_nl%%%%_random_recipe_id%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="masterpiece[user_id]"%%_nl%%%%_nl%%%%_current_user_id%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="masterpiece[description]"%%_nl%%%%_nl%%%%_description%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="masterpiece[masterpiece_img]"; filename=""%%_nl%%Content-Type: application/octet-stream%%_nl%%%%_nl%%%%_nl%%------FormBoundary%%_nl%%Content-Disposition: form-data; name="commit"%%_nl%%%%_nl%%Create Masterpiece%%_nl%%------FormBoundary--%%_nl%%%%_nl%%'>
         </http>
       </request>
 
+      <!-- 6. redirected to masterpiece page just created -->
+
+      <if var="created_masterpiece_url" neq="">
+        <request subst="true">
+          <http url="%%_created_masterpiece_url%%" version="1.1" method="GET"></http>
+        </request>
+      </if>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- 7. delete the masterpiece just created -->
+      <if var="created_masterpiece_url" neq="">
+        <request subst="true">
+          <http url="%%_created_masterpiece_url%%" method="DELETE">
+          </http>
+        </request>
+      </if>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </if>
+
+      </for>
+
+      <!-- 8. log out -->
+      <request>
+        <http url='/users/sign_out' version='1.1' method='DELETE'></http>
+      </request>
+
+      </if>
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                     like-recipe                   -->
+    <!-- ================================================= -->
+    <!-- 1. set up current user randomly -->
+    <!-- 2. login -->
+    <!-- 3. random generate a recipe id to visit -->
+    <!-- 4. visit a random recipe -->
+    <!-- 5. like/unlike this recipe -->
+    <!-- 6. redirected to this recipe page -->
+    <!-- 7. log out -->
+    <!-- ================================================= -->
+
+    <session name="like-recipe" weight="2" type="ts_http">
+
+      <!-- 1. set up current user randomly -->
+      <!-- [sample value] - current_user_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="current_user_id" />
+      </setdynvars>
+
+      <!-- 2. login -->
+      <!-- go to users/sign_in page -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <request>
+        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <http url="/users/sign_in" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <if var="authenticity_token" neq="">
+
+      <!-- log in using username and password -->
+      <!-- [sample value] - login: user_1 -->
+      <!-- [sample value] - password: 88888888 -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <!-- [sample value] - remember_me: 0 -->
+      <request subst="true">
+        <http url="/users/sign_in" method="POST" version="1.1" 
+          content_type="application/x-www-form-urlencoded"
+          contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Blogin%5D=user_%%_current_user_id%%&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- 3. random generate a recipe id to visit -->
+      <!-- [sample value] - random_recipe_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="1000">
+        <var name="random_recipe_id" />
+      </setdynvars>
+
+      <!-- 4. visit a random recipe -->
+      <!-- [case] the user hasn't liked the recipe -->
+      <!-- [sample value] - url: /recipes/1 -->
+      <!-- [sample value] - like_recipe_url: /recipes/1/like -->
+      <!-- [sample value] - like_recipe_token: ... -->
+      <!-- [sample value] - unlike_recipe_url: "" -->
+      <!-- [sample value] - unlike_recipe_token: "" -->
+      <!-- [case] the user has already liked the recipe -->
+      <!-- [sample value] - url: /recipes/1 -->
+      <!-- [sample value] - like_recipe_url: "" -->
+      <!-- [sample value] - like_recipe_token: "" -->
+      <!-- [sample value] - unlike_recipe_url: /recipes/1/unlike -->
+      <!-- [sample value] - unlike_recipe_token: ... -->
+      <request subst="true">
+        <dyn_variable name="like_recipe_url" xpath="//div[@id='like-recipe-form']/form/@action"/>
+        <dyn_variable name="like_recipe_token" xpath="//div[@id='like-recipe-form']/form/input[@name='authenticity_token']/@value"/>
+        <dyn_variable name="unlike_recipe_url" xpath="//div[@id='unlike-recipe-form']/form/@action"/>
+        <dyn_variable name="unlike_recipe_token" xpath="//div[@id='unlike-recipe-form']/form/input[@name='authenticity_token']/@value"/>
+        <http url="/recipes/%%_random_recipe_id%%" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- repeat step [5,6] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 5. like/unlike this recipe -->
+      <!-- [case] the user hasn't liked the recipe -->
+      <!-- [sample value] - url: /recipes/1/like -->
+      <!-- [sample value] - like_recipe_url: /recipes/1/like -->
+      <!-- [sample value] - like_recipe_token: ... -->
+      <!-- [sample value] - redirected_recipe_url: /recipes/1 -->
+      <if var="like_recipe_url" neq="">
+        <request subst="true">
+          <dyn_variable name="redirected_recipe_url" re="[Ll]ocation: (http://.*)\r"/>
+          <http url="%%_like_recipe_url%%" method="POST" version="1.1" 
+            content_type="application/x-www-form-urlencoded"
+            contents="authenticity_token=%%_like_recipe_token%%&amp;click_page=recipe_show"/>
+        </request>
+      </if>
+
+      <!-- [case] the user has already liked the recipe -->
+      <!-- [sample value] - url: /recipes/1/unlike -->
+      <!-- [sample value] - unlike_recipe_url: /recipes/1/unlike -->
+      <!-- [sample value] - unlike_recipe_token: ... -->
+      <!-- [sample value] - redirected_recipe_url: /recipes/1 -->
+      <if var="unlike_recipe_url" neq="">
+        <request subst="true">
+          <dyn_variable name="redirected_recipe_url" re="[Ll]ocation: (http://.*)\r"/>
+          <http url="%%_unlike_recipe_url%%" method="POST" version="1.1" 
+            content_type="application/x-www-form-urlencoded"
+            contents="authenticity_token=%%_unlike_recipe_token%%&amp;click_page=recipe_show"/>
+        </request>
+      </if>
+
+      <!-- 6. redirected to this recipe page -->
+      <if var="redirected_recipe_url" neq="">
+        <request subst="true">
+          <dyn_variable name="like_recipe_url" xpath="//div[@id='like-recipe-form']/form/@action"/>
+          <dyn_variable name="like_recipe_token" xpath="//div[@id='like-recipe-form']/form/input[@name='authenticity_token']/@value"/>
+          <dyn_variable name="unlike_recipe_url" xpath="//div[@id='unlike-recipe-form']/form/@action"/>
+          <dyn_variable name="unlike_recipe_token" xpath="//div[@id='unlike-recipe-form']/form/input[@name='authenticity_token']/@value"/>
+          <http url="%%_redirected_recipe_url%%" version="1.1" method="GET"></http>
+        </request>
+      </if>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+      <!-- 6. log out -->
+      <request>
+        <http url='/users/sign_out' version='1.1' method='DELETE'></http>
+      </request>
+
+      </if>
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                   bookmark-recipe                 -->
+    <!-- ================================================= -->
+    <!-- 1. set up current user randomly -->
+    <!-- 2. login -->
+    <!-- 3. random generate a recipe id to visit -->
+    <!-- 4. visit a random recipe -->
+    <!-- 5. bookmark/unbookmark this recipe -->
+    <!-- 6. redirected to this recipe page -->
+    <!-- 7. log out -->
+    <!-- ================================================= -->
+
+    <session name="bookmark-recipe" weight="2" type="ts_http">
+
+      <!-- 1. set up current user randomly -->
+      <!-- [sample value] - current_user_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="current_user_id" />
+      </setdynvars>
+
+      <!-- 2. login -->
+      <!-- go to users/sign_in page -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <request>
+        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <http url="/users/sign_in" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <if var="authenticity_token" neq="">
+
+      <!-- log in using username and password -->
+      <!-- [sample value] - login: user_1 -->
+      <!-- [sample value] - password: 88888888 -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <!-- [sample value] - remember_me: 0 -->
+      <request subst="true">
+        <http url="/users/sign_in" method="POST" version="1.1" 
+          content_type="application/x-www-form-urlencoded"
+          contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Blogin%5D=user_%%_current_user_id%%&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- 3. random generate a recipe id to visit -->
+      <!-- [sample value] - random_recipe_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="1000">
+        <var name="random_recipe_id" />
+      </setdynvars>
+
+      <!-- 4. visit a random recipe -->
+      <!-- [case] the user hasn't bookmarked the recipe -->
+      <!-- [sample value] - url: /recipes/1 -->
+      <!-- [sample value] - bookmark_recipe_url: /recipes/1/bookmark -->
+      <!-- [sample value] - bookmark_recipe_token: ... -->
+      <!-- [sample value] - unbookmark_recipe_url: "" -->
+      <!-- [sample value] - unbookmark_recipe_token: "" -->
+      <!-- [case] the user has already bookmarked the recipe -->
+      <!-- [sample value] - url: /recipes/1 -->
+      <!-- [sample value] - bookmark_recipe_url: "" -->
+      <!-- [sample value] - bookmark_recipe_token: "" -->
+      <!-- [sample value] - unbookmark_recipe_url: /recipes/1/unbookmark -->
+      <!-- [sample value] - unbookmark_recipe_token: ... -->
+      <request subst="true">
+        <dyn_variable name="bookmark_recipe_url" xpath="//div[@id='bookmark-recipe-form']/form/@action"/>
+        <dyn_variable name="bookmark_recipe_token" xpath="//div[@id='bookmark-recipe-form']/form/input[@name='authenticity_token']/@value"/>
+        <dyn_variable name="unbookmark_recipe_url" xpath="//div[@id='unbookmark-recipe-form']/form/@action"/>
+        <dyn_variable name="unbookmark_recipe_token" xpath="//div[@id='unbookmark-recipe-form']/form/input[@name='authenticity_token']/@value"/>
+        <http url="/recipes/%%_random_recipe_id%%" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- repeat step [5,6] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 5. bookmark/unbookmark this recipe -->
+      <!-- [case] the user hasn't bookmarked the recipe -->
+      <!-- [sample value] - url: /recipes/1/bookmark -->
+      <!-- [sample value] - bookmark_recipe_url: /recipes/1/bookmark -->
+      <!-- [sample value] - bookmark_recipe_token: ... -->
+      <!-- [sample value] - redirected_recipe_url: /recipes/1 -->
+      <if var="bookmark_recipe_url" neq="">
+        <request subst="true">
+          <dyn_variable name="redirected_recipe_url" re="[Ll]ocation: (http://.*)\r"/>
+          <http url="%%_bookmark_recipe_url%%" method="POST" version="1.1" 
+            content_type="application/x-www-form-urlencoded"
+            contents="authenticity_token=%%_bookmark_recipe_token%%&amp;click_page=recipe_show"/>
+        </request>
+      </if>
+
+      <!-- [case] the user has already bookmarked the recipe -->
+      <!-- [sample value] - url: /recipes/1/unbookmark -->
+      <!-- [sample value] - unbookmark_recipe_url: /recipes/1/unbookmark -->
+      <!-- [sample value] - unbookmark_recipe_token: ... -->
+      <!-- [sample value] - redirected_recipe_url: /recipes/1 -->
+      <if var="unbookmark_recipe_url" neq="">
+        <request subst="true">
+          <dyn_variable name="redirected_recipe_url" re="[Ll]ocation: (http://.*)\r"/>
+          <http url="%%_unbookmark_recipe_url%%" method="POST" version="1.1" 
+            content_type="application/x-www-form-urlencoded"
+            contents="authenticity_token=%%_unbookmark_recipe_token%%&amp;click_page=recipe_show"/>
+        </request>
+      </if>
+
+      <!-- 6. redirected to this recipe page -->
+      <if var="redirected_recipe_url" neq="">
+        <request subst="true">
+          <dyn_variable name="bookmark_recipe_url" xpath="//div[@id='bookmark-recipe-form']/form/@action"/>
+          <dyn_variable name="bookmark_recipe_token" xpath="//div[@id='bookmark-recipe-form']/form/input[@name='authenticity_token']/@value"/>
+          <dyn_variable name="unbookmark_recipe_url" xpath="//div[@id='unbookmark-recipe-form']/form/@action"/>
+          <dyn_variable name="unbookmark_recipe_token" xpath="//div[@id='unbookmark-recipe-form']/form/input[@name='authenticity_token']/@value"/>
+          <http url="%%_redirected_recipe_url%%" version="1.1" method="GET"></http>
+        </request>
+      </if>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+      <!-- 6. log out -->
+      <request>
+        <http url='/users/sign_out' version='1.1' method='DELETE'></http>
+      </request>
+
+      </if>
+    </session>
+
+
+    <!-- ================================================= -->
+    <!--                      SESSION                      -->
+    <!--                     like-masterpiece                   -->
+    <!-- ================================================= -->
+    <!-- 1. set up current user randomly -->
+    <!-- 2. login -->
+    <!-- 3. random generate a masterpiece id to visit -->
+    <!-- 4. visit a random masterpiece -->
+    <!-- 5. like/unlike this masterpiece -->
+    <!-- 6. redirected to this masterpiece page -->
+    <!-- 7. log out -->
+    <!-- ================================================= -->
+
+    <session name="like-masterpiece" weight="1" type="ts_http">
+
+      <!-- 1. set up current user randomly -->
+      <!-- [sample value] - current_user_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="current_user_id" />
+      </setdynvars>
+
+      <!-- 2. login -->
+      <!-- go to users/sign_in page -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <request>
+        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <http url="/users/sign_in" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <if var="authenticity_token" neq="">
+
+      <!-- log in using username and password -->
+      <!-- [sample value] - login: user_1 -->
+      <!-- [sample value] - password: 88888888 -->
+      <!-- [sample value] - authenticity_token: ... -->
+      <!-- [sample value] - remember_me: 0 -->
+      <request subst="true">
+        <http url="/users/sign_in" method="POST" version="1.1" 
+          content_type="application/x-www-form-urlencoded"
+          contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Blogin%5D=user_%%_current_user_id%%&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- 3. random generate a masterpiece id to visit -->
+      <!-- [sample value] - random_masterpiece_id: 1 -->
+      <setdynvars sourcetype="random_number" start="1" end="2000">
+        <var name="random_masterpiece_id" />
+      </setdynvars>
+
+      <!-- 4. visit a random masterpiece -->
+      <!-- [case] the user hasn't liked the masterpiece -->
+      <!-- [sample value] - url: /masterpieces/1 -->
+      <!-- [sample value] - like_masterpiece_url: /masterpieces/1/like -->
+      <!-- [sample value] - like_masterpiece_token: ... -->
+      <!-- [sample value] - unlike_masterpiece_url: "" -->
+      <!-- [sample value] - unlike_masterpiece_token: "" -->
+      <!-- [case] the user has already liked the masterpiece -->
+      <!-- [sample value] - url: /masterpieces/1 -->
+      <!-- [sample value] - like_masterpiece_url: "" -->
+      <!-- [sample value] - like_masterpiece_token: "" -->
+      <!-- [sample value] - unlike_masterpiece_url: /masterpieces/1/unlike -->
+      <!-- [sample value] - unlike_masterpiece_token: ... -->
+      <request subst="true">
+        <dyn_variable name="like_masterpiece_url" xpath="//div[@id='like-masterpiece-form']/form/@action"/>
+        <dyn_variable name="like_masterpiece_token" xpath="//div[@id='like-masterpiece-form']/form/input[@name='authenticity_token']/@value"/>
+        <dyn_variable name="unlike_masterpiece_url" xpath="//div[@id='unlike-masterpiece-form']/form/@action"/>
+        <dyn_variable name="unlike_masterpiece_token" xpath="//div[@id='unlike-masterpiece-form']/form/input[@name='authenticity_token']/@value"/>
+        <http url="/masterpieces/%%_random_masterpiece_id%%" version="1.1" method="GET"></http>
+      </request>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- repeat step [5,6] 10 times -->
+      <for from="1" to="10" incr="1" var="counter">
+
+      <!-- 5. like/unlike this masterpiece -->
+      <!-- [case] the user hasn't liked the masterpiece -->
+      <!-- [sample value] - url: /masterpieces/1/like -->
+      <!-- [sample value] - like_masterpiece_url: /masterpieces/1/like -->
+      <!-- [sample value] - like_masterpiece_token: ... -->
+      <!-- [sample value] - redirected_masterpiece_url: /masterpieces/1 -->
+      <if var="like_masterpiece_url" neq="">
+        <request subst="true">
+          <dyn_variable name="redirected_masterpiece_url" re="[Ll]ocation: (http://.*)\r"/>
+          <http url="%%_like_masterpiece_url%%" method="POST" version="1.1" 
+            content_type="application/x-www-form-urlencoded"
+            contents="authenticity_token=%%_like_masterpiece_token%%&amp;click_page=masterpiece_show"/>
+        </request>
+      </if>
+
+      <!-- [case] the user has already liked the masterpiece -->
+      <!-- [sample value] - url: /masterpieces/1/unlike -->
+      <!-- [sample value] - unlike_masterpiece_url: /masterpieces/1/unlike -->
+      <!-- [sample value] - unlike_masterpiece_token: ... -->
+      <!-- [sample value] - redirected_masterpiece_url: /masterpieces/1 -->
+      <if var="unlike_masterpiece_url" neq="">
+        <request subst="true">
+          <dyn_variable name="redirected_masterpiece_url" re="[Ll]ocation: (http://.*)\r"/>
+          <http url="%%_unlike_masterpiece_url%%" method="POST" version="1.1" 
+            content_type="application/x-www-form-urlencoded"
+            contents="authenticity_token=%%_unlike_masterpiece_token%%&amp;click_page=masterpiece_show"/>
+        </request>
+      </if>
+
+      <!-- 6. redirected to this masterpiece page -->
+      <if var="redirected_masterpiece_url" neq="">
+        <request subst="true">
+          <dyn_variable name="like_masterpiece_url" xpath="//div[@id='like-masterpiece-form']/form/@action"/>
+          <dyn_variable name="like_masterpiece_token" xpath="//div[@id='like-masterpiece-form']/form/input[@name='authenticity_token']/@value"/>
+          <dyn_variable name="unlike_masterpiece_url" xpath="//div[@id='unlike-masterpiece-form']/form/@action"/>
+          <dyn_variable name="unlike_masterpiece_token" xpath="//div[@id='unlike-masterpiece-form']/form/input[@name='authenticity_token']/@value"/>
+          <http url="%%_redirected_masterpiece_url%%" version="1.1" method="GET"></http>
+        </request>
+      </if>
+
+      <thinktime value="2" random="true"></thinktime>
+
+      </for>
+
+      <!-- 6. log out -->
+      <request>
+        <http url='/users/sign_out' version='1.1' method='DELETE'></http>
+      </request>
+
+      </if>
     </session>
 
   </sessions>
