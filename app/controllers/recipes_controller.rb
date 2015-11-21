@@ -12,8 +12,13 @@ class RecipesController < ApplicationController
   # GET /recipes/1
   # GET /recipes/1.json
   def show
+    @tags = @recipe.tags
     @ingredients = @recipe.ingredients
-    @masterpieces = @recipe.masterpieces
+    @masterpieces = @recipe.masterpieces.includes(:cook)
+    @steps = @recipe.steps
+    @users_liking_it = @recipe.users_liking_it
+    @users_bookmarking_it = @recipe.users_bookmarking_it
+
   end
 
   # GET /recipes/new

@@ -4,8 +4,8 @@ class ProfileController < ApplicationController
     @created_recipes = @user.created_recipes
     @bookmarked_recipes = @user.bookmarked_recipes
     @liked_recipes = @user.liked_recipes
-    @cooked_masterpieces = @user.cooked_masterpieces
-    @liked_masterpieces = @user.liked_masterpieces
+    @cooked_masterpieces = @user.cooked_masterpieces.includes(:recipe)
+    @liked_masterpieces = @user.liked_masterpieces.includes(:recipe)
   end
 
   private

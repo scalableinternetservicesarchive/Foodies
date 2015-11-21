@@ -8,7 +8,7 @@ def find_by_recipe
   if @keyword == ''
     @recipes = Recipe.none
   else
-    @recipes = Recipe.search(params[:search]).order("created_at DESC")
+    @recipes = Recipe.search(params[:search]).order("created_at DESC").includes(:creator, :tags)
   end
 end
 
@@ -17,7 +17,7 @@ def find_by_tag
   if @keyword == ''
     @recipes = Recipe.none
   else
-    @recipes = Recipe.tagged_with(params[:search])
+    @recipes = Recipe.tagged_with(params[:search]).includes(:creator, :tags)
   end
 end
 
