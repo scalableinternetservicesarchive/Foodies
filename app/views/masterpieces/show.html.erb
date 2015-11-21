@@ -27,7 +27,7 @@
 <% end %>
 
 <p>
-  <span class="count-number"><%= @masterpiece.users_liking_it.count %></span> people liked it
+  <span class="count-number"><%= @masterpiece.users_liking_it.length %></span> people liked it
 </p>
 <p>
   <% @masterpiece.users_liking_it.each do |user| %>
