@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<% cache('application-head') do %>
 <head>
   <title>Foodies</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -7,7 +8,9 @@
   <!-- <%= csrf_meta_tags %> -->
   <link href="http://fonts.googleapis.com/css?family=Raleway:100,300,400,600,700" rel="stylesheet" type="text/css">
 </head>
+<% end %>
 <body id="orange">
+  <% cache(cache_key_for_application_header(current_user)) do %>
   <header id="sub-page">
     <div class="container">
       <nav class="navbar custom-nav" role="navigation">
@@ -73,10 +76,13 @@
     </div>
   </header>
 
+  <% end %>
+
   <div class="container boxed">
 
     <%= raw yield.indent(4) %>
 
+    <% cache('application-footer') do %>
     <footer>
       <div class="row">
         <div class="col-sm-6 col-xs-12 footer-share">
@@ -88,6 +94,7 @@
         </div>
       </div>
     </footer>
+    <% end %>
   </div>
 
 </body>
