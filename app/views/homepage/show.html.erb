@@ -20,6 +20,7 @@
 </ul>
 
 <!-- Show top bookmarked recipes in pagination-->
+<% cache(cache_key_for_recipe_table) do %>
 <div class="row">
   <div class="col-sm-12">
     <h4 class="page-header">Most bookmarked recipes</h4>
@@ -50,6 +51,7 @@
   <% end %>
   <% end %>
 </div>
+<% end %>
 
 <!-- Begin Pagination -->
 <div class="pagination-container text-center">
