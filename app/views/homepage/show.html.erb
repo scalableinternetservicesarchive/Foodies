@@ -25,6 +25,7 @@
     <h4 class="page-header">Most bookmarked recipes</h4>
   </div>
   <% @top_bookmarked_recipes.each do |recipe|%>
+  <% cache(cache_key_for_recipe_snippet(recipe)) do %>
   <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
     <div class="work-item">
       <%= image_tag(recipe.recipe_img.url(:square))%>
@@ -46,6 +47,7 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
   </div>
+  <% end %>
   <% end %>
 </div>
 
