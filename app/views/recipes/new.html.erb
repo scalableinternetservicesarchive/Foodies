@@ -1,5 +1,7 @@
+<% cache('recipe-new') do %>
 <h1>New Recipe</h1>
 
 <%= render 'form' %>
 
 <%= link_to 'Cancel', root_path, class: "btn btn-default" %>
+<% end %>
