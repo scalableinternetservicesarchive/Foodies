@@ -1,6 +1,6 @@
 class MasterpiecesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_masterpiece, only: [:show, :edit, :update, :destroy, :like, :unlike]
+  before_action :set_masterpiece, only: [:edit, :update, :destroy, :like, :unlike]
   before_action :check_permission, only: [:edit, :update, :destroy]
 
   # GET /masterpieces
@@ -12,6 +12,7 @@ class MasterpiecesController < ApplicationController
   # GET /masterpieces/1
   # GET /masterpieces/1.json
   def show
+    @masterpiece = Masterpiece.select('id, description, user_id, recipe_id, masterpiece_img_file_name').find(params[:id])
   end
 
   # GET /masterpieces/new

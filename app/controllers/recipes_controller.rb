@@ -12,8 +12,9 @@ class RecipesController < ApplicationController
   # GET /recipes/1
   # GET /recipes/1.json
   def show
-    @ingredients = @recipe.ingredients
-    @masterpieces = @recipe.masterpieces
+    @ingredients = Ingredient.select('id, recipe_id, name, quantity').where(recipe_id: @recipe.id)
+    @masterpieces = Masterpiece.select('id, user_id, recipe_id, description, masterpiece_img_file_name').where(recipe_id: @recipe.id)
+    @steps = Step.select('id, recipe_id, step_number, description, step_img_file_name').where(recipe_id: @recipe.id)
   end
 
   # GET /recipes/new
