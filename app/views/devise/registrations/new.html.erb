@@ -1,3 +1,4 @@
+<% cache('sign-up') do %>
 <div class="form-signin">
   <h3 class="form-signin-heading">Please sign up</h3>
   <%= devise_error_messages! %>
@@ -15,3 +16,4 @@
   <% end %>
   <%= render "devise/shared/links" %>
 </div>
+<% end %>

@@ -1,3 +1,4 @@
+<% cache('log-in') do %>
 <div class="form-signin">
   <h3 class="form-signin-heading">Log in</h3>
   <% if alert %>
@@ -15,3 +16,4 @@
   <% end %>
   <%= render "devise/shared/links" %>
 </div>
+<% end %>
