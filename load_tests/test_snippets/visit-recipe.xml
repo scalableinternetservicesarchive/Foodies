@@ -24,20 +24,19 @@
     <arrivalphase phase="3" duration="30" unit="second">
       <users arrivalrate="4" unit="second"></users>
     </arrivalphase>
-
-   <!-- <arrivalphase phase="4" duration="30" unit="second">
-     <users arrivalrate="8" unit="second"></users>
-   </arrivalphase>
-   <arrivalphase phase="5" duration="30" unit="second">
-     <users arrivalrate="16" unit="second"></users>
-   </arrivalphase>
-   <arrivalphase phase="6" duration="30" unit="second">
-     <users arrivalrate="32" unit="second"></users>
-   </arrivalphase>
-   <arrivalphase phase="7" duration="30" unit="second">
-     <users arrivalrate="64" unit="second"></users>
-   </arrivalphase>
-   <arrivalphase phase="8" duration="30" unit="second">
+    <arrivalphase phase="4" duration="30" unit="second">
+      <users arrivalrate="8" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="5" duration="30" unit="second">
+      <users arrivalrate="16" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="6" duration="30" unit="second">
+      <users arrivalrate="32" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="7" duration="30" unit="second">
+      <users arrivalrate="64" unit="second"></users>
+    </arrivalphase>
+   <!--<arrivalphase phase="8" duration="30" unit="second">
      <users arrivalrate="128" unit="second"></users>
    </arrivalphase>
    <arrivalphase phase="9" duration="30" unit="second">
