@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<% cache(cache_key_for_masterpiece_show(@masterpiece)) do %>
+
 <h3>Masterpiece - <%= @masterpiece.recipe.title %></h3>
 <%= image_tag @masterpiece.masterpiece_img.url, class: "img-responsive"%>
 
@@ -52,4 +54,6 @@
 
 <% if current_user == @masterpiece.cook%>
   <%= link_to 'Destroy', @masterpiece, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default"%>
+<% end %>
+
 <% end %>
