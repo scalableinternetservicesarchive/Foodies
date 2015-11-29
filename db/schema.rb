@@ -75,6 +75,8 @@ ActiveRecord::Schema.define(version: 20151117013349) do
 
   add_index "recipes", ["user_bookmark_count"], name: "index_recipes_on_user_bookmark_count"
   add_index "recipes", ["user_id"], name: "index_recipes_on_user_id"
+  add_index "recipes", ["title"], name: "index_recipes_on_title"
+
 
   create_table "seed_statuses", force: :cascade do |t|
     t.boolean  "status",     null: false
