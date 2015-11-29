@@ -20,9 +20,6 @@ ActiveRecord::Schema.define(version: 20151117013349) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "collection_recipes", ["collection_id"], name: "index_collection_recipes_on_collection_id"
-  add_index "collection_recipes", ["recipe_id"], name: "index_collection_recipes_on_recipe_id"
-
   create_table "collections", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name",        null: false
@@ -31,8 +28,6 @@ ActiveRecord::Schema.define(version: 20151117013349) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "collections", ["user_id"], name: "index_collections_on_user_id"
-
   create_table "ingredients", force: :cascade do |t|
     t.integer  "recipe_id",  null: false
     t.string   "name",       null: false
@@ -40,9 +35,6 @@ ActiveRecord::Schema.define(version: 20151117013349) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "ingredients", ["name"], name: "index_ingredients_on_name"
-  add_index "ingredients", ["recipe_id"], name: "index_ingredients_on_recipe_id"
 
   create_table "masterpieces", force: :cascade do |t|
     t.integer  "recipe_id",                    null: false
@@ -55,9 +47,6 @@ ActiveRecord::Schema.define(version: 20151117013349) do
     t.integer  "masterpiece_img_file_size"
     t.datetime "masterpiece_img_updated_at"
   end
-
-  add_index "masterpieces", ["recipe_id"], name: "index_masterpieces_on_recipe_id"
-  add_index "masterpieces", ["user_id"], name: "index_masterpieces_on_user_id"
 
   create_table "recipes", force: :cascade do |t|
     t.integer  "user_id",                             null: false
@@ -72,9 +61,6 @@ ActiveRecord::Schema.define(version: 20151117013349) do
     t.integer  "recipe_img_file_size"
     t.datetime "recipe_img_updated_at"
   end
-
-  add_index "recipes", ["user_bookmark_count"], name: "index_recipes_on_user_bookmark_count"
-  add_index "recipes", ["user_id"], name: "index_recipes_on_user_id"
 
   create_table "seed_statuses", force: :cascade do |t|
     t.boolean  "status",     null: false
@@ -95,8 +81,6 @@ ActiveRecord::Schema.define(version: 20151117013349) do
     t.integer  "step_img_file_size"
     t.datetime "step_img_updated_at"
   end
-
-  add_index "steps", ["recipe_id"], name: "index_steps_on_recipe_id"
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -125,18 +109,12 @@ ActiveRecord::Schema.define(version: 20151117013349) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "user_bookmark_collections", ["collection_id"], name: "index_user_bookmark_collections_on_collection_id"
-  add_index "user_bookmark_collections", ["user_id"], name: "index_user_bookmark_collections_on_user_id"
-
   create_table "user_bookmark_recipes", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "recipe_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "user_bookmark_recipes", ["recipe_id"], name: "index_user_bookmark_recipes_on_recipe_id"
-  add_index "user_bookmark_recipes", ["user_id"], name: "index_user_bookmark_recipes_on_user_id"
 
   create_table "user_like_masterpieces", force: :cascade do |t|
     t.integer  "user_id",        null: false
@@ -145,18 +123,12 @@ ActiveRecord::Schema.define(version: 20151117013349) do
     t.datetime "updated_at",     null: false
   end
 
-  add_index "user_like_masterpieces", ["masterpiece_id"], name: "index_user_like_masterpieces_on_masterpiece_id"
-  add_index "user_like_masterpieces", ["user_id"], name: "index_user_like_masterpieces_on_user_id"
-
   create_table "user_like_recipes", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "recipe_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "user_like_recipes", ["recipe_id"], name: "index_user_like_recipes_on_recipe_id"
-  add_index "user_like_recipes", ["user_id"], name: "index_user_like_recipes_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "username",               default: "", null: false
@@ -177,9 +149,5 @@ ActiveRecord::Schema.define(version: 20151117013349) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["username"], name: "index_users_on_username", unique: true
 
 end

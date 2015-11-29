@@ -24,17 +24,16 @@
     <arrivalphase phase="3" duration="30" unit="second">
       <users arrivalrate="4" unit="second"></users>
     </arrivalphase>
-
-   <!-- <arrivalphase phase="4" duration="30" unit="second">
-     <users arrivalrate="8" unit="second"></users>
-   </arrivalphase>
-   <arrivalphase phase="5" duration="30" unit="second">
-     <users arrivalrate="16" unit="second"></users>
+    <arrivalphase phase="4" duration="30" unit="second">
+      <users arrivalrate="8" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="5" duration="30" unit="second">
+      <users arrivalrate="16" unit="second"></users>
    </arrivalphase>
    <arrivalphase phase="6" duration="30" unit="second">
-     <users arrivalrate="32" unit="second"></users>
+      <users arrivalrate="32" unit="second"></users>
    </arrivalphase>
-   <arrivalphase phase="7" duration="30" unit="second">
+<!--<arrivalphase phase="7" duration="30" unit="second">
      <users arrivalrate="64" unit="second"></users>
    </arrivalphase>
    <arrivalphase phase="8" duration="30" unit="second">
@@ -107,7 +106,7 @@
       <!-- go to users/sign_in page -->
       <!-- [sample value] - authenticity_token: ... -->
       <request>
-        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <dyn_variable name="authenticity_token" ></dyn_variable>
         <http url="/users/sign_in" version="1.1" method="GET"></http>
       </request>
 
@@ -120,7 +119,7 @@
       <!-- [sample value] - authenticity_token: ... -->
       <!-- [sample value] - remember_me: 0 -->
       <request subst="true">
-        <http url="/users/sign_in" method="POST" version="1.1" 
+        <http url="/users/sign_in" method="POST" version="1.1"
           content_type="application/x-www-form-urlencoded"
           contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Blogin%5D=user_%%_current_user_id%%&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
       </request>
@@ -402,7 +401,7 @@
       <!-- go to users/sign_in page -->
       <!-- [sample value] - authenticity_token: ... -->
       <request>
-        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <dyn_variable name="authenticity_token" ></dyn_variable>
         <http url="/users/sign_in" version="1.1" method="GET"></http>
       </request>
 
@@ -416,7 +415,7 @@
       <!-- [sample value] - authenticity_token: ... -->
       <!-- [sample value] - remember_me: 0 -->
       <request subst="true">
-        <http url="/users/sign_in" method="POST" version="1.1" 
+        <http url="/users/sign_in" method="POST" version="1.1"
           content_type="application/x-www-form-urlencoded"
           contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Blogin%5D=user_%%_current_user_id%%&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
       </request>
@@ -429,7 +428,7 @@
       <!-- 3. go to recipes/new page -->
       <!-- [sample value] - authenticity_token: ... -->
       <request>
-        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <dyn_variable name="authenticity_token" ></dyn_variable>
         <http url="/recipes/new" version="1.1" method="GET"></http>
       </request>
 
@@ -451,7 +450,7 @@
 
       <!-- [notice] tag generation need more thoughts -->
       <!-- [sample value] - tag_list: tag1,tag2,tag3 -->
-      <setdynvars sourcetype="eval" 
+      <setdynvars sourcetype="eval"
                   code="fun({Pid,DynVars})->
                           Tag = &quot;tag&quot;,
                           Tag1 = string:concat(Tag,integer_to_list(random:uniform(100))),
@@ -513,7 +512,7 @@
         <var name="nl" />
       </setdynvars>
 
-<!-- 
+<!--
       <setdynvars sourcetype="eval"
             code='fun({Pid,DynVars})->
                     {ok, Bin} = file:read_file("sample.png"),
@@ -595,7 +594,7 @@
       <!-- go to users/sign_in page -->
       <!-- [sample value] - authenticity_token: ... -->
       <request>
-        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <dyn_variable name="authenticity_token" ></dyn_variable>
         <http url="/users/sign_in" version="1.1" method="GET"></http>
       </request>
 
@@ -609,7 +608,7 @@
       <!-- [sample value] - authenticity_token: ... -->
       <!-- [sample value] - remember_me: 0 -->
       <request subst="true">
-        <http url="/users/sign_in" method="POST" version="1.1" 
+        <http url="/users/sign_in" method="POST" version="1.1"
           content_type="application/x-www-form-urlencoded"
           contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Blogin%5D=user_%%_current_user_id%%&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
       </request>
@@ -627,7 +626,7 @@
       <!-- 4. go to masterpieces/new page -->
       <!-- [sample value] - authenticity_token: ... -->
       <request  subst="true">
-        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <dyn_variable name="authenticity_token" ></dyn_variable>
         <http url="/masterpieces/new?masterpiece%5Brecipe_id%5D=%%_random_recipe_id%%" version="1.1" method="GET"></http>
       </request>
 
@@ -652,7 +651,7 @@
         <var name="nl" />
       </setdynvars>
 
-<!-- 
+<!--
       <setdynvars sourcetype="eval"
             code='fun({Pid,DynVars})->
                     {ok, Bin} = file:read_file("sample.png"),
@@ -733,7 +732,7 @@
       <!-- go to users/sign_in page -->
       <!-- [sample value] - authenticity_token: ... -->
       <request>
-        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <dyn_variable name="authenticity_token" ></dyn_variable>
         <http url="/users/sign_in" version="1.1" method="GET"></http>
       </request>
 
@@ -747,7 +746,7 @@
       <!-- [sample value] - authenticity_token: ... -->
       <!-- [sample value] - remember_me: 0 -->
       <request subst="true">
-        <http url="/users/sign_in" method="POST" version="1.1" 
+        <http url="/users/sign_in" method="POST" version="1.1"
           content_type="application/x-www-form-urlencoded"
           contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Blogin%5D=user_%%_current_user_id%%&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
       </request>
@@ -795,7 +794,7 @@
       <if var="like_recipe_url" neq="">
         <request subst="true">
           <dyn_variable name="redirected_recipe_url" re="[Ll]ocation: (http://.*)\r"/>
-          <http url="%%_like_recipe_url%%" method="POST" version="1.1" 
+          <http url="%%_like_recipe_url%%" method="POST" version="1.1"
             content_type="application/x-www-form-urlencoded"
             contents="authenticity_token=%%_like_recipe_token%%&amp;click_page=recipe_show"/>
         </request>
@@ -809,7 +808,7 @@
       <if var="unlike_recipe_url" neq="">
         <request subst="true">
           <dyn_variable name="redirected_recipe_url" re="[Ll]ocation: (http://.*)\r"/>
-          <http url="%%_unlike_recipe_url%%" method="POST" version="1.1" 
+          <http url="%%_unlike_recipe_url%%" method="POST" version="1.1"
             content_type="application/x-www-form-urlencoded"
             contents="authenticity_token=%%_unlike_recipe_token%%&amp;click_page=recipe_show"/>
         </request>
@@ -864,7 +863,7 @@
       <!-- go to users/sign_in page -->
       <!-- [sample value] - authenticity_token: ... -->
       <request>
-        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <dyn_variable name="authenticity_token" ></dyn_variable>
         <http url="/users/sign_in" version="1.1" method="GET"></http>
       </request>
 
@@ -878,7 +877,7 @@
       <!-- [sample value] - authenticity_token: ... -->
       <!-- [sample value] - remember_me: 0 -->
       <request subst="true">
-        <http url="/users/sign_in" method="POST" version="1.1" 
+        <http url="/users/sign_in" method="POST" version="1.1"
           content_type="application/x-www-form-urlencoded"
           contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Blogin%5D=user_%%_current_user_id%%&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
       </request>
@@ -926,7 +925,7 @@
       <if var="bookmark_recipe_url" neq="">
         <request subst="true">
           <dyn_variable name="redirected_recipe_url" re="[Ll]ocation: (http://.*)\r"/>
-          <http url="%%_bookmark_recipe_url%%" method="POST" version="1.1" 
+          <http url="%%_bookmark_recipe_url%%" method="POST" version="1.1"
             content_type="application/x-www-form-urlencoded"
             contents="authenticity_token=%%_bookmark_recipe_token%%&amp;click_page=recipe_show"/>
         </request>
@@ -940,7 +939,7 @@
       <if var="unbookmark_recipe_url" neq="">
         <request subst="true">
           <dyn_variable name="redirected_recipe_url" re="[Ll]ocation: (http://.*)\r"/>
-          <http url="%%_unbookmark_recipe_url%%" method="POST" version="1.1" 
+          <http url="%%_unbookmark_recipe_url%%" method="POST" version="1.1"
             content_type="application/x-www-form-urlencoded"
             contents="authenticity_token=%%_unbookmark_recipe_token%%&amp;click_page=recipe_show"/>
         </request>
@@ -995,7 +994,7 @@
       <!-- go to users/sign_in page -->
       <!-- [sample value] - authenticity_token: ... -->
       <request>
-        <dyn_variable name="authenticity_token" ></dyn_variable> 
+        <dyn_variable name="authenticity_token" ></dyn_variable>
         <http url="/users/sign_in" version="1.1" method="GET"></http>
       </request>
 
@@ -1009,7 +1008,7 @@
       <!-- [sample value] - authenticity_token: ... -->
       <!-- [sample value] - remember_me: 0 -->
       <request subst="true">
-        <http url="/users/sign_in" method="POST" version="1.1" 
+        <http url="/users/sign_in" method="POST" version="1.1"
           content_type="application/x-www-form-urlencoded"
           contents="utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;user%5Blogin%5D=user_%%_current_user_id%%&amp;user%5Bpassword%5D=88888888&amp;user%5Bremember_me%5D=0&amp;commit=Log+in"/>
       </request>
@@ -1057,7 +1056,7 @@
       <if var="like_masterpiece_url" neq="">
         <request subst="true">
           <dyn_variable name="redirected_masterpiece_url" re="[Ll]ocation: (http://.*)\r"/>
-          <http url="%%_like_masterpiece_url%%" method="POST" version="1.1" 
+          <http url="%%_like_masterpiece_url%%" method="POST" version="1.1"
             content_type="application/x-www-form-urlencoded"
             contents="authenticity_token=%%_like_masterpiece_token%%&amp;click_page=masterpiece_show"/>
         </request>
@@ -1071,7 +1070,7 @@
       <if var="unlike_masterpiece_url" neq="">
         <request subst="true">
           <dyn_variable name="redirected_masterpiece_url" re="[Ll]ocation: (http://.*)\r"/>
-          <http url="%%_unlike_masterpiece_url%%" method="POST" version="1.1" 
+          <http url="%%_unlike_masterpiece_url%%" method="POST" version="1.1"
             content_type="application/x-www-form-urlencoded"
             contents="authenticity_token=%%_unlike_masterpiece_token%%&amp;click_page=masterpiece_show"/>
         </request>
