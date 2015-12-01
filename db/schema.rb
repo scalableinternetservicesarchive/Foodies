@@ -45,11 +45,12 @@ ActiveRecord::Schema.define(version: 20151117013349) do
   add_index "ingredients", ["recipe_id"], name: "index_ingredients_on_recipe_id"
 
   create_table "masterpieces", force: :cascade do |t|
-    t.integer  "recipe_id",                    null: false
-    t.integer  "user_id",                      null: false
+    t.integer  "recipe_id",                                null: false
+    t.integer  "user_id",                                  null: false
     t.text     "description"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "user_like_count",              default: 0, null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.string   "masterpiece_img_file_name"
     t.string   "masterpiece_img_content_type"
     t.integer  "masterpiece_img_file_size"
@@ -58,6 +59,7 @@ ActiveRecord::Schema.define(version: 20151117013349) do
 
   add_index "masterpieces", ["recipe_id"], name: "index_masterpieces_on_recipe_id"
   add_index "masterpieces", ["user_id"], name: "index_masterpieces_on_user_id"
+  add_index "masterpieces", ["user_like_count"], name: "index_masterpieces_on_user_like_count"
 
   create_table "recipes", force: :cascade do |t|
     t.integer  "user_id",                             null: false
@@ -65,6 +67,7 @@ ActiveRecord::Schema.define(version: 20151117013349) do
     t.text     "description"
     t.integer  "cook_time"
     t.integer  "user_bookmark_count",     default: 0, null: false
+    t.integer  "user_like_count",         default: 0, null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "recipe_img_file_name"
@@ -75,6 +78,7 @@ ActiveRecord::Schema.define(version: 20151117013349) do
 
   add_index "recipes", ["user_bookmark_count"], name: "index_recipes_on_user_bookmark_count"
   add_index "recipes", ["user_id"], name: "index_recipes_on_user_id"
+  add_index "recipes", ["user_like_count"], name: "index_recipes_on_user_like_count"
 
   create_table "seed_statuses", force: :cascade do |t|
     t.boolean  "status",     null: false
@@ -159,17 +163,20 @@ ActiveRecord::Schema.define(version: 20151117013349) do
   add_index "user_like_recipes", ["user_id"], name: "index_user_like_recipes_on_user_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",               default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "username",                default: "", null: false
+    t.string   "email",                   default: "", null: false
+    t.string   "encrypted_password",      default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",           default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.integer  "bookmarked_recipe_count", default: 0,  null: false
+    t.integer  "liked_recipe_count",      default: 0,  null: false
+    t.integer  "liked_masterpiece_count", default: 0,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar_file_name"
@@ -178,7 +185,10 @@ ActiveRecord::Schema.define(version: 20151117013349) do
     t.datetime "avatar_updated_at"
   end
 
+  add_index "users", ["bookmarked_recipe_count"], name: "index_users_on_bookmarked_recipe_count"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["liked_masterpiece_count"], name: "index_users_on_liked_masterpiece_count"
+  add_index "users", ["liked_recipe_count"], name: "index_users_on_liked_recipe_count"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["username"], name: "index_users_on_username", unique: true
 

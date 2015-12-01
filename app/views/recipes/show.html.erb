@@ -51,13 +51,13 @@
         <% end %>
     <% end %>
 
-    <p><span class="count-number"><%= @recipe.users_liking_it.count %></span> people liked it</p>
+    <p><span class="count-number"><%= @recipe.user_like_count %></span> people liked it</p>
     <p>
       <% @recipe.users_liking_it.each do |user| %>
         <%= image_tag user.avatar.url(:tiny)%>
       <% end %>
     </p>
-    <p><span class="count-number"><%= @recipe.users_bookmarking_it.count %></span> people bookmarked it</p>
+    <p><span class="count-number"><%= @recipe.user_bookmark_count %></span> people bookmarked it</p>
     <p>
       <% @recipe.users_bookmarking_it.each do |user| %>
         <%= image_tag user.avatar.url(:tiny)%>

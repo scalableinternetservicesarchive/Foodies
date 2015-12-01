@@ -20,6 +20,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
 
+      t.integer :bookmarked_recipe_count, index: true, default: 0, null: false
+      t.integer :liked_recipe_count, index: true, default: 0, null: false
+      t.integer :liked_masterpiece_count, index: true, default: 0, null: false
       ## Confirmable
       # t.string   :confirmation_token
       # t.datetime :confirmed_at
