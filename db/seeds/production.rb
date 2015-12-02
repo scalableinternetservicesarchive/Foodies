@@ -6,7 +6,7 @@
 # allow_image_upload = true && total_num_of_users = 50         -- 7 min
 # allow_image_upload = false && total_num_of_users = 50        -- 1 min
 # allow_image_upload = false && total_num_of_users = 500       -- 5 min
-
+require 'faker'
 
 allow_randomness = false
 allow_image_upload = false
@@ -204,4 +204,3 @@ end
 puts '===='
 puts 'Total number of recipes: ' + total_num_of_recipes.to_s
 puts 'Total number of masterpieces: ' + total_num_of_masterpieces.to_s
-

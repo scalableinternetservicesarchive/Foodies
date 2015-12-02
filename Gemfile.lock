@@ -213,6 +213,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    psych (2.0.5)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -302,6 +303,7 @@ DEPENDENCIES
   nested_form
   newrelic_rpm
   paperclip
+  psych
   rails (= 4.2.4)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
