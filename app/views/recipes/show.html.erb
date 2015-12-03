@@ -3,7 +3,7 @@
   <div class="col-sm-12">
     <h3><%= @recipe.title %></h3>
     <p>Tags:
-    <% @recipe.tags.each do |tag| %>
+    <% @tags.each do |tag| %>
       <span class="tag-link"><%= link_to tag.name, search_find_by_tag_path(search: tag.name), class: "btn btn-custom light-gray" %></span>
     <% end %>
     </p>
@@ -16,7 +16,7 @@
     <p><%= image_tag @recipe.creator.avatar.url(:thumb)%></p>
     <p>Created by: <span class="user-link"><%= link_to @recipe.creator.username, profile_path(@recipe.creator) %></span></p>
     <% if user_signed_in? %>
-      <% if @recipe.users_liking_it.include?(current_user) %>
+      <% if @users_liking_it.select{|t| t.id == current_user.id}.present? %>
         <div id="unlike-recipe-form">
         <%= button_to recipe_unlike_path(@recipe), class: "btn btn-danger", params: {click_page: 'recipe_show'} do %>
           <span class="glyphicon glyphicon-heart"></span> unlike
@@ -29,7 +29,7 @@
         <% end %>
         </div>
       <% end %>
-      <% if @recipe.users_bookmarking_it.include?(current_user) %>
+      <% if @users_bookmarking_it.select{|t| t.id == current_user.id}.present? %>
         <div id="unbookmark-recipe-form">
         <%= button_to recipe_unbookmark_path(@recipe), class: "btn btn-warning", params: {click_page: 'recipe_show'} do %>
           <span class="glyphicon glyphicon-bookmark"></span> unbookmark
@@ -51,19 +51,19 @@
         <% end %>
     <% end %>
 
-    <p><span class="count-number"><%= @recipe.users_liking_it.count %></span> people liked it</p>
+    <p><span class="count-number"><%= @users_liking_it.count %></span> people liked it</p>
     <p>
-      <% @recipe.users_liking_it.each do |user| %>
+      <% @users_liking_it.each do |user| %>
         <%= image_tag user.avatar.url(:tiny)%>
       <% end %>
     </p>
-    <p><span class="count-number"><%= @recipe.users_bookmarking_it.count %></span> people bookmarked it</p>
+    <p><span class="count-number"><%= @users_bookmarking_it.count %></span> people bookmarked it</p>
     <p>
-      <% @recipe.users_bookmarking_it.each do |user| %>
+      <% @users_bookmarking_it.each do |user| %>
         <%= image_tag user.avatar.url(:tiny)%>
       <% end %>
     </p>
-    <p><span class="count-number"><%= @recipe.cooks.count %></span> people cooked it</p>
+    <p><span class="count-number"><%= @masterpieces.count %></span> people cooked it</p>
 
   </div>
 </div>
@@ -91,7 +91,7 @@
 
 <h3>Steps:</h3>
 <p>
-  <% @recipe.steps.each do |step| %>
+  <% @steps.each do |step| %>
     <p>
       <%= image_tag step.step_img.url(:square)%>
       <span class="step-number"><%= step.step_number %></span>
@@ -104,7 +104,7 @@
 <h3>Masterpieces:</h3>
 <div class="works">
   <div class="row">
-    <% @recipe.masterpieces.each do |masterpiece| %>
+    <% @masterpieces.each do |masterpiece| %>
       <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
         <div class="work-item">
           <%= image_tag masterpiece.masterpiece_img.url(:square) %>

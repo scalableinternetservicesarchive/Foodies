@@ -38,9 +38,8 @@ def find_by_recipe
 
     @recipes = Kaminari.paginate_array(@recipes_array).page(params[:page]).per(20)
 
-    # ActiveRecord::Associations::Preloader.new.preload(@recipes, :tags)
-    # ActiveRecord::Associations::Preloader.new.preload(@recipes, :creator)
-
+    ActiveRecord::Associations::Preloader.new.preload(@recipes, :tags)
+    ActiveRecord::Associations::Preloader.new.preload(@recipes, :creator)
   end
 end
 
@@ -85,8 +84,8 @@ def find_by_tag
 
     @recipes = Kaminari.paginate_array(@recipes_array).page(params[:page]).per(20)
 
-    # ActiveRecord::Associations::Preloader.new.preload(@recipes, :tags)
-    # ActiveRecord::Associations::Preloader.new.preload(@recipes, :creator)
+    ActiveRecord::Associations::Preloader.new.preload(@recipes, :tags)
+    ActiveRecord::Associations::Preloader.new.preload(@recipes, :creator)
   end
 end
 
