@@ -10,7 +10,7 @@ rescue ActiveRecord::RecordNotUnique
 else
   puts '===This is the only one instance that is seeding the data...'
 
-  load(Rails.root.join( 'db', 'seeds', "#{Rails.env.downcase}.rb"))
+  load(Rails.root.join( 'db', 'seeds', "development.rb"))
   # load(Rails.root.join( 'db', 'seeds', 'production.rb'))
   seed_done = SeedStatus.create(status: false)
   puts '===Seeding is done.'
