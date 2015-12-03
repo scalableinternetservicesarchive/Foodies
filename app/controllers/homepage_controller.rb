@@ -2,7 +2,7 @@ class HomepageController < ApplicationController
   @@view_count = 0
 
   def show
-    @top_bookmarked_recipes = Recipe.order(user_bookmark_count: :desc).limit(100)
+    @top_bookmarked_recipes = Recipe.order(user_bookmark_count: :desc).limit(100).page(params[:page]).per(20)
     @top_recommended_recipes = Recipe.order(user_bookmark_count: :desc).limit(5)
     @tags = ActsAsTaggableOn::Tag.most_used(10)
     @@view_count += 1
