@@ -51,19 +51,19 @@
         <% end %>
     <% end %>
 
-    <p><span class="count-number"><%= @users_liking_it.count %></span> people liked it</p>
+    <p><span class="count-number"><%= @users_liking_it.length %></span> people liked it</p>
     <p>
       <% @users_liking_it.each do |user| %>
         <%= image_tag user.avatar.url(:tiny)%>
       <% end %>
     </p>
-    <p><span class="count-number"><%= @users_bookmarking_it.count %></span> people bookmarked it</p>
+    <p><span class="count-number"><%= @users_bookmarking_it.length %></span> people bookmarked it</p>
     <p>
       <% @users_bookmarking_it.each do |user| %>
         <%= image_tag user.avatar.url(:tiny)%>
       <% end %>
     </p>
-    <p><span class="count-number"><%= @masterpieces.count %></span> people cooked it</p>
+    <p><span class="count-number"><%= @masterpieces.length %></span> people cooked it</p>
 
   </div>
 </div>

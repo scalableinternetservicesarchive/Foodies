@@ -18,7 +18,6 @@ class RecipesController < ApplicationController
     @steps = @recipe.steps
     @users_liking_it = @recipe.users_liking_it
     @users_bookmarking_it = @recipe.users_bookmarking_it
-
   end
 
   # GET /recipes/new
